@@ -9,6 +9,7 @@ using UnityEngine;
 /// </summary>
 public class ShapesArray
 {
+    private System.Random rnd = new System.Random();
 
     private GameObject[,] shapes = new GameObject[Constants.Rows, Constants.Columns];
 
@@ -83,7 +84,22 @@ public class ShapesArray
     private GameObject backupG2;
 
 
-   
+
+    /// <summary>
+    /// Returns the matches found for all GameObjects in ShapesArry
+    /// MatchesInfo class is not used as this method is called after shuffling, 
+    /// not the one inflicted by user's drag
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<GameObject> GetMatches()
+    {
+        List<GameObject> matches = new List<GameObject>();
+        foreach (var go in shapes)
+        {
+            matches.AddRange(GetMatches(go).MatchedCandy);
+        }
+        return matches.Distinct();
+    }
 
     /// <summary>
     /// Returns the matches found for a list of GameObjects
@@ -323,6 +339,30 @@ public class ShapesArray
                 emptyItems.Add(new ShapeInfo() { Row = row, Column = column });
         }
         return emptyItems;
+    }
+
+    /// <summary>
+    /// Shuffle the array using the Fisher Yates algorithm
+    /// </summary>
+    public void Shuffle()
+    {
+        int lengthRow = shapes.GetLength(1);
+
+        for (var i = shapes.Length - 1; i > 0; i--)
+        {
+            int i0 = i / lengthRow;
+            int i1 = i % lengthRow;
+
+            int j = rnd.Next(i + 1);
+            int j0 = j / lengthRow;
+            int j1 = j % lengthRow;
+
+            GameObject temp = shapes[i0, i1];
+            shapes[i0, i1] = shapes[j0, j1];
+            shapes[j0, j1] = temp;
+
+            Shape.SwapColumnRow(shapes[i0, i1].GetComponent<Shape>(), shapes[j0, j1].GetComponent<Shape>());
+        }
     }
 }
 

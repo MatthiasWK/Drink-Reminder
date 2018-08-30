@@ -15,9 +15,6 @@ public class ShapesManager : MonoBehaviour
 
     private int score;
 
-    //public int Rows;
-    //public int Columns;
-
     public VariableContainer Variables;
 
     private Vector2 BottomRight;
@@ -52,15 +49,6 @@ public class ShapesManager : MonoBehaviour
         InitializeCandyAndSpawnPositions();
     }
 
-    // Set the scale of the tiles
-    //private void SetScale()
-    //{
-    //    float FieldSize = gameObject.GetComponentInParent<SpriteRenderer>().bounds.size.x;
-
-    //    Scale = FieldSize/(CandySize.x * Constants.Rows);
-    //    CandySize *= Scale;
-    //    BottomRight = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y) + 0.5f * CandySize;
-    //}
 
     /// <summary>
     /// Initialize shapes
@@ -269,7 +257,11 @@ public class ShapesManager : MonoBehaviour
 
 
 
-
+    /// <summary>
+    /// Moves the shapes that the user wants to swap and check for matches
+    /// </summary>
+    /// <param name="hit2"></param>
+    /// <returns></returns>
     private IEnumerator FindMatchesAndCollapse(RaycastHit2D hit2)
     {
         //get the second item that was part of the swipe
@@ -337,6 +329,65 @@ public class ShapesManager : MonoBehaviour
                 CreateBonus(hitGoCache);
 
             addBonus = false;
+
+            //get the columns that we had a collapse
+            var columns = totalMatches.Select(go => go.GetComponent<Shape>().Column).Distinct();
+
+            //the order the 2 methods below get called is important!!!
+            //collapse the ones gone
+            var collapsedCandyInfo = shapes.Collapse(columns);
+            //create new ones
+            var newCandyInfo = CreateNewCandyInSpecificColumns(columns);
+
+            int maxDistance = Mathf.Max(collapsedCandyInfo.MaxDistance, newCandyInfo.MaxDistance);
+
+            MoveAndAnimate(newCandyInfo.AlteredCandy, maxDistance);
+            MoveAndAnimate(collapsedCandyInfo.AlteredCandy, maxDistance);
+
+
+
+            //will wait for both of the above animations
+            yield return new WaitForSeconds(Constants.MoveAnimationMinDuration * maxDistance);
+
+            //search if there are matches with the new/collapsed items
+            totalMatches = shapes.GetMatches(collapsedCandyInfo.AlteredCandy).
+                Union(shapes.GetMatches(newCandyInfo.AlteredCandy)).Distinct();
+
+
+
+            timesRun++;
+        }
+
+        state = GameState.None;
+        StartCheckForPotentialMatches();
+    }
+
+    /// <summary>
+    /// Variant that is only called after a shuffle to check for any matches on the whole field
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator FindMatchesAndCollapse()
+    {
+        
+        //get all matches via the helper method
+        var totalMatches = shapes.GetMatches();       
+
+        int timesRun = 1;
+        while (totalMatches.Count() >= Constants.MinimumMatches)
+        {
+            //increase score
+            IncreaseScore((totalMatches.Count() - 2) * Constants.Match3Score);
+
+            if (timesRun >= 2)
+                IncreaseScore(Constants.SubsequentMatchScore);
+
+            soundManager.PlayCrincle();
+
+            foreach (var item in totalMatches)
+            {
+                shapes.Remove(item);
+                RemoveFromScene(item);
+            }
 
             //get the columns that we had a collapse
             var columns = totalMatches.Select(go => go.GetComponent<Shape>().Column).Distinct();
@@ -549,6 +600,7 @@ public class ShapesManager : MonoBehaviour
 
     /// <summary>
     /// Finds potential matches
+    /// If none are found, Shuffles Game Field
     /// </summary>
     /// <returns></returns>
     private IEnumerator CheckPotentialMatches()
@@ -564,6 +616,10 @@ public class ShapesManager : MonoBehaviour
                 StartCoroutine(AnimatePotentialMatchesCoroutine);
                 yield return new WaitForSeconds(Constants.WaitBeforePotentialMatchesCheck);
             }
+        }
+        else
+        {
+            ShuffleShapes();
         }
     }
 
@@ -597,24 +653,23 @@ public class ShapesManager : MonoBehaviour
         throw new System.Exception("Wrong type, check your premade level");
     }
 
-    //public void ChangeGridSize(int Change)
-    //{
-    //    //if (shapes != null)
-    //    //    DestroyAllCandy();
-    //    //StopCheckForPotentialMatches();
-    //    //StopAllCoroutines();
-    //    if (Change == 0)
-    //    {
-    //        Constants.Rows -= 1;
-    //        Constants.Columns -= 1;
-    //    }
-    //    else if (Change == 1)
-    //    {
-    //        Constants.Rows += 1;
-    //        Constants.Columns += 1;
-    //    }
+    /// <summary>
+    /// Shuffles the game field
+    /// Called, if no more moves are possible
+    /// </summary>
+    public void ShuffleShapes()
+    {
+        shapes.Shuffle();
 
-    //    InitializeCandyAndSpawnPositions();
-    //}
+        for (int row = 0; row < Constants.Rows; row++)
+        {
+            for (int column = 0; column < Constants.Columns; column++)
+            {
+                shapes[row, column].transform.position = BottomRight + new Vector2(column * CandySize.x, row * CandySize.y);
+            }
+        }
+
+        StartCoroutine(FindMatchesAndCollapse());
+    }
 
 }
