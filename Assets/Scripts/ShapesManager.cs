@@ -11,11 +11,11 @@ public class ShapesManager : MonoBehaviour
     public Text DebugText, ScoreText;
     public bool ShowDebugInfo = false;
 
+    public Canvas ShuffleCanvas;
+
     public ShapesArray shapes;
 
     private int score;
-
-    public VariableContainer Variables;
 
     private Vector2 BottomRight;
     public Vector2 SpriteSize;
@@ -102,6 +102,10 @@ public class ShapesManager : MonoBehaviour
 
     public void InitializeCandyAndSpawnPositions()
     {
+        ShuffleCanvas.enabled = false;
+
+        state = GameState.None;
+
         if (shapes != null)
             DestroyAllCandy();
 
@@ -508,7 +512,7 @@ public class ShapesManager : MonoBehaviour
     /// <returns></returns>
     private GameObject GetRandomCandy()
     {
-        return CandyPrefabs[Random.Range(0, CandyPrefabs.Length)];
+        return CandyPrefabs[Random.Range(0, Constants.NumShapes)];
     }
 
     private void InitializeVariables()
@@ -619,7 +623,8 @@ public class ShapesManager : MonoBehaviour
         }
         else
         {
-            ShuffleShapes();
+            ShuffleCanvas.enabled = true;
+            state = GameState.Paused;
         }
     }
 
@@ -659,6 +664,8 @@ public class ShapesManager : MonoBehaviour
     /// </summary>
     public void ShuffleShapes()
     {
+        ShuffleCanvas.enabled = false;
+
         shapes.Shuffle();
 
         for (int row = 0; row < Constants.Rows; row++)

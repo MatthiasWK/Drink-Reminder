@@ -35,5 +35,6 @@ public enum GameState
 {
     None,
     SelectionStarted,
-    Animating
+    Animating,
+    Paused
 }

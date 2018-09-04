@@ -8,7 +8,11 @@ using System.Text;
     {
         public static int Rows = 6;
         public static int Columns = 6;
-        
+
+        public static int NumShapes = 5;
+
+        public static int Theme = 0;
+
         public static readonly float AnimationDuration =  0.2f;
 
         public static readonly float MoveAnimationMinDuration = 0.05f;
