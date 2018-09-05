@@ -12,6 +12,9 @@ public class ShapesManager : MonoBehaviour
     public bool ShowDebugInfo = false;
 
     public Canvas ShuffleCanvas;
+    public Canvas WinCanvas;
+
+    public SpriteRenderer Background;
 
     public ShapesArray shapes;
 
@@ -102,9 +105,6 @@ public class ShapesManager : MonoBehaviour
 
     public void InitializeCandyAndSpawnPositions()
     {
-        ShuffleCanvas.enabled = false;
-
-        state = GameState.None;
 
         if (shapes != null)
             DestroyAllCandy();
@@ -362,8 +362,20 @@ public class ShapesManager : MonoBehaviour
             timesRun++;
         }
 
-        state = GameState.None;
-        StartCheckForPotentialMatches();
+        if (score >= Constants.WinScore)
+        {
+            DestroyAllCandy();
+            state = GameState.Paused;
+            WinCanvas.enabled = true;
+            Background.maskInteraction = SpriteMaskInteraction.None;
+            Background.color = Color.white;
+        }
+        else
+        {
+
+            state = GameState.None;
+            StartCheckForPotentialMatches();
+        }
     }
 
     /// <summary>
@@ -421,8 +433,20 @@ public class ShapesManager : MonoBehaviour
             timesRun++;
         }
 
-        state = GameState.None;
-        StartCheckForPotentialMatches();
+        if (score >= Constants.WinScore)
+        {
+            DestroyAllCandy();
+            state = GameState.Paused;
+            WinCanvas.enabled = true;
+            Background.maskInteraction = SpriteMaskInteraction.None;
+            Background.color = Color.white;
+        }
+        else
+        {
+
+            state = GameState.None;
+            StartCheckForPotentialMatches();
+        }
     }
 
     /// <summary>
@@ -519,6 +543,14 @@ public class ShapesManager : MonoBehaviour
     {
         score = 0;
         ShowScore();
+
+        state = GameState.None;
+
+        ShuffleCanvas.enabled = false;
+        WinCanvas.enabled = false;
+
+        Background.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+        Background.color = Color.gray;
 
         float FieldSize = gameObject.GetComponentInParent<SpriteRenderer>().bounds.size.x;
 

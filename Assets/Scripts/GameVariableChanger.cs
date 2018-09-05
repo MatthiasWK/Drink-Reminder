@@ -8,15 +8,22 @@ public class GameVariableChanger : MonoBehaviour {
     public Text Size;
     public Text Num;
     public Text Name;
+    public Text Back;
 
     public GameObject[] ShapePrefabs;
     //public GameObject[] BonusPrefabs;
 
+    public GameObject BackgroundPrefab;
+    private Sprite[] BackgroundSprites;
+
     private void Start()
     {
+        BackgroundSprites = Resources.LoadAll<Sprite>("Backgrounds/");
+
         Size.text = Constants.Rows + " x " + Constants.Columns;
         Num.text = Constants.NumShapes.ToString();
         SetTheme();
+        SetBackground();
     }
 
     public void ChangeGridSize(int Change)
@@ -82,4 +89,18 @@ public class GameVariableChanger : MonoBehaviour {
             ShapePrefabs[4].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/bean_yellow");
         }
     }
+
+    public void ChangeBackground(int Change)
+    {
+        Constants.Background = (Constants.Background + Change) % BackgroundSprites.Length;
+
+        SetBackground();
+    }
+
+    private void SetBackground()
+    {
+        Back.text = BackgroundSprites[Constants.Background].ToString();
+
+        BackgroundPrefab.GetComponent<SpriteRenderer>().sprite = BackgroundSprites[Constants.Background];
+    } 
 }
