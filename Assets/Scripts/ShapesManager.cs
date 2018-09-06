@@ -550,7 +550,7 @@ public class ShapesManager : MonoBehaviour
         WinCanvas.enabled = false;
 
         Background.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
-        Background.color = Color.gray;
+        Background.color = new Vector4(Constants.MinColor, Constants.MinColor, Constants.MinColor, 1);
 
         float FieldSize = gameObject.GetComponentInParent<SpriteRenderer>().bounds.size.x;
 
@@ -558,11 +558,17 @@ public class ShapesManager : MonoBehaviour
         CandySize = SpriteSize * Scale;
         BottomRight = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y) + 0.5f * CandySize;
     }
-
+    /// <summary>
+    /// Increases the score and adjusts brightness of background image depending on the score
+    /// </summary>
+    /// <param name="amount"></param>
     private void IncreaseScore(int amount)
     {
         score += amount;
         ShowScore();
+
+        float color = MapValue(score, 0, Constants.WinScore, Constants.MinColor, Constants.MaxColor);
+        Background.color = new Vector4(color, color, color, 1);
     }
 
     private void ShowScore()
@@ -709,6 +715,11 @@ public class ShapesManager : MonoBehaviour
         }
 
         StartCoroutine(FindMatchesAndCollapse());
+    }
+
+    public float MapValue(float a, float a0, float a1, float b0, float b1)
+    {
+        return b0 + (b1 - b0) * ((a - a0) / (a1 - a0));
     }
 
 }

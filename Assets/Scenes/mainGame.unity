@@ -145,10 +145,10 @@ RectTransform:
   m_Father: {fileID: 303755400}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -325, y: -293}
-  m_SizeDelta: {x: 127.42, y: 68.01}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 75, y: 7}
+  m_SizeDelta: {x: 127.41998, y: 68.01001}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &80598787
 MonoBehaviour:
@@ -268,7 +268,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.1, y: -0.6}
+  m_AnchoredPosition: {x: -2.100006, y: -0.6000061}
   m_SizeDelta: {x: 540.8, y: 401.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &267966373
@@ -460,7 +460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 0.5176471}
+  m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.7490196}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -514,7 +514,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -554,7 +554,7 @@ RectTransform:
   - {fileID: 80598786}
   - {fileID: 2051609627}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1221,6 +1221,7 @@ RectTransform:
   - {fileID: 342542851}
   - {fileID: 1807116962}
   - {fileID: 288232749}
+  - {fileID: 1555621233}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1777,7 +1778,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1816,7 +1817,7 @@ RectTransform:
   - {fileID: 1889870889}
   - {fileID: 1635444644}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2035,22 +2036,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!4 &1555621233
-Transform:
+--- !u!224 &1555621233
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1555621231}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.67, y: 0.002, z: -0.111}
-  m_LocalScale: {x: 9.532223, y: 9.532223, z: 9.532223}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -5406.6597}
+  m_LocalScale: {x: 571.93335, y: 571.93335, z: 571.93335}
   m_Children:
   - {fileID: 1808074427}
   - {fileID: 1363272350}
   - {fileID: 1575165399}
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 1066478621}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 302, y: 0.12}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1575165398
 GameObject:
   m_ObjectHideFlags: 0
@@ -2385,6 +2391,12 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1635444643}
   m_CullTransparentMesh: 0
+--- !u!114 &1675261129 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114653353919599102, guid: 9c19df70bef1e8a41837380efc0769b6,
+    type: 2}
+  m_PrefabInternal: {fileID: 1694825176}
+  m_Script: {fileID: 11500000, guid: f90bcf6d71e16b245bf0b0d6fe1483f7, type: 3}
 --- !u!1001 &1694825176
 Prefab:
   m_ObjectHideFlags: 0
@@ -2422,7 +2434,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4681289714309796, guid: 9c19df70bef1e8a41837380efc0769b6, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1523535329210414, guid: 9c19df70bef1e8a41837380efc0769b6, type: 2}
       propertyPath: m_Name
@@ -2900,6 +2912,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1675261129}
+        m_MethodName: NextSprite
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1889870891
@@ -2968,10 +2991,10 @@ RectTransform:
   m_Father: {fileID: 303755400}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -325, y: -392}
-  m_SizeDelta: {x: 127.42, y: 68.01}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 75, y: -92}
+  m_SizeDelta: {x: 127.41998, y: 68.01001}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &2051609628
 MonoBehaviour:

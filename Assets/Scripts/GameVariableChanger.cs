@@ -14,16 +14,15 @@ public class GameVariableChanger : MonoBehaviour {
     //public GameObject[] BonusPrefabs;
 
     public GameObject BackgroundPrefab;
-    private Sprite[] BackgroundSprites;
+    public string[] BackgroundFolders;
 
     private void Start()
     {
-        BackgroundSprites = Resources.LoadAll<Sprite>("Backgrounds/");
 
         Size.text = Constants.Rows + " x " + Constants.Columns;
         Num.text = Constants.NumShapes.ToString();
+        Back.text = Constants.Path;
         SetTheme();
-        SetBackground();
     }
 
     public void ChangeGridSize(int Change)
@@ -92,15 +91,11 @@ public class GameVariableChanger : MonoBehaviour {
 
     public void ChangeBackground(int Change)
     {
-        Constants.Background = (Constants.Background + Change) % BackgroundSprites.Length;
+        Constants.Background = (Constants.Background + Change) % BackgroundFolders.Length;
 
-        SetBackground();
+        Constants.Path = BackgroundFolders[Constants.Background];
+
+        Back.text = Constants.Path;
     }
 
-    private void SetBackground()
-    {
-        Back.text = BackgroundSprites[Constants.Background].ToString();
-
-        BackgroundPrefab.GetComponent<SpriteRenderer>().sprite = BackgroundSprites[Constants.Background];
-    } 
 }

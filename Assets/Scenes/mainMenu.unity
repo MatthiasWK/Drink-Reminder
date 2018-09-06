@@ -1678,6 +1678,10 @@ MonoBehaviour:
   - {fileID: 180178, guid: afa6b0eba9a9e794080048baed797d27, type: 2}
   BackgroundPrefab: {fileID: 1523535329210414, guid: 9c19df70bef1e8a41837380efc0769b6,
     type: 2}
+  BackgroundFolders:
+  - Backgrounds
+  - Backgrounds/Landscapes
+  - Backgrounds/Animals
 --- !u!114 &1128805736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2165,7 +2169,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1448124626
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2365,7 +2369,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1490959852
 RectTransform:
   m_ObjectHideFlags: 0
