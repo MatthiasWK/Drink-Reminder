@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GameVariableChanger : MonoBehaviour {
 
+    public SpriteRenderer picture;
+
     public Text Size;
     public Text Num;
     public Text Name;
@@ -98,4 +100,28 @@ public class GameVariableChanger : MonoBehaviour {
         Back.text = Constants.Path;
     }
 
+
+    public void PickImage()
+    {
+        NativeGallery.Permission permission = NativeGallery.GetImageFromGallery((path) =>
+        {
+            Debug.Log("Image path: " + path);
+            if (path != null)
+            {
+                // Create Texture from selected image
+                Texture2D texture = NativeGallery.LoadImageAtPath(path);
+                if (texture == null)
+                {
+                    Debug.Log("Couldn't load texture from " + path);
+                    return;
+                }
+
+                Sprite mySprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
+
+                picture.sprite = mySprite;
+            }
+        }, "Select a PNG image", "image/png");
+
+        Debug.Log("Permission result: " + permission);
+    }
 }
