@@ -20,10 +20,12 @@ public class ShapesManager : MonoBehaviour
 
     private int score;
 
-    private Vector2 BottomRight;
     public Vector2 SpriteSize;
+    private Vector2 BottomRight;
+    private Vector2 BottomRightBase;
     private Vector2 CandySize;
     private float Scale = 1f;
+    private float FieldSize;
 
     private GameState state = GameState.None;
     private GameObject hitGo = null;
@@ -46,12 +48,28 @@ public class ShapesManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        
+
+        FieldSize = gameObject.GetComponentInParent<SpriteRenderer>().bounds.size.x;
+        BottomRightBase = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
+
         InitializeTypesOnPrefabShapesAndBonuses();
 
         InitializeCandyAndSpawnPositions();
     }
 
+    private void OnDisable()
+    {
+        DestroyAllCandy();
+        shapes = null;
+        StopAllCoroutines();
+    }
+
+    private void OnEnable()
+    {
+        InitializeTypesOnPrefabShapesAndBonuses();
+
+        InitializeCandyAndSpawnPositions();
+    }
 
     /// <summary>
     /// Initialize shapes
@@ -552,11 +570,9 @@ public class ShapesManager : MonoBehaviour
         Background.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
         Background.color = new Vector4(Constants.MinColor, Constants.MinColor, Constants.MinColor, 1);
 
-        float FieldSize = gameObject.GetComponentInParent<SpriteRenderer>().bounds.size.x;
-
         Scale = FieldSize / (SpriteSize.x * Constants.Rows);
         CandySize = SpriteSize * Scale;
-        BottomRight = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y) + 0.5f * CandySize;
+        BottomRight = BottomRightBase + 0.5f * CandySize;
     }
     /// <summary>
     /// Increases the score and adjusts brightness of background image depending on the score

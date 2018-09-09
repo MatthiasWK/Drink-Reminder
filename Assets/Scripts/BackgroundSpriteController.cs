@@ -13,6 +13,7 @@ public class BackgroundSpriteController : MonoBehaviour {
 
 	void Start ()
     {
+        
         if (Constants.Custom)
         {
             Backgrounds = CustomSprites;
@@ -24,6 +25,11 @@ public class BackgroundSpriteController : MonoBehaviour {
         }
         
         SetSprite(0);
+    }
+
+    private void OnEnable()
+    {
+        Start();
     }
 
     public void NextSprite()
@@ -39,8 +45,8 @@ public class BackgroundSpriteController : MonoBehaviour {
         Utilities.ResizeSpriteToScreen(gameObject, Camera.main, 1);
     }
 
-    public void SetCustomSprites(List<Sprite> NewSprites)
+    public void SetCustomSprites(Sprite[] NewSprites)
     {
-        CustomSprites = NewSprites.ToArray();
+        CustomSprites = NewSprites;
     }
 }

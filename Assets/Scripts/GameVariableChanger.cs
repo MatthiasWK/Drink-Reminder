@@ -5,18 +5,18 @@ using UnityEngine.UI;
 
 public class GameVariableChanger : MonoBehaviour {
 
-    public SpriteRenderer picture;
-
     public Text Size;
     public Text Num;
     public Text Name;
     public Text Back;
 
+    public Button StartButton;
+    public Toggle CustomToggle;
+
     public GameObject[] ShapePrefabs;
     //public GameObject[] BonusPrefabs;
 
-    public GameObject BackgroundPrefab;
-    public GameObject CustomBackgroundPrefab;
+    public GameObject Background;
     public string[] BackgroundFolders;
 
     private void Start()
@@ -26,6 +26,8 @@ public class GameVariableChanger : MonoBehaviour {
         Num.text = Constants.NumShapes.ToString();
         Back.text = Constants.Path;
         SetTheme();
+
+        CustomToggle.isOn = Constants.Custom;
     }
 
     public void ChangeGridSize(int Change)
@@ -101,6 +103,23 @@ public class GameVariableChanger : MonoBehaviour {
         Back.text = Constants.Path;
     }
 
+    public void ToggleCustom(bool c)
+    {
+        Constants.Custom = c;
+        CheckPlayable();
+    }
+
+    private void CheckPlayable()
+    {
+        if (Constants.Custom && Background.GetComponent<BackgroundSpriteController>().CustomSprites.Length == 0)
+        {
+            StartButton.interactable = false;
+        }
+        else
+        {
+            StartButton.interactable = true;
+        }
+    }
 
     public void PickImage()
     {
@@ -118,8 +137,7 @@ public class GameVariableChanger : MonoBehaviour {
                 }
 
                 Sprite mySprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
-
-                picture.sprite = mySprite;
+                
             }
         }, "Select a PNG image", "image/png");
 
@@ -133,27 +151,35 @@ public class GameVariableChanger : MonoBehaviour {
             Debug.Log("Image path: " + paths);
             if (paths != null)
             {
-                List<Sprite> NewSprites = new List<Sprite>();
-                foreach (string path in paths)
+                Sprite[] NewSprites = new Sprite[paths.Length];
+                for (int i = 0; i < paths.Length; i++)
                 {
                     // Create Texture from selected image
-                    Texture2D texture = NativeGallery.LoadImageAtPath(path);
+                    Texture2D texture = NativeGallery.LoadImageAtPath(paths[i]);
                     if (texture == null)
                     {
-                        Debug.Log("Couldn't load texture from " + path);
+                        Debug.Log("Couldn't load texture from " + paths[i]);
                         return;
                     }
 
                     Sprite mySprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
 
-                    NewSprites.Add(mySprite);
+                    NewSprites[i] = mySprite;
                 }
-
-                BackgroundPrefab.GetComponent<BackgroundSpriteController>().SetCustomSprites(NewSprites);
-                
+                Background.GetComponent<BackgroundSpriteController>().CustomSprites = NewSprites;
             }
         }, "Select a PNG image", "image/png");
 
         Debug.Log("Permission result: " + permission);
+
+        CheckPlayable();
+    }
+
+    public void LoadTest()
+    {
+        Sprite[] NewSprites = Resources.LoadAll<Sprite>(Constants.Path);
+        Background.GetComponent<BackgroundSpriteController>().CustomSprites = NewSprites;
+
+        Back.text = Background.GetComponent<BackgroundSpriteController>().CustomSprites.Length.ToString();
     }
 }

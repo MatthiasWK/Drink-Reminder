@@ -6,6 +6,31 @@ using UnityEngine.SceneManagement;
 
 public class SceneChanger : MonoBehaviour {
 
+    public Canvas Game;
+    public Canvas Menu;
+    public Canvas WinCanvas;
+    public GameObject Background;
+
+    private void Start()
+    {
+        LoadMenu();
+    }
+
+    public void LoadGame()
+    {
+        Game.gameObject.SetActive(true);
+        Background.SetActive(true);
+        Menu.gameObject.SetActive(false);
+    }
+
+    public void LoadMenu()
+    {
+        WinCanvas.enabled = false;
+        Game.gameObject.SetActive(false);
+        Background.SetActive(false);
+        Menu.gameObject.SetActive(true);
+    }
+
     public void Load(string name)
     {
         
