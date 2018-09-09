@@ -1612,7 +1612,7 @@ MonoBehaviour:
   ShowDebugInfo: 0
   ShuffleCanvas: {fileID: 303755399}
   WinCanvas: {fileID: 1367213713}
-  Background: {fileID: 1749981195}
+  Background: {fileID: 1694825177}
   SpriteSize: {x: 1.1, y: 1.1}
   CandyPrefabs:
   - {fileID: 189422, guid: 110002167b804ad47947089afdb9dc96, type: 2}
@@ -2443,6 +2443,11 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c19df70bef1e8a41837380efc0769b6, type: 2}
   m_IsPrefabAsset: 0
+--- !u!212 &1694825177 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 212414149061135740, guid: 9c19df70bef1e8a41837380efc0769b6,
+    type: 2}
+  m_PrefabInternal: {fileID: 1694825176}
 --- !u!1 &1700237652
 GameObject:
   m_ObjectHideFlags: 0
@@ -2518,11 +2523,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1749981195 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 212414149061135740, guid: 9c19df70bef1e8a41837380efc0769b6,
-    type: 2}
-  m_PrefabInternal: {fileID: 1694825176}
 --- !u!1 &1768016622
 GameObject:
   m_ObjectHideFlags: 0

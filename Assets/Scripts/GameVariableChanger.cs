@@ -16,6 +16,7 @@ public class GameVariableChanger : MonoBehaviour {
     //public GameObject[] BonusPrefabs;
 
     public GameObject BackgroundPrefab;
+    public GameObject CustomBackgroundPrefab;
     public string[] BackgroundFolders;
 
     private void Start()
@@ -119,6 +120,37 @@ public class GameVariableChanger : MonoBehaviour {
                 Sprite mySprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
 
                 picture.sprite = mySprite;
+            }
+        }, "Select a PNG image", "image/png");
+
+        Debug.Log("Permission result: " + permission);
+    }
+
+    public void PickImages()
+    {
+        NativeGallery.Permission permission = NativeGallery.GetImagesFromGallery((paths) =>
+        {
+            Debug.Log("Image path: " + paths);
+            if (paths != null)
+            {
+                List<Sprite> NewSprites = new List<Sprite>();
+                foreach (string path in paths)
+                {
+                    // Create Texture from selected image
+                    Texture2D texture = NativeGallery.LoadImageAtPath(path);
+                    if (texture == null)
+                    {
+                        Debug.Log("Couldn't load texture from " + path);
+                        return;
+                    }
+
+                    Sprite mySprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
+
+                    NewSprites.Add(mySprite);
+                }
+
+                BackgroundPrefab.GetComponent<BackgroundSpriteController>().SetCustomSprites(NewSprites);
+                
             }
         }, "Select a PNG image", "image/png");
 

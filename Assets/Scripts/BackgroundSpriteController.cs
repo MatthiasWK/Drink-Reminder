@@ -5,23 +5,42 @@ using UnityEngine;
 public class BackgroundSpriteController : MonoBehaviour {
 
     public Sprite[] Sprites;
+    public Sprite[] CustomSprites;
+
+    private Sprite[] Backgrounds;
+
     int i = 0;
 
-	void Start () {
-        Sprites = Resources.LoadAll<Sprite>(Constants.Path);
+	void Start ()
+    {
+        if (Constants.Custom)
+        {
+            Backgrounds = CustomSprites;
+        }
+        else
+        {
+            Sprites = Resources.LoadAll<Sprite>(Constants.Path);
+            Backgrounds = Sprites;
+        }
+        
         SetSprite(0);
-	}
+    }
 
     public void NextSprite()
     {
-        i = (i +1) % Sprites.Length;
+        i = (i +1) % Backgrounds.Length;
         SetSprite(i);
     }
 
     private void SetSprite(int s)
     {
-        GetComponent<SpriteRenderer>().sprite = Sprites[s];
+        GetComponent<SpriteRenderer>().sprite = Backgrounds[s];
 
         Utilities.ResizeSpriteToScreen(gameObject, Camera.main, 1);
+    }
+
+    public void SetCustomSprites(List<Sprite> NewSprites)
+    {
+        CustomSprites = NewSprites.ToArray();
     }
 }
