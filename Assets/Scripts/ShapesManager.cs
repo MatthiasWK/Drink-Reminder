@@ -15,6 +15,7 @@ public class ShapesManager : MonoBehaviour
     public Canvas WinCanvas;
 
     public SpriteRenderer Background;
+    public GameObject Blackout;
 
     public ShapesArray shapes;
 
@@ -387,6 +388,7 @@ public class ShapesManager : MonoBehaviour
             WinCanvas.enabled = true;
             Background.maskInteraction = SpriteMaskInteraction.None;
             Background.color = Color.white;
+            Blackout.SetActive(true);
         }
         else
         {
@@ -569,6 +571,7 @@ public class ShapesManager : MonoBehaviour
 
         Background.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
         Background.color = new Vector4(Constants.MinColor, Constants.MinColor, Constants.MinColor, 1);
+        Blackout.SetActive(false);
 
         Scale = FieldSize / (SpriteSize.x * Constants.Rows);
         CandySize = SpriteSize * Scale;

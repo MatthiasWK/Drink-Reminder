@@ -387,34 +387,5 @@ public static class Utilities
         return null;
     }
 
-    /// <summary>
-    /// Resizes a Sprite fit the screen, either to its width (fitToScreenWidthHeight = 0) or height (fitToScreenWidthHeight = 1)
-    /// </summary>
-    /// <param name="theSprite"></param>
-    /// <param name="theCamera"></param>
-    /// <param name="fitToScreenWidthHeight"></param>
-    public static void ResizeSpriteToScreen(GameObject theSprite, Camera theCamera, int fitToScreenWidthHeight)
-    {
-        SpriteRenderer sr = theSprite.GetComponent<SpriteRenderer>();
-
-        theSprite.transform.localScale = new Vector3(1, 1, 1);
-
-        float width = sr.sprite.bounds.size.x;
-        float height = sr.sprite.bounds.size.y;
-
-        float worldScreenHeight = (float)(theCamera.orthographicSize * 2.0);
-        float worldScreenWidth = (float)(worldScreenHeight / Screen.height * Screen.width);
-
-        if (fitToScreenWidthHeight == 0)
-        {
-            Vector2 sizeX = new Vector2(worldScreenWidth / width, worldScreenWidth / width);
-            theSprite.transform.localScale = sizeX;
-        }
-        else if (fitToScreenWidthHeight == 1)
-        {
-            Vector2 sizeY = new Vector2(worldScreenHeight / height, worldScreenHeight / height);
-            theSprite.transform.localScale = sizeY;
-        }
-    }
 }
 
