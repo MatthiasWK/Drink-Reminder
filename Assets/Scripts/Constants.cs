@@ -17,6 +17,8 @@ using System.Text;
 
         public static Boolean Custom = false;
 
+        public static Boolean BackgroundsChanged = true;
+
         public static string Path = "Backgrounds";
 
         public static readonly float AnimationDuration =  0.2f;

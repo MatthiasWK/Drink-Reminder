@@ -101,6 +101,8 @@ public class GameVariableChanger : MonoBehaviour {
         Constants.Path = BackgroundFolders[Constants.Background];
 
         Back.text = Constants.Path;
+
+        Constants.BackgroundsChanged = true;
     }
 
     public void ToggleCustom(bool c)
@@ -111,7 +113,7 @@ public class GameVariableChanger : MonoBehaviour {
 
     private void CheckPlayable()
     {
-        if (Constants.Custom && Background.GetComponent<BackgroundSpriteController>().CustomSprites.Length == 0)
+        if (Constants.Custom && Background.GetComponent<BackgroundSpriteController>().paths.Length == 0)
         {
             StartButton.interactable = false;
         }
@@ -175,11 +177,21 @@ public class GameVariableChanger : MonoBehaviour {
         CheckPlayable();
     }
 
-    public void LoadTest()
+    public void PickImagePaths()
     {
-        Sprite[] NewSprites = Resources.LoadAll<Sprite>(Constants.Path);
-        Background.GetComponent<BackgroundSpriteController>().CustomSprites = NewSprites;
+        NativeGallery.Permission permission = NativeGallery.GetImagesFromGallery((paths) =>
+        {
+            Debug.Log("Image path: " + paths);
+            if (paths != null)
+            {
+                Background.GetComponent<BackgroundSpriteController>().paths = paths;
+            }
+        }, "Select a PNG image", "image/png");
 
-        Back.text = Background.GetComponent<BackgroundSpriteController>().CustomSprites.Length.ToString();
+        Debug.Log("Permission result: " + permission);
+
+        Constants.BackgroundsChanged = true;
+
+        CheckPlayable();
     }
 }

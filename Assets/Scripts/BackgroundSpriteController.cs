@@ -7,6 +7,8 @@ public class BackgroundSpriteController : MonoBehaviour {
     public Sprite[] Sprites;
     public Sprite[] CustomSprites;
 
+    public string[] paths;
+
     private Sprite[] Backgrounds;
 
     private System.Random rnd = new System.Random();
@@ -15,9 +17,49 @@ public class BackgroundSpriteController : MonoBehaviour {
 
 	void Start ()
     {
-        
+        if (Constants.BackgroundsChanged)
+        {
+            LoadSprites();
+            Shuffle();
+            SetSprite(0);
+        }
+        else
+        {
+            NextSprite();
+        }
+    }
+
+    private void OnEnable()
+    {
+        Start();
+    }
+
+    private void LoadSprites()
+    {
         if (Constants.Custom)
         {
+
+            List<Sprite> NewSprites = new List<Sprite>();
+
+            for (int i = 0; i < paths.Length; i++)
+            {
+                // Create Texture from selected image
+                Texture2D texture = NativeGallery.LoadImageAtPath(paths[i]);
+                if (texture == null)
+                {
+                    Debug.Log("Couldn't load texture from " + paths[i]);
+                    return;
+                }
+                else
+                {
+                    Sprite mySprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
+
+                    NewSprites.Add(mySprite);
+                }
+            }
+
+            CustomSprites = NewSprites.ToArray();
+
             Backgrounds = CustomSprites;
         }
         else
@@ -26,13 +68,7 @@ public class BackgroundSpriteController : MonoBehaviour {
             Backgrounds = Sprites;
         }
 
-        Shuffle();
-        SetSprite(0);
-    }
-
-    private void OnEnable()
-    {
-        Start();
+        Constants.BackgroundsChanged = false;
     }
 
     public void NextSprite()
