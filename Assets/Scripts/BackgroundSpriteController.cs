@@ -9,29 +9,24 @@ public class BackgroundSpriteController : MonoBehaviour {
 
     public string[] paths;
 
+    public Canvas Error;
+
     private Sprite[] Backgrounds;
 
     private System.Random rnd = new System.Random();
 
     int i = 0;
 
-	void Start ()
+    private void OnEnable()
     {
         if (Constants.BackgroundsChanged)
         {
             LoadSprites();
-            Shuffle();
-            SetSprite(0);
         }
         else
         {
             NextSprite();
         }
-    }
-
-    private void OnEnable()
-    {
-        Start();
     }
 
     private void LoadSprites()
@@ -48,6 +43,7 @@ public class BackgroundSpriteController : MonoBehaviour {
                 if (texture == null)
                 {
                     Debug.Log("Couldn't load texture from " + paths[i]);
+                    Error.gameObject.SetActive(true);
                     return;
                 }
                 else
@@ -69,6 +65,10 @@ public class BackgroundSpriteController : MonoBehaviour {
         }
 
         Constants.BackgroundsChanged = false;
+
+
+        Shuffle();
+        SetSprite(0);
     }
 
     public void NextSprite()
@@ -142,5 +142,14 @@ public class BackgroundSpriteController : MonoBehaviour {
             Backgrounds[r] = Backgrounds[i];
             Backgrounds[i] = t;
         }
+    }
+
+    public void ClearCustom()
+    {
+        CustomSprites = new Sprite[0];
+        paths = new string[0];
+        Constants.BackgroundsChanged = true;
+
+        Error.gameObject.SetActive(false);
     }
 }

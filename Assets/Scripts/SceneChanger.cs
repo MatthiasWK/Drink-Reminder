@@ -8,7 +8,6 @@ public class SceneChanger : MonoBehaviour {
 
     public Canvas Game;
     public Canvas Menu;
-    public Canvas WinCanvas;
     public GameObject Background;
 
     private void Start()
@@ -25,7 +24,6 @@ public class SceneChanger : MonoBehaviour {
 
     public void LoadMenu()
     {
-        WinCanvas.enabled = false;
         Game.gameObject.SetActive(false);
         Background.SetActive(false);
         Menu.gameObject.SetActive(true);

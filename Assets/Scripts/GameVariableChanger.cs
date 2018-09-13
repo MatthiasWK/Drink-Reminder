@@ -30,6 +30,11 @@ public class GameVariableChanger : MonoBehaviour {
         CustomToggle.isOn = Constants.Custom;
     }
 
+    private void OnEnable()
+    {
+        CheckPlayable();
+    }
+
     public void ChangeGridSize(int Change)
     {
         
@@ -108,6 +113,7 @@ public class GameVariableChanger : MonoBehaviour {
     public void ToggleCustom(bool c)
     {
         Constants.Custom = c;
+        Constants.BackgroundsChanged = true;
         CheckPlayable();
     }
 
@@ -189,8 +195,6 @@ public class GameVariableChanger : MonoBehaviour {
         }, "Select a PNG image", "image/png");
 
         Debug.Log("Permission result: " + permission);
-
-        Constants.BackgroundsChanged = true;
 
         CheckPlayable();
     }

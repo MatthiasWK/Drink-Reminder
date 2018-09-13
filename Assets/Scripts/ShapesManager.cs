@@ -49,7 +49,6 @@ public class ShapesManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
         FieldSize = gameObject.GetComponentInParent<SpriteRenderer>().bounds.size.x;
         BottomRightBase = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
 
@@ -58,20 +57,24 @@ public class ShapesManager : MonoBehaviour
         InitializeCandyAndSpawnPositions();
     }
 
+
+    private void OnEnable()
+    {
+        if (FieldSize != 0) // To make sure this is not called on first Enable
+        {
+            InitializeTypesOnPrefabShapesAndBonuses();
+
+            InitializeCandyAndSpawnPositions();
+        }
+
+    }
+
     private void OnDisable()
     {
         DestroyAllCandy();
         shapes = null;
         StopAllCoroutines();
     }
-
-    private void OnEnable()
-    {
-        InitializeTypesOnPrefabShapesAndBonuses();
-
-        InitializeCandyAndSpawnPositions();
-    }
-
     /// <summary>
     /// Initialize shapes
     /// </summary>
@@ -385,7 +388,7 @@ public class ShapesManager : MonoBehaviour
         {
             DestroyAllCandy();
             state = GameState.Paused;
-            WinCanvas.enabled = true;
+            WinCanvas.gameObject.SetActive(true);
             Background.maskInteraction = SpriteMaskInteraction.None;
             Background.color = Color.white;
             Blackout.SetActive(true);
@@ -457,7 +460,7 @@ public class ShapesManager : MonoBehaviour
         {
             DestroyAllCandy();
             state = GameState.Paused;
-            WinCanvas.enabled = true;
+            WinCanvas.gameObject.SetActive(true);
             Background.maskInteraction = SpriteMaskInteraction.None;
             Background.color = Color.white;
         }
@@ -565,9 +568,6 @@ public class ShapesManager : MonoBehaviour
         ShowScore();
 
         state = GameState.None;
-
-        ShuffleCanvas.enabled = false;
-        WinCanvas.enabled = false;
 
         Background.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
         Background.color = new Vector4(Constants.MinColor, Constants.MinColor, Constants.MinColor, 1);
@@ -680,7 +680,7 @@ public class ShapesManager : MonoBehaviour
         }
         else
         {
-            ShuffleCanvas.enabled = true;
+            ShuffleCanvas.gameObject.SetActive(true);
             state = GameState.Paused;
         }
     }
@@ -721,7 +721,7 @@ public class ShapesManager : MonoBehaviour
     /// </summary>
     public void ShuffleShapes()
     {
-        ShuffleCanvas.enabled = false;
+        ShuffleCanvas.gameObject.SetActive(false);
 
         shapes.Shuffle();
 
