@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GameVariableChanger : MonoBehaviour {
+    public Text Countdown;
 
     public Text Size;
     public Text Num;
     public Text Name;
     public Text Back;
+
+    public Canvas DrinkCanvas;
 
     public Button StartButton;
     public Toggle CustomToggle;
@@ -18,6 +21,8 @@ public class GameVariableChanger : MonoBehaviour {
 
     public GameObject Background;
     public string[] BackgroundFolders;
+
+    private bool counting = true;
 
     private void Start()
     {
@@ -30,9 +35,36 @@ public class GameVariableChanger : MonoBehaviour {
         CustomToggle.isOn = Constants.Custom;
     }
 
+    private void Update()
+    {
+        if (counting)
+        {
+            if (Constants.TimeLeft > 0)
+            {
+                Constants.TimeLeft -= Time.deltaTime;
+                Countdown.text = Constants.TimeLeft.ToString("00");
+            }
+            else
+            {
+                DrinkCanvas.gameObject.SetActive(true);
+                counting = false;
+            }
+        }
+    }
+
     private void OnEnable()
     {
         CheckPlayable();
+    }
+
+    public void Drink()
+    {
+        if (isActiveAndEnabled)
+        {
+            DrinkCanvas.gameObject.SetActive(false);
+            counting = true;
+            Constants.TimeLeft = Constants.ReminderTime;
+        }
     }
 
     public void ChangeGridSize(int Change)
@@ -69,7 +101,7 @@ public class GameVariableChanger : MonoBehaviour {
 
     public void ChangeTheme(int Change)
     {
-        Constants.Theme = (Constants.Theme + Change) % 2;
+        Constants.Theme = (Constants.Theme + Change) % 3;
 
         SetTheme();
         
@@ -96,6 +128,16 @@ public class GameVariableChanger : MonoBehaviour {
             ShapePrefabs[2].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/bean_orange");
             ShapePrefabs[3].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/bean_red");
             ShapePrefabs[4].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/bean_yellow");
+        }
+        else if (Constants.Theme == 2)
+        {
+            Name.text = "Animals";
+
+            ShapePrefabs[0].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/Dog");
+            ShapePrefabs[1].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/Frog");
+            ShapePrefabs[2].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/Pig");
+            ShapePrefabs[3].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/Duck");
+            ShapePrefabs[4].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/Chicken");
         }
     }
 

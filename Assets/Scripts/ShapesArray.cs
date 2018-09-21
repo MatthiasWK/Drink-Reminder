@@ -85,21 +85,6 @@ public class ShapesArray
 
 
 
-    /// <summary>
-    /// Returns the matches found for all GameObjects in ShapesArry
-    /// MatchesInfo class is not used as this method is called after shuffling, 
-    /// not the one inflicted by user's drag
-    /// </summary>
-    /// <returns></returns>
-    public IEnumerable<GameObject> GetMatches()
-    {
-        List<GameObject> matches = new List<GameObject>();
-        foreach (var go in shapes)
-        {
-            matches.AddRange(GetMatches(go).MatchedCandy);
-        }
-        return matches.Distinct();
-    }
 
     /// <summary>
     /// Returns the matches found for a list of GameObjects
@@ -148,6 +133,36 @@ public class ShapesArray
         return matchesInfo;
     }
 
+    /// <summary>
+    /// Returns the matches found for all GameObjects in ShapesArry
+    /// MatchesInfo class is not used as this method is called after shuffling.
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<GameObject> GetMatches()
+    {
+        List<GameObject> matches = new List<GameObject>();
+        foreach (var go in shapes)
+        {
+            matches.AddRange(GetMatches(go).MatchedCandy);
+        }
+        return matches.Distinct();
+    }
+
+    /// <summary>
+    /// returns 3x3 Grid of GameObject and surrounding objects
+    /// when bomb is detonated on GameObject
+    /// </summary>
+    /// <param name="go"></param>
+    /// <returns></returns>
+    public IEnumerable<GameObject> GetBombMatches(GameObject go)
+    {
+        var matches = GetGrid(go);
+
+        // ToDo: handle Bonus Shapes
+
+        return matches.Distinct();
+    }
+
     private bool ContainsDestroyRowColumnBonus(IEnumerable<GameObject> matches)
     {
         if (matches.Count() >= Constants.MinimumMatches)
@@ -181,6 +196,30 @@ public class ShapesArray
         for (int row = 0; row < Constants.Rows; row++)
         {
             matches.Add(shapes[row, column]);
+        }
+        return matches;
+    }
+
+    private IEnumerable<GameObject> GetGrid(GameObject go)
+    {
+        List<GameObject> matches = new List<GameObject>();
+        int row = go.GetComponent<Shape>().Row;
+        int column = go.GetComponent<Shape>().Column;
+
+        for (int r = -1; r < 2; r++)
+        {
+            for (int c = -1; c < 2; c++)
+            {
+                int matchRow = row + r;
+                int matchColumn = column + c;
+
+                if(matchRow >=0 && matchColumn >=0 && matchRow < shapes.GetLength(0) && matchColumn < shapes.GetLength(1))
+                {
+
+                    matches.Add(shapes[matchRow, matchColumn]);
+
+                }
+            }
         }
         return matches;
     }

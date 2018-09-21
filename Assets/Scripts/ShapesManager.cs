@@ -11,8 +11,12 @@ public class ShapesManager : MonoBehaviour
     public Text DebugText, ScoreText;
     public bool ShowDebugInfo = false;
 
+    public Text Countdown;
+    public Text BombText;
+
     public Canvas ShuffleCanvas;
     public Canvas WinCanvas;
+    public Canvas DrinkCanvas;
 
     public SpriteRenderer Background;
     public GameObject Blackout;
@@ -29,6 +33,8 @@ public class ShapesManager : MonoBehaviour
     private float FieldSize;
 
     private GameState state = GameState.None;
+    private GameState lastState;
+    private bool hasBomb = false;
     private GameObject hitGo = null;
     private Vector2[] SpawnPositions;
     public GameObject[] CandyPrefabs;
@@ -181,6 +187,9 @@ public class ShapesManager : MonoBehaviour
 
         //assign the specific properties
         go.GetComponent<Shape>().Assign(newCandy.GetComponent<Shape>().Type, row, column);
+
+        go.GetComponent<BoxCollider2D>().size = SpriteSize;
+
         shapes[row, column] = go;
     }
 
@@ -215,6 +224,21 @@ public class ShapesManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(state != GameState.Drinking)
+        {
+            if (Constants.TimeLeft > 0)
+            {
+                Constants.TimeLeft -= Time.deltaTime;
+                Countdown.text = Constants.TimeLeft.ToString("00");
+            }
+            else
+            {
+                lastState = state;
+                state = GameState.Drinking;
+                DrinkCanvas.gameObject.SetActive(true);
+            }
+        }
+
         if (ShowDebugInfo)
             DebugText.text = DebugUtilities.GetArrayContents(shapes);
 
@@ -228,7 +252,16 @@ public class ShapesManager : MonoBehaviour
                 if (hit.collider != null) //we have a hit!!!
                 {
                     hitGo = hit.collider.gameObject;
-                    state = GameState.SelectionStarted;
+                    if (!hasBomb)
+                    {
+                        state = GameState.SelectionStarted;
+                    }
+                    else
+                    {
+                        StartCoroutine(FindMatchesAndCollapse(true));
+                        hasBomb = false;
+                        BombText.enabled = false;
+                    }
                 }
                 
             }
@@ -265,6 +298,19 @@ public class ShapesManager : MonoBehaviour
         }
     }
 
+    public void Drink()
+    {
+        if (isActiveAndEnabled)
+        {
+            DrinkCanvas.gameObject.SetActive(false);
+            StopCheckForPotentialMatches();
+            hasBomb = true;
+            BombText.enabled = true;
+            Constants.TimeLeft = Constants.ReminderTime;
+            state = lastState;
+        }
+    }
+
     /// <summary>
     /// Modifies sorting layers for better appearance when dragging/animating
     /// </summary>
@@ -297,8 +343,6 @@ public class ShapesManager : MonoBehaviour
         //move the swapped ones
         hitGo.transform.DOMove(hitGo2.transform.position, Constants.AnimationDuration);
         hitGo2.transform.DOMove(hitGo.transform.position, Constants.AnimationDuration);
-        //hitGo.transform.positionTo(Constants.AnimationDuration, hitGo2.transform.position);
-        //hitGo2.transform.positionTo(Constants.AnimationDuration, hitGo.transform.position);
         yield return new WaitForSeconds(Constants.AnimationDuration);
 
         //get the matches via the helper methods
@@ -313,8 +357,6 @@ public class ShapesManager : MonoBehaviour
         {
             hitGo.transform.DOMove(hitGo2.transform.position, Constants.AnimationDuration);
             hitGo2.transform.DOMove(hitGo.transform.position, Constants.AnimationDuration);
-            //hitGo.transform.positionTo(Constants.AnimationDuration, hitGo2.transform.position);
-            //hitGo2.transform.positionTo(Constants.AnimationDuration, hitGo.transform.position);
             yield return new WaitForSeconds(Constants.AnimationDuration);
 
             shapes.UndoSwap();
@@ -384,32 +426,27 @@ public class ShapesManager : MonoBehaviour
             timesRun++;
         }
 
-        if (score >= Constants.WinScore)
-        {
-            DestroyAllCandy();
-            state = GameState.Paused;
-            WinCanvas.gameObject.SetActive(true);
-            Background.maskInteraction = SpriteMaskInteraction.None;
-            Background.color = Color.white;
-            Blackout.SetActive(true);
-        }
-        else
-        {
-
-            state = GameState.None;
-            StartCheckForPotentialMatches();
-        }
+        CheckWinCondition();
     }
 
     /// <summary>
-    /// Variant that is only called after a shuffle to check for any matches on the whole field
+    /// Variant that is called either when a bomb is detonated to remove the surrounding objects (bomb = true)
+    /// or after a shuffle to check for any matches on the whole field (bomb = false or no argument)
     /// </summary>
+    /// <param name="bomb"></param>
     /// <returns></returns>
-    private IEnumerator FindMatchesAndCollapse()
+    private IEnumerator FindMatchesAndCollapse(bool bomb = false)
     {
-        
         //get all matches via the helper method
-        var totalMatches = shapes.GetMatches();       
+        IEnumerable<GameObject> totalMatches;
+        if (bomb)
+        {
+            totalMatches = shapes.GetBombMatches(hitGo);
+        }
+        else
+        {
+            totalMatches = shapes.GetMatches();    
+        }   
 
         int timesRun = 1;
         while (totalMatches.Count() >= Constants.MinimumMatches)
@@ -456,6 +493,13 @@ public class ShapesManager : MonoBehaviour
             timesRun++;
         }
 
+        CheckWinCondition();
+
+    }
+
+
+    private void CheckWinCondition()
+    {
         if (score >= Constants.WinScore)
         {
             DestroyAllCandy();
@@ -463,6 +507,7 @@ public class ShapesManager : MonoBehaviour
             WinCanvas.gameObject.SetActive(true);
             Background.maskInteraction = SpriteMaskInteraction.None;
             Background.color = Color.white;
+            Blackout.SetActive(true);
         }
         else
         {
@@ -471,6 +516,7 @@ public class ShapesManager : MonoBehaviour
             StartCheckForPotentialMatches();
         }
     }
+
 
     /// <summary>
     /// Creates a new Bonus based on the shape parameter
