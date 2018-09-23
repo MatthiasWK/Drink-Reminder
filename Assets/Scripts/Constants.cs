@@ -11,7 +11,7 @@ using System.Text;
 
         public static int NumShapes = 5;
 
-        public static int Theme = 0;
+        public static int ShapeTheme = 0;
 
         public static int Background = 0;
 
@@ -19,7 +19,7 @@ using System.Text;
 
         public static Boolean BackgroundsChanged = true;
 
-        public static string Path = "Backgrounds";
+        public static string BackgroundPath = "Backgrounds";
 
         public static float ReminderTime = 30.0f;
         public static float TimeLeft;

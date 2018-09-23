@@ -60,7 +60,7 @@ public class BackgroundSpriteController : MonoBehaviour {
         }
         else
         {
-            Sprites = Resources.LoadAll<Sprite>(Constants.Path);
+            Sprites = Resources.LoadAll<Sprite>(Constants.BackgroundPath);
             Backgrounds = Sprites;
         }
 

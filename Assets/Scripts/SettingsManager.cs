@@ -1,9 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameVariableChanger : MonoBehaviour {
+public class SettingsManager : MonoBehaviour {
+
+    //public Image TestImage;
+    public Text DebugText;
+
     public Text Countdown;
 
     public Text Size;
@@ -26,11 +29,12 @@ public class GameVariableChanger : MonoBehaviour {
 
     private void Start()
     {
+        InitializePrefs();
 
         Size.text = Constants.Rows + " x " + Constants.Columns;
         Num.text = Constants.NumShapes.ToString();
-        Back.text = Constants.Path;
-        SetTheme();
+        Back.text = Constants.BackgroundPath;
+        SetShapeTheme();
 
         CustomToggle.isOn = Constants.Custom;
     }
@@ -55,6 +59,25 @@ public class GameVariableChanger : MonoBehaviour {
     private void OnEnable()
     {
         CheckPlayable();
+    }
+
+    private void InitializePrefs()
+    {
+        Constants.Rows = PlayerPrefs.GetInt("Rows", Constants.Rows);
+        Constants.Columns = PlayerPrefs.GetInt("Columns", Constants.Columns);
+        Constants.NumShapes = PlayerPrefs.GetInt("NumShapes", Constants.NumShapes);
+        Constants.ShapeTheme = PlayerPrefs.GetInt("ShapeTheme", Constants.ShapeTheme);
+        Constants.BackgroundPath = PlayerPrefs.GetString("BackgroundPath", Constants.BackgroundPath);
+        Constants.Custom = Convert.ToBoolean(PlayerPrefs.GetInt("Custom", 0));
+
+        string[] customPaths = PlayerPrefsX.GetStringArray("CustomPaths");
+        if (customPaths.Length > 0)
+        {
+            Background.GetComponent<BackgroundSpriteController>().paths = customPaths;
+        }
+
+        CheckPlayable();
+
     }
 
     public void Drink()
@@ -82,6 +105,9 @@ public class GameVariableChanger : MonoBehaviour {
         }
 
         Size.text = Constants.Rows + " x " + Constants.Columns;
+
+        PlayerPrefs.SetInt("Rows", Constants.Rows);
+        PlayerPrefs.SetInt("Columns", Constants.Columns);
     }
 
     public void ChangeShapeNum(int Change)
@@ -97,19 +123,22 @@ public class GameVariableChanger : MonoBehaviour {
         }
 
         Num.text = Constants.NumShapes.ToString();
+
+        PlayerPrefs.SetInt("NumShapes", Constants.NumShapes);
     }
 
-    public void ChangeTheme(int Change)
+    public void ChangeShapeTheme(int Change)
     {
-        Constants.Theme = (Constants.Theme + Change) % 3;
+        Constants.ShapeTheme = (Constants.ShapeTheme + Change) % 3;
 
-        SetTheme();
-        
+        SetShapeTheme();
+
+        PlayerPrefs.SetInt("ShapeTheme", Constants.ShapeTheme);
     }
 
-    private void SetTheme()
+    private void SetShapeTheme()
     {
-        if (Constants.Theme == 0)
+        if (Constants.ShapeTheme == 0)
         {
             Name.text = "Faces";
 
@@ -119,7 +148,7 @@ public class GameVariableChanger : MonoBehaviour {
             ShapePrefabs[3].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_red");
             ShapePrefabs[4].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_yellow");
         }
-        else if (Constants.Theme == 1)
+        else if (Constants.ShapeTheme == 1)
         {
             Name.text = "Candy";
 
@@ -129,7 +158,7 @@ public class GameVariableChanger : MonoBehaviour {
             ShapePrefabs[3].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/bean_red");
             ShapePrefabs[4].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/bean_yellow");
         }
-        else if (Constants.Theme == 2)
+        else if (Constants.ShapeTheme == 2)
         {
             Name.text = "Animals";
 
@@ -145,11 +174,13 @@ public class GameVariableChanger : MonoBehaviour {
     {
         Constants.Background = (Constants.Background + Change) % BackgroundFolders.Length;
 
-        Constants.Path = BackgroundFolders[Constants.Background];
+        Constants.BackgroundPath = BackgroundFolders[Constants.Background];
 
-        Back.text = Constants.Path;
+        Back.text = Constants.BackgroundPath;
 
         Constants.BackgroundsChanged = true;
+
+        PlayerPrefs.SetString("BackgroundPath", Constants.BackgroundPath);
     }
 
     public void ToggleCustom(bool c)
@@ -157,6 +188,8 @@ public class GameVariableChanger : MonoBehaviour {
         Constants.Custom = c;
         Constants.BackgroundsChanged = true;
         CheckPlayable();
+
+        PlayerPrefs.SetInt("Custom", Convert.ToInt32(Constants.Custom));
     }
 
     private void CheckPlayable()
@@ -178,6 +211,7 @@ public class GameVariableChanger : MonoBehaviour {
             Debug.Log("Image path: " + path);
             if (path != null)
             {
+                //DebugText.text = path;
                 // Create Texture from selected image
                 Texture2D texture = NativeGallery.LoadImageAtPath(path);
                 if (texture == null)
@@ -185,13 +219,16 @@ public class GameVariableChanger : MonoBehaviour {
                     Debug.Log("Couldn't load texture from " + path);
                     return;
                 }
-
-                Sprite mySprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
                 
+                string[] NewSprites = new string[1];
+                NewSprites[0] = path;
+                Background.GetComponent<BackgroundSpriteController>().paths = NewSprites;
             }
         }, "Select a PNG image", "image/png");
 
         Debug.Log("Permission result: " + permission);
+        Constants.BackgroundsChanged = true;
+        CheckPlayable();
     }
 
     public void PickImages()
@@ -233,11 +270,14 @@ public class GameVariableChanger : MonoBehaviour {
             if (paths != null)
             {
                 Background.GetComponent<BackgroundSpriteController>().paths = paths;
+
+                PlayerPrefsX.SetStringArray("CustomPaths", paths);
             }
         }, "Select a PNG image", "image/png");
 
         Debug.Log("Permission result: " + permission);
 
+        Constants.BackgroundsChanged = true;
         CheckPlayable();
     }
 }

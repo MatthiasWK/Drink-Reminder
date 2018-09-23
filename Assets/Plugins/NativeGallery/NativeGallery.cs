@@ -485,13 +485,10 @@ public static class NativeGallery
 		if( string.IsNullOrEmpty( imagePath ) )
 			throw new ArgumentException( "Parameter 'imagePath' is null or empty!" );
 
-        if (!File.Exists(imagePath))
-        {
-            return null;
-            //throw new FileNotFoundException("File not found at " + imagePath);
-        }
+		if( !File.Exists( imagePath ) )
+			throw new FileNotFoundException( "File not found at " + imagePath );
 
-        if ( maxSize <= 0 )
+		if( maxSize <= 0 )
 			maxSize = SystemInfo.maxTextureSize;
 
 #if !UNITY_EDITOR && UNITY_ANDROID
