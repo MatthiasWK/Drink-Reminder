@@ -21,7 +21,7 @@ using System.Text;
 
         public static string Path = "Backgrounds";
 
-        public static float ReminderTime = 300.0f;
+        public static float ReminderTime = 30.0f;
         public static float TimeLeft;
 
         public static readonly float AnimationDuration =  0.2f;

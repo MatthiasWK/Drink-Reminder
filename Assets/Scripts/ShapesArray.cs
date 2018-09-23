@@ -158,7 +158,15 @@ public class ShapesArray
     {
         var matches = GetGrid(go);
 
-        // ToDo: handle Bonus Shapes
+        // If a bonus is hit by bomb, entire row and column is destroyed
+        foreach (var obj in matches)
+        {
+            if (obj.GetComponent<Shape>().Bonus == BonusType.DestroyWholeRowColumn)
+            {
+                matches = matches.Union(GetEntireRow(obj));
+                matches = matches.Union(GetEntireColumn(obj));
+            }
+        }
 
         return matches.Distinct();
     }
