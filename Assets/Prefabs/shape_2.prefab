@@ -67,6 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82cfdb5ea21e750439f3d02cd0090702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  path: insert path
 --- !u!212 &21203784
 SpriteRenderer:
   m_ObjectHideFlags: 1

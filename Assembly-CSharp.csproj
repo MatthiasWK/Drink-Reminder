@@ -68,30 +68,23 @@
     <Compile Include="Assets\Scripts\Constants.cs" />
     <Compile Include="Assets\Scripts\DebugUtilities.cs" />
     <Compile Include="Assets\Scripts\Enums.cs" />
-    <Compile Include="Assets\Scripts\GameVariableChanger.cs" />
+    <Compile Include="Assets\Scripts\ImageEditor.cs" />
     <Compile Include="Assets\Scripts\MatchesInfo.cs" />
+    <Compile Include="Assets\Scripts\PlayerPrefsX.cs" />
     <Compile Include="Assets\Scripts\SceneChanger.cs" />
+    <Compile Include="Assets\Scripts\SettingsManager.cs" />
     <Compile Include="Assets\Scripts\Shape.cs" />
     <Compile Include="Assets\Scripts\ShapeInfo.cs" />
     <Compile Include="Assets\Scripts\ShapesArray.cs" />
     <Compile Include="Assets\Scripts\ShapesManager.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />
+    <Compile Include="Assets\Scripts\SpriteOutline.cs" />
     <Compile Include="Assets\Scripts\Utilities.cs" />
-    <Compile Include="Assets\Scripts\VariableContainer.cs" />
+    <Compile Include="Assets\Simple UI\Samples\IconPreview.cs" />
     <None Include="Assets\Demigiant\DOTween\readme.txt" />
+    <None Include="Assets\Shaders\Sprites-Outline.shader" />
+    <None Include="Assets\Simple UI\Fonts\OFL.txt" />
     <None Include="Assets\Resources\level.txt" />
-    <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>C:/Users/super/Documents/GitHub/Drink-Reminder/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/super/Documents/GitHub/Drink-Reminder/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/super/Documents/GitHub/Drink-Reminder/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/super/Documents/GitHub/Drink-Reminder/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -294,7 +287,7 @@
       <HintPath>C:/Users/super/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.StandardEvents">
-      <HintPath>C:/Users/super/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/super/Documents/GitHub/Drink-Reminder/Packages/com.unity.standardevents/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unity/mscorlib.dll</HintPath>
@@ -328,6 +321,14 @@
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
       <Project>{3FC3C51D-74A0-F50A-0304-44434CE14B6C}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEditor.StandardEvents.csproj">
+      <Project>{E1918470-50B8-1A1C-0D1C-86EE7B38D6A0}</Project>
+      <Name>UnityEditor.StandardEvents</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.PackageManagerUI.Editor.csproj">
+      <Project>{5166C3E2-FCF1-1A5C-99C0-DE7430C06ACA}</Project>
+      <Name>Unity.PackageManagerUI.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

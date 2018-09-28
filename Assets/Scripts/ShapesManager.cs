@@ -183,7 +183,7 @@ public class ShapesManager : MonoBehaviour
             BottomRight + new Vector2(column * CandySize.x, row * CandySize.y), Quaternion.identity)
             as GameObject;
 
-        go.transform.localScale *= Scale;
+        go.transform.localScale = new Vector3(Scale, Scale);
 
         //assign the specific properties
         go.GetComponent<Shape>().Assign(newCandy.GetComponent<Shape>().Type, row, column);
