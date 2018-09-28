@@ -529,6 +529,8 @@ public class ShapesManager : MonoBehaviour
                 hitGoCache.Row * CandySize.y), Quaternion.identity)
             as GameObject;
         Bonus.transform.localScale *= Scale;
+        Bonus.GetComponent<BoxCollider2D>().size = SpriteSize;
+
         shapes[hitGoCache.Row, hitGoCache.Column] = Bonus;
         var BonusShape = Bonus.GetComponent<Shape>();
         //will have the same type as the "normal" candy
@@ -558,8 +560,9 @@ public class ShapesManager : MonoBehaviour
                 var go = GetRandomCandy();
                 GameObject newCandy = Instantiate(go, SpawnPositions[column], Quaternion.identity)
                     as GameObject;
-                newCandy.transform.localScale *= Scale;
+                newCandy.transform.localScale = new Vector2(Scale, Scale);
                 newCandy.GetComponent<Shape>().Assign(go.GetComponent<Shape>().Type, item.Row, item.Column);
+                newCandy.GetComponent<BoxCollider2D>().size = SpriteSize;
 
                 if (Constants.Rows - item.Row > newCandyInfo.MaxDistance)
                     newCandyInfo.MaxDistance = Constants.Rows - item.Row;

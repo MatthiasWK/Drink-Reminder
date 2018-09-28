@@ -8,7 +8,6 @@ public class ImageEditor : MonoBehaviour {
     public SpriteRenderer SourceImage;
     public SpriteRenderer Cutout;
     public SpriteRenderer TargetImage;
-    public GameObject TargetPrefab;
 
     //public void set(Texture2D tex)
     //{
@@ -56,22 +55,22 @@ public class ImageEditor : MonoBehaviour {
         b.Apply();
         Sprite mySprite = Sprite.Create(b, new Rect(0.0f, 0.0f, b.width, b.height), new Vector2(0.5f, 0.5f), 100.0f);
 
-        //TargetImage.sprite = mySprite;
+        TargetImage.sprite = mySprite;
         //SaveFile("bla", b);
 
-        Texture2D texture = NativeGallery.LoadImageAtPath(Application.dataPath + "/" + "bla.png");
-        if (texture == null)
-        {
-            print("Couldn't load texture from " + Application.dataPath + "/" + "bla.png");
-            return;
-        }
-        else
-        {
-            Sprite s = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
-            //TargetImage.sprite = s;
-            TargetPrefab.GetComponent<Shape>().path = Application.dataPath + "/" + "bla.png";
+        //Texture2D texture = NativeGallery.LoadImageAtPath(Application.dataPath + "/" + "bla.png");
+        //if (texture == null)
+        //{
+        //    print("Couldn't load texture from " + Application.dataPath + "/" + "bla.png");
+        //    return;
+        //}
+        //else
+        //{
+        //    Sprite s = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
+        //    //TargetImage.sprite = s;
+        //    TargetPrefab.GetComponent<Shape>().path = Application.dataPath + "/" + "bla.png";
 
-        }
+        //}
 
         //TargetPrefab.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("bla");
     }

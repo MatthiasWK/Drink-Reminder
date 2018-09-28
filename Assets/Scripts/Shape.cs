@@ -12,8 +12,6 @@ public class Shape : MonoBehaviour
 
     public string Type { get; set; }
 
-    public string path = "insert path";
-
     public Shape()
     {
         Bonus = BonusType.None;

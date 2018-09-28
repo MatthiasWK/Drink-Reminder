@@ -316,6 +316,7 @@
     <None Include="Assets\Demigiant\DOTween\readme.txt" />
     <None Include="Assets\Plugins\NativeGallery\README.txt" />
     <None Include="Assets\Resources\level.txt" />
+    <None Include="Assets\Shaders\Sprites-Outline.shader" />
     <None Include="Assets\Simple UI\Fonts\OFL.txt" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Dark.uss" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Light.uss" />
