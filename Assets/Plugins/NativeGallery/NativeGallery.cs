@@ -486,7 +486,7 @@ public static class NativeGallery
 			throw new ArgumentException( "Parameter 'imagePath' is null or empty!" );
 
 		if( !File.Exists( imagePath ) )
-			throw new FileNotFoundException( "File not found at " + imagePath );
+			return null;
 
 		if( maxSize <= 0 )
 			maxSize = SystemInfo.maxTextureSize;

@@ -318,6 +318,7 @@
     <Compile Include="Assets\Scripts\Enums.cs" />
     <Compile Include="Assets\Scripts\ImageEditor.cs" />
     <Compile Include="Assets\Scripts\MatchesInfo.cs" />
+    <Compile Include="Assets\Scripts\MenuChanger.cs" />
     <Compile Include="Assets\Scripts\PlayerPrefsX.cs" />
     <Compile Include="Assets\Scripts\SceneChanger.cs" />
     <Compile Include="Assets\Scripts\SettingsManager.cs" />

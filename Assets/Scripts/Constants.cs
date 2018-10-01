@@ -15,9 +15,13 @@ using System.Text;
 
         public static int Background = 0;
 
-        public static Boolean Custom = false;
+        public static Boolean CustomBackgrounds = false;
 
         public static Boolean BackgroundsChanged = true;
+
+        public static Boolean CustomShapes = false;
+
+        public static Boolean ShapesChanged = true;
 
         public static string BackgroundPath = "Backgrounds";
 

@@ -38,6 +38,8 @@ public class ShapesManager : MonoBehaviour
     private GameObject hitGo = null;
     private Vector2[] SpawnPositions;
     public GameObject[] CandyPrefabs;
+    public GameObject[] CustomShapes;
+    private GameObject[] CurrentShapes;
     public GameObject[] ExplosionPrefabs;
     public GameObject[] BonusPrefabs;
 
@@ -47,6 +49,7 @@ public class ShapesManager : MonoBehaviour
     IEnumerable<GameObject> potentialMatches;
 
     public SoundManager soundManager;
+
     void Awake()
     {
         DebugText.enabled = ShowDebugInfo;
@@ -66,6 +69,16 @@ public class ShapesManager : MonoBehaviour
 
     private void OnEnable()
     {
+
+        if (Constants.CustomShapes)
+        {
+            CurrentShapes = CustomShapes;
+        }
+        else
+        {
+            CurrentShapes = CandyPrefabs;
+        }
+
         if (FieldSize != 0) // To make sure this is not called on first Enable
         {
             InitializeTypesOnPrefabShapesAndBonuses();
@@ -87,7 +100,7 @@ public class ShapesManager : MonoBehaviour
     private void InitializeTypesOnPrefabShapesAndBonuses()
     {
         //just assign the name of the prefab
-        foreach (var item in CandyPrefabs)
+        foreach (var item in CurrentShapes)
         {
             item.GetComponent<Shape>().Type = item.name;
 
@@ -96,7 +109,7 @@ public class ShapesManager : MonoBehaviour
         //assign the name of the respective "normal" candy as the type of the Bonus
         foreach (var item in BonusPrefabs)
         {
-            item.GetComponent<Shape>().Type = CandyPrefabs.
+            item.GetComponent<Shape>().Type = CurrentShapes.
                 Where(x => x.GetComponent<Shape>().Type.Contains(item.name.Split('_')[1].Trim())).Single().name;
         }
     }
@@ -608,7 +621,7 @@ public class ShapesManager : MonoBehaviour
     /// <returns></returns>
     private GameObject GetRandomCandy()
     {
-        return CandyPrefabs[Random.Range(0, Constants.NumShapes)];
+        return CurrentShapes[Random.Range(0, Constants.NumShapes)];
     }
 
     private void InitializeVariables()
@@ -745,7 +758,7 @@ public class ShapesManager : MonoBehaviour
 
         if (tokens.Count() == 1)
         {
-            foreach (var item in CandyPrefabs)
+            foreach (var item in CurrentShapes)
             {
                 if (item.GetComponent<Shape>().Type.Contains(tokens[0].Trim()))
                     return item;

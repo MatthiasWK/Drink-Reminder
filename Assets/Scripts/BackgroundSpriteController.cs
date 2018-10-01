@@ -31,7 +31,7 @@ public class BackgroundSpriteController : MonoBehaviour {
 
     private void LoadSprites()
     {
-        if (Constants.Custom)
+        if (Constants.CustomBackgrounds)
         {
 
             List<Sprite> NewSprites = new List<Sprite>();
@@ -73,15 +73,18 @@ public class BackgroundSpriteController : MonoBehaviour {
 
     public void NextSprite()
     {
-        i = (i +1) % Backgrounds.Length;
-        SetSprite(i);
+        if(Backgrounds != null)
+        {
+            i = (i +1) % Backgrounds.Length;
+            SetSprite(i);
+        }
     }
 
     private void SetSprite(int s)
     {
         GetComponent<SpriteRenderer>().sprite = Backgrounds[s];
 
-        ResizeSpriteToScreen(1);
+        ResizeSpriteToScreen();
     }
 
     public void SetCustomSprites(Sprite[] NewSprites)
@@ -94,8 +97,7 @@ public class BackgroundSpriteController : MonoBehaviour {
     /// </summary>
     /// <param name="theSprite"></param>
     /// <param name="theCamera"></param>
-    /// <param name="fitToScreenWidthHeight"></param>
-    private void ResizeSpriteToScreen(int fitToScreenWidthHeight)
+    private void ResizeSpriteToScreen()
     {
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
 
@@ -107,20 +109,20 @@ public class BackgroundSpriteController : MonoBehaviour {
         float worldScreenHeight = (float)(Camera.main.orthographicSize * 2.0);
         float worldScreenWidth = (float)(worldScreenHeight / Screen.height * Screen.width);
 
-        if (fitToScreenWidthHeight == 0)
+        if (width > height)
         {
             Vector2 sizeX = new Vector2(worldScreenWidth / width, worldScreenWidth / width);
             transform.localScale = sizeX;
         }
-        else if (fitToScreenWidthHeight == 1)
+        else if (height > width)
         {
             Vector2 sizeY = new Vector2(worldScreenHeight / height, worldScreenHeight / height);
             transform.localScale = sizeY;
-
-            float screenLeft = worldScreenWidth * -0.5f;
-            float newWidth = width * (worldScreenHeight / height);
-            transform.SetPositionAndRotation(new Vector3((newWidth * 0.5f) + screenLeft, 0,0), Quaternion.identity);
         }
+        // move to left side of screen
+        float screenLeft = worldScreenWidth * -0.5f;
+        float newWidth = width * (worldScreenHeight / height);
+        transform.SetPositionAndRotation(new Vector3((newWidth * 0.5f) + screenLeft, 0, 0), Quaternion.identity);
     }
 
 

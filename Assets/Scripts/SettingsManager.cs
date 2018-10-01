@@ -17,9 +17,13 @@ public class SettingsManager : MonoBehaviour {
     public Canvas DrinkCanvas;
 
     public Button StartButton;
-    public Toggle CustomToggle;
+    public Toggle BackgroundToggle;
+    public Toggle ShapeToggle;
 
-    public GameObject[] ShapePrefabs;
+    public GameObject[] Shapes;
+    public GameObject[] CustomShapes;
+    public GameObject ShapesContainer;
+    public GameObject CustomShapesContainer;
     //public GameObject[] BonusPrefabs;
 
     public GameObject Background;
@@ -36,7 +40,9 @@ public class SettingsManager : MonoBehaviour {
         Back.text = Constants.BackgroundPath;
         SetShapeTheme();
 
-        CustomToggle.isOn = Constants.Custom;
+        BackgroundToggle.isOn = Constants.CustomBackgrounds;
+        ShapeToggle.isOn = Constants.CustomShapes;
+        ToggleCustomShapes(Constants.CustomShapes);
     }
 
     private void Update()
@@ -59,6 +65,11 @@ public class SettingsManager : MonoBehaviour {
     private void OnEnable()
     {
         CheckPlayable();
+
+        if (Constants.ShapesChanged)
+        {
+            LoadCustomShapes();
+        }
     }
 
     private void InitializePrefs()
@@ -68,7 +79,8 @@ public class SettingsManager : MonoBehaviour {
         Constants.NumShapes = PlayerPrefs.GetInt("NumShapes", Constants.NumShapes);
         Constants.ShapeTheme = PlayerPrefs.GetInt("ShapeTheme", Constants.ShapeTheme);
         Constants.BackgroundPath = PlayerPrefs.GetString("BackgroundPath", Constants.BackgroundPath);
-        Constants.Custom = Convert.ToBoolean(PlayerPrefs.GetInt("Custom", 0));
+        Constants.CustomBackgrounds = Convert.ToBoolean(PlayerPrefs.GetInt("CustomBackgrounds", 0));
+        Constants.CustomShapes = Convert.ToBoolean(PlayerPrefs.GetInt("CustomShapes", 0));
 
         string[] customPaths = PlayerPrefsX.GetStringArray("CustomPaths");
         if (customPaths.Length > 0)
@@ -78,6 +90,23 @@ public class SettingsManager : MonoBehaviour {
 
         CheckPlayable();
 
+    }
+
+    private void LoadCustomShapes()
+    {
+        for (int t = 0; t < CustomShapes.Length; t++)
+        {
+            Texture2D texture = NativeGallery.LoadImageAtPath(Application.persistentDataPath + "/" + "shape_" + t + ".png");
+            if (texture == null)
+            {
+                print("Couldn't load texture from " + Application.persistentDataPath + "/" + "shape_" + t + ".png");
+            }
+            else
+            {
+                Sprite mySprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
+                CustomShapes[t].GetComponent<SpriteRenderer>().sprite = mySprite;
+            }
+        }
     }
 
     public void Drink()
@@ -142,31 +171,31 @@ public class SettingsManager : MonoBehaviour {
         {
             Name.text = "Faces";
 
-            ShapePrefabs[0].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_blue");
-            ShapePrefabs[1].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_green");
-            ShapePrefabs[2].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_orange");
-            ShapePrefabs[3].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_red");
-            ShapePrefabs[4].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_yellow");
+            Shapes[0].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_blue");
+            Shapes[1].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_green");
+            Shapes[2].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_orange");
+            Shapes[3].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_red");
+            Shapes[4].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_yellow");
         }
         else if (Constants.ShapeTheme == 1)
         {
             Name.text = "Candy";
 
-            ShapePrefabs[0].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/bean_blue");
-            ShapePrefabs[1].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/bean_green");
-            ShapePrefabs[2].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/bean_orange");
-            ShapePrefabs[3].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/bean_red");
-            ShapePrefabs[4].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/bean_yellow");
+            Shapes[0].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/bean_blue");
+            Shapes[1].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/bean_green");
+            Shapes[2].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/bean_orange");
+            Shapes[3].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/bean_red");
+            Shapes[4].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/bean_yellow");
         }
         else if (Constants.ShapeTheme == 2)
         {
             Name.text = "Animals";
 
-            ShapePrefabs[0].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/Dog");
-            ShapePrefabs[1].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/Frog");
-            ShapePrefabs[2].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/Pig");
-            ShapePrefabs[3].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/Duck");
-            ShapePrefabs[4].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/Chicken");
+            Shapes[0].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/Dog");
+            Shapes[1].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/Frog");
+            Shapes[2].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/Pig");
+            Shapes[3].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/Duck");
+            Shapes[4].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/Chicken");
         }
     }
 
@@ -183,18 +212,36 @@ public class SettingsManager : MonoBehaviour {
         PlayerPrefs.SetString("BackgroundPath", Constants.BackgroundPath);
     }
 
-    public void ToggleCustom(bool c)
+    public void ToggleCustomBackgrounds(bool c)
     {
-        Constants.Custom = c;
+        Constants.CustomBackgrounds = c;
         Constants.BackgroundsChanged = true;
         CheckPlayable();
 
-        PlayerPrefs.SetInt("Custom", Convert.ToInt32(Constants.Custom));
+        PlayerPrefs.SetInt("CustomBackgrounds", Convert.ToInt32(Constants.CustomBackgrounds));
+    }
+
+    public void ToggleCustomShapes(bool c)
+    {
+        Constants.CustomShapes = c;
+
+        if (c)
+        {
+            CustomShapesContainer.SetActive(true);
+            ShapesContainer.SetActive(false);
+        }
+        else
+        {
+            CustomShapesContainer.SetActive(false);
+            ShapesContainer.SetActive(true);
+        }
+
+        PlayerPrefs.SetInt("CustomShapes", Convert.ToInt32(Constants.CustomShapes));
     }
 
     private void CheckPlayable()
     {
-        if (Constants.Custom && Background.GetComponent<BackgroundSpriteController>().paths.Length == 0)
+        if (Constants.CustomBackgrounds && Background.GetComponent<BackgroundSpriteController>().paths.Length == 0)
         {
             StartButton.interactable = false;
         }
@@ -202,33 +249,6 @@ public class SettingsManager : MonoBehaviour {
         {
             StartButton.interactable = true;
         }
-    }
-
-    public void PickImage()
-    {
-        NativeGallery.Permission permission = NativeGallery.GetImageFromGallery((path) =>
-        {
-            Debug.Log("Image path: " + path);
-            if (path != null)
-            {
-                //DebugText.text = path;
-                // Create Texture from selected image
-                Texture2D texture = NativeGallery.LoadImageAtPath(path);
-                if (texture == null)
-                {
-                    Debug.Log("Couldn't load texture from " + path);
-                    return;
-                }
-                
-                string[] NewSprites = new string[1];
-                NewSprites[0] = path;
-                Background.GetComponent<BackgroundSpriteController>().paths = NewSprites;
-            }
-        }, "Select a PNG image", "image/png");
-
-        Debug.Log("Permission result: " + permission);
-        Constants.BackgroundsChanged = true;
-        CheckPlayable();
     }
 
     public void PickImages()
