@@ -78,6 +78,7 @@ public class SettingsManager : MonoBehaviour {
         Constants.Columns = PlayerPrefs.GetInt("Columns", Constants.Columns);
         Constants.NumShapes = PlayerPrefs.GetInt("NumShapes", Constants.NumShapes);
         Constants.ShapeTheme = PlayerPrefs.GetInt("ShapeTheme", Constants.ShapeTheme);
+        Constants.Background = PlayerPrefs.GetInt("Background", Constants.Background);
         Constants.BackgroundPath = PlayerPrefs.GetString("BackgroundPath", Constants.BackgroundPath);
         Constants.CustomBackgrounds = Convert.ToBoolean(PlayerPrefs.GetInt("CustomBackgrounds", 0));
         Constants.CustomShapes = Convert.ToBoolean(PlayerPrefs.GetInt("CustomShapes", 0));
@@ -209,6 +210,7 @@ public class SettingsManager : MonoBehaviour {
 
         Constants.BackgroundsChanged = true;
 
+        PlayerPrefs.SetInt("Background", Constants.Background);
         PlayerPrefs.SetString("BackgroundPath", Constants.BackgroundPath);
     }
 
@@ -295,7 +297,7 @@ public class SettingsManager : MonoBehaviour {
             }
         }, "Select a PNG image", "image/png");
 
-        Debug.Log("Permission result: " + permission);
+        DebugText.text = "Permission result: " + permission;
 
         Constants.BackgroundsChanged = true;
         CheckPlayable();

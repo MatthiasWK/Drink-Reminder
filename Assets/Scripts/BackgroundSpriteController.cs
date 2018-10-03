@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BackgroundSpriteController : MonoBehaviour {
+
+    public Text DebugText;
 
     public Sprite[] Sprites;
     public Sprite[] CustomSprites;
@@ -39,10 +42,11 @@ public class BackgroundSpriteController : MonoBehaviour {
             for (int i = 0; i < paths.Length; i++)
             {
                 // Create Texture from selected image
+                DebugText.text = "Permission: " + NativeGallery.CheckPermission();
                 Texture2D texture = NativeGallery.LoadImageAtPath(paths[i]);
                 if (texture == null)
                 {
-                    Debug.Log("Couldn't load texture from " + paths[i]);
+                    //DebugText.text = "Couldn't load texture from " + paths[i];
                     Error.gameObject.SetActive(true);
                     return;
                 }
@@ -109,12 +113,12 @@ public class BackgroundSpriteController : MonoBehaviour {
         float worldScreenHeight = (float)(Camera.main.orthographicSize * 2.0);
         float worldScreenWidth = (float)(worldScreenHeight / Screen.height * Screen.width);
 
-        if (width > height)
+        if (width < height)
         {
             Vector2 sizeX = new Vector2(worldScreenWidth / width, worldScreenWidth / width);
             transform.localScale = sizeX;
         }
-        else if (height > width)
+        else if (height < width)
         {
             Vector2 sizeY = new Vector2(worldScreenHeight / height, worldScreenHeight / height);
             transform.localScale = sizeY;
@@ -124,7 +128,6 @@ public class BackgroundSpriteController : MonoBehaviour {
         float newWidth = width * (worldScreenHeight / height);
         transform.SetPositionAndRotation(new Vector3((newWidth * 0.5f) + screenLeft, 0, 0), Quaternion.identity);
     }
-
 
     /// <summary>
     /// Shuffle the array.
