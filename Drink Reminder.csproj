@@ -310,12 +310,19 @@
   <ItemGroup>
     <Compile Include="Assets\Demigiant\DOTween\Examples\Basics.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Examples\Sequences.cs" />
+    <Compile Include="Assets\Example\SimpleTest\SimpleTest.cs" />
+    <Compile Include="Assets\Scripts\_ddol_controller.cs" />
+    <Compile Include="Assets\Scripts\Actor.cs" />
+    <Compile Include="Assets\Scripts\ActorContainer.cs" />
     <Compile Include="Assets\Scripts\AlteredCandyInfo.cs" />
     <Compile Include="Assets\Scripts\BackgroundSpriteController.cs" />
+    <Compile Include="Assets\Scripts\BroadcastReceiver.cs" />
     <Compile Include="Assets\Scripts\Constants.cs" />
     <Compile Include="Assets\Scripts\DebugUtilities.cs" />
     <Compile Include="Assets\Scripts\Dragger.cs" />
     <Compile Include="Assets\Scripts\Enums.cs" />
+    <Compile Include="Assets\Scripts\GameController.cs" />
+    <Compile Include="Assets\Scripts\GameInformation.cs" />
     <Compile Include="Assets\Scripts\ImageEditor.cs" />
     <Compile Include="Assets\Scripts\MatchesInfo.cs" />
     <Compile Include="Assets\Scripts\MenuChanger.cs" />
@@ -328,6 +335,7 @@
     <Compile Include="Assets\Scripts\ShapesManager.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />
     <Compile Include="Assets\Scripts\SpriteOutline.cs" />
+    <Compile Include="Assets\Scripts\timer_controller.cs" />
     <Compile Include="Assets\Scripts\Utilities.cs" />
     <Compile Include="Assets\Simple UI\Samples\IconPreview.cs" />
   </ItemGroup>
@@ -335,6 +343,7 @@
     <None Include="Assets\Demigiant\DOTween\DOTween.XML" />
     <None Include="Assets\Demigiant\DOTween\Editor\DOTweenEditor.XML" />
     <None Include="Assets\Demigiant\DOTween\readme.txt" />
+    <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
     <None Include="Assets\Plugins\NativeGallery\README.txt" />
     <None Include="Assets\Resources\level.txt" />
     <None Include="Assets\Shaders\Sprites-Outline.shader" />

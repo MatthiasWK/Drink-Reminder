@@ -13,7 +13,6 @@ public class MenuChanger : MonoBehaviour {
     private void Start()
     {
         LoadMenu();
-        Constants.TimeLeft = Constants.ReminderTime;
     }
 
     public void LoadGame()

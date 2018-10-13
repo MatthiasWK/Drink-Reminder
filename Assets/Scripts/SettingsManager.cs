@@ -7,14 +7,10 @@ public class SettingsManager : MonoBehaviour {
     //public Image TestImage;
     public Text DebugText;
 
-    public Text Countdown;
-
     public Text Size;
     public Text Num;
     public Text Name;
     public Text Back;
-
-    public Canvas DrinkCanvas;
 
     public Button StartButton;
     public Toggle BackgroundToggle;
@@ -28,8 +24,6 @@ public class SettingsManager : MonoBehaviour {
 
     public GameObject Background;
     public string[] BackgroundFolders;
-
-    private bool counting = true;
 
     private void Start()
     {
@@ -47,18 +41,13 @@ public class SettingsManager : MonoBehaviour {
 
     private void Update()
     {
-        if (counting)
+        if (Constants.TriggerStop)
         {
-            if (Constants.TimeLeft > 0)
-            {
-                Constants.TimeLeft -= Time.deltaTime;
-                Countdown.text = Constants.TimeLeft.ToString("00");
-            }
-            else
-            {
-                DrinkCanvas.gameObject.SetActive(true);
-                counting = false;
-            }
+            Constants.TriggerStop = false;
+        }
+        if (Constants.TriggerGo)
+        {
+            Constants.TriggerGo = false;
         }
     }
 
@@ -107,16 +96,6 @@ public class SettingsManager : MonoBehaviour {
                 Sprite mySprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
                 CustomShapes[t].GetComponent<SpriteRenderer>().sprite = mySprite;
             }
-        }
-    }
-
-    public void Drink()
-    {
-        if (isActiveAndEnabled)
-        {
-            DrinkCanvas.gameObject.SetActive(false);
-            counting = true;
-            Constants.TimeLeft = Constants.ReminderTime;
         }
     }
 

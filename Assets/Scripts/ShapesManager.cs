@@ -11,12 +11,10 @@ public class ShapesManager : MonoBehaviour
     public Text DebugText, ScoreText;
     public bool ShowDebugInfo = false;
 
-    public Text Countdown;
     public Text BombText;
 
     public Canvas ShuffleCanvas;
     public Canvas WinCanvas;
-    public Canvas DrinkCanvas;
 
     public SpriteRenderer Background;
     public GameObject Blackout;
@@ -237,19 +235,20 @@ public class ShapesManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(state != GameState.Drinking)
+        if(Constants.TriggerStop)
+        {           
+            lastState = state;
+            state = GameState.Drinking;
+            Constants.TriggerStop = false;
+        }
+
+        if (Constants.TriggerGo)
         {
-            if (Constants.TimeLeft > 0)
-            {
-                Constants.TimeLeft -= Time.deltaTime;
-                Countdown.text = Constants.TimeLeft.ToString("00");
-            }
-            else
-            {
-                lastState = state;
-                state = GameState.Drinking;
-                DrinkCanvas.gameObject.SetActive(true);
-            }
+            state = lastState;
+            StopCheckForPotentialMatches();
+            hasBomb = true;
+            BombText.enabled = true;
+            Constants.TriggerGo = false;
         }
 
         if (ShowDebugInfo)
@@ -308,19 +307,6 @@ public class ShapesManager : MonoBehaviour
                     }
                 }
             }
-        }
-    }
-
-    public void Drink()
-    {
-        if (isActiveAndEnabled)
-        {
-            DrinkCanvas.gameObject.SetActive(false);
-            StopCheckForPotentialMatches();
-            hasBomb = true;
-            BombText.enabled = true;
-            Constants.TimeLeft = Constants.ReminderTime;
-            state = lastState;
         }
     }
 

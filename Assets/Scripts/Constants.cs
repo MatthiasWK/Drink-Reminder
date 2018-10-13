@@ -15,18 +15,18 @@ using System.Text;
 
         public static int Background = 0;
 
-        public static Boolean CustomBackgrounds = false;
-
-        public static Boolean BackgroundsChanged = true;
-
-        public static Boolean CustomShapes = false;
-
-        public static Boolean ShapesChanged = true;
+        public static bool CustomBackgrounds = false;
+                      
+        public static bool BackgroundsChanged = true;
+                      
+        public static bool CustomShapes = false;
+                     
+        public static bool ShapesChanged = true;
 
         public static string BackgroundPath = "Backgrounds";
 
-        public static float ReminderTime = 30.0f;
-        public static float TimeLeft;
+        public static bool TriggerStop = false;
+        public static bool TriggerGo = false;
 
         public static readonly float AnimationDuration =  0.2f;
 

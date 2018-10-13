@@ -304,6 +304,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Plugins\BluetoothDeviceScript.cs" />
+    <Compile Include="Assets\Plugins\BluetoothHardwareInterface.cs" />
     <Compile Include="Assets\Plugins\NativeGallery\Android\NGMediaReceiveCallbackAndroid.cs" />
     <Compile Include="Assets\Plugins\NativeGallery\Android\NGPermissionCallbackAndroid.cs" />
     <Compile Include="Assets\Plugins\NativeGallery\iOS\NGMediaReceiveCallbackiOS.cs" />
@@ -314,6 +316,7 @@
     <None Include="Assets\Demigiant\DOTween\DOTween.XML" />
     <None Include="Assets\Demigiant\DOTween\Editor\DOTweenEditor.XML" />
     <None Include="Assets\Demigiant\DOTween\readme.txt" />
+    <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
     <None Include="Assets\Plugins\NativeGallery\README.txt" />
     <None Include="Assets\Resources\level.txt" />
     <None Include="Assets\Shaders\Sprites-Outline.shader" />
