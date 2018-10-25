@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<ActorCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Actors>
+    <Actor ID="0">
+      <Name>reserved</Name>
+      <Gender>0</Gender>
+      <Score>0</Score>
+    </Actor>
+    <Actor ID="1">
+      <Name>Pierre</Name>
+      <Gender>1</Gender>
+      <Score>0</Score>
+    </Actor>
+    <Actor ID="2">
+      <Name>Matthias</Name>
+      <Gender>1</Gender>
+      <Score>0</Score>
+    </Actor>
+    <Actor ID="3">
+      <Name>test</Name>
+      <Gender>1</Gender>
+      <Score>0</Score>
+    </Actor>
+    <Actor ID="4">
+      <Name>bla</Name>
+      <Gender>2</Gender>
+      <Score>0</Score>
+    </Actor>
+    <Actor ID="5">
+      <Name>new</Name>
+      <Gender>1</Gender>
+      <Score>0</Score>
+    </Actor>
+  </Actors>
+</ActorCollection>

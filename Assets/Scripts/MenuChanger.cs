@@ -8,6 +8,7 @@ public class MenuChanger : MonoBehaviour {
 
     public Canvas Game;
     public Canvas Menu;
+    public Canvas ImageSettings;
     public GameObject Background;
 
     private void Start()
@@ -27,6 +28,13 @@ public class MenuChanger : MonoBehaviour {
         Game.gameObject.SetActive(false);
         Background.SetActive(false);
         Menu.gameObject.SetActive(true);
+        ImageSettings.gameObject.SetActive(false);
+    }
+
+    public void LoadImageSettings()
+    {
+        Menu.gameObject.SetActive(false);
+        ImageSettings.gameObject.SetActive(true);
     }
 
     public void Load(string name)

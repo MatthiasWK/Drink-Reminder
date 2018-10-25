@@ -6,15 +6,26 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/ddol_scene.unity
-    guid: aa2f90e3fed6d7646b4d2a36a588172d
-  - enabled: 0
-    path: Assets/Scenes/mainGame.unity
-    guid: bfdc8879bc0cfd245867e8790941daff
-  - enabled: 0
-    path: Assets/Scenes/Customization.unity
-    guid: deab628a26819a1408e66d9b86225486
-  - enabled: 1
     path: Assets/Example/SimpleTest/SimpleTest.unity
     guid: 6e3647fc1792249fe9fe455e081ea501
-  m_configObjects: {}
+  - enabled: 1
+    path: Assets/Scenes/ddol_scene.unity
+    guid: aa2f90e3fed6d7646b4d2a36a588172d
+  - enabled: 1
+    path: Assets/Scenes/Main Menue/Menue.unity
+    guid: c193f0708342f2e48afbbc480ed10a67
+  - enabled: 1
+    path: Assets/Scenes/Create Profile/CreateProfile_EnterGender.unity
+    guid: 8c0ff5e2fdc20984ea997bb35f820e11
+  - enabled: 1
+    path: Assets/Scenes/Create Profile/CreateProfile_EnterName.unity
+    guid: d8a61f3e8dae2bf498b941b591024424
+  - enabled: 1
+    path: Assets/Scenes/Load Profile/LoadProfile.unity
+    guid: eb826bc08f317eb498b22dbd508d0148
+  - enabled: 1
+    path: Assets/Scenes/Match 3/mainGame.unity
+    guid: bfdc8879bc0cfd245867e8790941daff
+  - enabled: 1
+    path: Assets/Scenes/Match 3/Customization.unity
+    guid: deab628a26819a1408e66d9b86225486

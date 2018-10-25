@@ -11,4 +11,24 @@ public class SceneChanger : MonoBehaviour {
         SceneManager.LoadScene(name);
 
     }
+
+    public static void LoadInScript(string name)
+    {
+
+        SceneManager.LoadScene(name);
+
+    }
+
+    public void LogOut()
+    {
+        GameController.login = false;
+        SimpleTest.previousWeight = 0.0f;
+        SimpleTest.updateUser = true;
+    }
+
+    public void ExitGame()
+    {
+        LogOut();
+        SceneManager.LoadScene("Menue");
+    }
 }

@@ -16,8 +16,12 @@ public class ImageEditor : MonoBehaviour {
 
     public Text DebugText;
 
+    private string ID;
+
     private void Start()
     {
+        ID = GameController.tmp_Name;
+
         LoadPrevious();
         ResizeSourceSprite();
 
@@ -46,23 +50,24 @@ public class ImageEditor : MonoBehaviour {
         for(int s = 0; s < TargetSprites.Length; s++)
         {
             var tex = DuplicateTexture(TargetSprites[s].sprite.texture);
-            SaveFile("shape_" + s, tex);
+            SaveFile(ID + "_shape_" + s, tex);
         }
 
         Constants.ShapesChanged = true;
     }
 
     /// <summary>
-    /// Loads al previously saved sprites into the game
+    /// Loads all previously saved sprites into the game
     /// </summary>
     public void LoadPrevious()
     {
         for (int t = 0; t < TargetSprites.Length; t++)
         {
-            Texture2D texture = NativeGallery.LoadImageAtPath(Application.persistentDataPath + "/" + "shape_" + t + ".png");
+            Texture2D texture = NativeGallery.LoadImageAtPath(Application.persistentDataPath + "/" + ID + "_shape_" + t + ".png");
             if (texture == null)
             {
-                print("Couldn't load texture from " + Application.persistentDataPath + "/" + "shape_" + t + ".png");
+                print("Couldn't load texture from " + Application.persistentDataPath + "/" + ID + "_shape_" + t + ".png");
+                TargetSprites[t].sprite = Resources.Load<Sprite>("DefaultShapes/shape_" + t);
             }
             else
             {
@@ -75,7 +80,6 @@ public class ImageEditor : MonoBehaviour {
 
     /// <summary>
     /// Cuts an image out of the source image in the shape of the current selection image, pastes it to the current target image
-    /// and then saves the cutout
     /// </summary>
     public void CustomCutout()
     {
