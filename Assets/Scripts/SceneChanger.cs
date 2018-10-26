@@ -21,6 +21,7 @@ public class SceneChanger : MonoBehaviour {
 
     public void LogOut()
     {
+        Constants.BackgroundsChanged = true;
         GameController.login = false;
         SimpleTest.previousWeight = 0.0f;
         SimpleTest.updateUser = true;

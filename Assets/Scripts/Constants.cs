@@ -6,6 +6,8 @@ using System.Text;
 
     public static class Constants
     {
+        public static int GameSize = 0;
+
         public static int Rows = 6;
         public static int Columns = 6;
 

@@ -3264,6 +3264,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DebugText: {fileID: 1108485328}
   ImageScript: {fileID: 1270583774}
+  Toggle_s: {fileID: 1282110293}
+  Toggle_m: {fileID: 1155649123}
+  Toggle_l: {fileID: 1275125166}
 --- !u!4 &524734197
 Transform:
   m_ObjectHideFlags: 0
@@ -5500,12 +5503,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 524734196}
-        m_MethodName: SetMedium
-        m_Mode: 1
+        m_MethodName: SetSize
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -6574,12 +6577,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 524734196}
-        m_MethodName: SetLarge
-        m_Mode: 1
+        m_MethodName: SetSize
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -6734,8 +6737,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 524734196}
-        m_MethodName: SetSmall
-        m_Mode: 1
+        m_MethodName: SetSize
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

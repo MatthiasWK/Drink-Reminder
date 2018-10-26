@@ -108,10 +108,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 913, y: 271}
-  m_MaxSize: {x: 22008, y: 10021}
+  m_MinSize: {x: 917, y: 271}
+  m_MaxSize: {x: 22012, y: 10021}
   vertical: 0
-  controlID: 85
+  controlID: 9
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -130,8 +130,8 @@ MonoBehaviour:
     y: 0
     width: 1168
     height: 947
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 11}
   m_Panes:
   - {fileID: 11}
@@ -156,8 +156,8 @@ MonoBehaviour:
     y: 0
     width: 237
     height: 947
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 204, y: 221}
+  m_MaxSize: {x: 4004, y: 4021}
   m_ActualView: {fileID: 12}
   m_Panes:
   - {fileID: 12}
@@ -249,10 +249,10 @@ MonoBehaviour:
   m_ZoomArea:
     m_HRangeLocked: 0
     m_VRangeLocked: 0
-    m_HBaseRangeMin: -583
-    m_HBaseRangeMax: 583
-    m_VBaseRangeMin: -454.5
-    m_VBaseRangeMax: 454.5
+    m_HBaseRangeMin: -640
+    m_HBaseRangeMax: 640
+    m_VBaseRangeMin: -400
+    m_VBaseRangeMax: 400
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -397,9 +397,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 502a0000
-    m_LastClickedID: 0
-    m_ExpandedIDs: f80efaff0028faff2233faffda39faffe43afafff23bfafff63bfaff043cfaff143cfaff223cfaff343cfaff463cfaff824efaff8654faff746ffaff8070faff9271faff9a71faffac71faffc071faffd271faffe871fafffe71faff96a3faff9aa3faffa8a3faffb8a3faffc6a3faffd8a3faffeaa3faff3eabfbffa01efcff082bfcff4c40fcff224afcff1eddfeff84defeffcc9dffff9ca8ffff86fbffff000000001e3100008e310000ae330000f238000064850000ec8a0000048b0000948b0000ba8b0000c48b0000d08b0000068d0000208d00007e8d0000a88d0000608e000034c9000084cc0000ecd00000f2f5000004f80000
+    m_SelectedIDs: 205c0000
+    m_LastClickedID: 23584
+    m_ExpandedIDs: 96bfffff98fbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -467,14 +467,13 @@ MonoBehaviour:
   m_LastFolders:
   - Assets/Scenes
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\super\OneDrive\Schichtplan November-Dezember2011.xlsx\Dokumente\Uni\Unity\Drink
-    Reminder
+  m_LastProjectPath: C:\Users\super\Documents\GitHub\Drink-Reminder
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: f4280000
-    m_LastClickedID: 10484
-    m_ExpandedIDs: 0000000046280000f42800005c29000070290000462b0000862b0000b82b0000cc2c0000a02d000000ca9a3bffffff7f
+    m_SelectedIDs: e6280000
+    m_LastClickedID: 10470
+    m_ExpandedIDs: 0000000038280000e62800004c29000060290000362b0000762b0000a82b0000bc2c0000902d000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -502,7 +501,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000046280000f42800005c29000070290000462b0000862b0000b82b0000cc2c0000a02d0000
+    m_ExpandedIDs: 0000000038280000e62800004c29000060290000362b0000762b0000a82b0000bc2c0000902d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -529,7 +528,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: b02900003a27000002270000742d00000a2e00007e2d0000642f0000d8350000782c00004c2c00005c2c0000602b0000742e0000782d0000cc2a0000983100008a260000ce290000f23700009e300000d2290000803600005e360000442d000036310000462b0000c62e0000843a0000bc29000000000000da290000b6500000c82c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
