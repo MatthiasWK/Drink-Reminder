@@ -10,13 +10,13 @@ public class GameSettingsManager : MonoBehaviour
     public Toggle Toggle_s;
     public Toggle Toggle_m;
     public Toggle Toggle_l;
-    string ID;
+    string ID = null;
 
     private void Start()
     {
         InitializePrefs();
 
-        ImageScript.SetShapeTheme();
+        ImageScript.ChangeShapeTheme(Constants.ShapeTheme);
     }
 
     private void Update()
@@ -33,12 +33,11 @@ public class GameSettingsManager : MonoBehaviour
 
     private void OnEnable()
     {
-        ID = GameController.tmp_Name;
+        if(ID == null)
+            ID = GameController.tmp_Name;
         
         if (Constants.ShapesChanged)
-        {
             ImageScript.LoadCustomShapes(ID);
-        }
     }
 
     /// <summary>
@@ -55,7 +54,9 @@ public class GameSettingsManager : MonoBehaviour
             SetSize(Constants.GameSize);
             SetToggle(Constants.GameSize);
             Constants.ShapeTheme = PlayerPrefs.GetInt(ID + "_ShapeTheme", 0);
+            ImageScript.SetShapeTheme(Constants.ShapeTheme);
             Constants.Background = PlayerPrefs.GetInt(ID + "_Background", 0);
+            ImageScript.SetBackground(Constants.Background);
             Constants.BackgroundPath = PlayerPrefs.GetString(ID + "_BackgroundPath", "Backgrounds");
             Constants.CustomBackgrounds = Convert.ToBoolean(PlayerPrefs.GetInt(ID + "_CustomBackgrounds", 0));
             Constants.CustomShapes = Convert.ToBoolean(PlayerPrefs.GetInt(ID + "_CustomShapes", 0));

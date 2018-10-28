@@ -9,7 +9,7 @@ public class MenuChanger : MonoBehaviour {
     public Canvas Game;
     public Canvas Menu;
     public Canvas ImageSettings;
-    public GameObject Background;
+    public Canvas CustomizationCanvas;
 
     private void Start()
     {
@@ -19,24 +19,29 @@ public class MenuChanger : MonoBehaviour {
     public void LoadGame()
     {
         Game.gameObject.SetActive(true);
-        Background.SetActive(true);
         Menu.gameObject.SetActive(false);
     }
 
     public void LoadMenu()
     {
         Game.gameObject.SetActive(false);
-        Background.SetActive(false);
         Menu.gameObject.SetActive(true);
         ImageSettings.gameObject.SetActive(false);
+        CustomizationCanvas.gameObject.SetActive(false);
     }
 
     public void LoadImageSettings()
     {
         Menu.gameObject.SetActive(false);
         ImageSettings.gameObject.SetActive(true);
+        CustomizationCanvas.gameObject.SetActive(false);
     }
 
+    public void LoadCustomization()
+    {
+        ImageSettings.gameObject.SetActive(false);
+        CustomizationCanvas.gameObject.SetActive(true);
+    }
     public void Load(string name)
     {
         

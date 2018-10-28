@@ -6,33 +6,27 @@ public class ImageSettingsManager : MonoBehaviour {
 
     //public Image TestImage;
     public Text DebugText;
-    
-    public Text Name;
-    public Text Back;
 
     public Button StartButton;
-    public Toggle BackgroundToggle;
-    public Toggle ShapeToggle;
 
     public GameObject[] Shapes;
     public GameObject[] CustomShapes;
     public GameObject ShapesContainer;
     public GameObject CustomShapesContainer;
     //public GameObject[] BonusPrefabs;
+    public Dropdown ShapesDropdown;
 
     public GameObject Background;
     public string[] BackgroundFolders;
+    public Dropdown BGDropdown;
     
-     string ID;
+     string ID = null;
 
     private void Start()
     {
-        ID = GameController.tmp_Name;
-        Back.text = Constants.BackgroundPath;
-        SetShapeTheme();
+        //ID = GameController.tmp_Name;
+        //ChangeShapeTheme(Constants.ShapeTheme);
 
-        BackgroundToggle.isOn = Constants.CustomBackgrounds;
-        ShapeToggle.isOn = Constants.CustomShapes;
         ToggleCustomShapes(Constants.CustomShapes);
     }
 
@@ -50,13 +44,18 @@ public class ImageSettingsManager : MonoBehaviour {
 
     private void OnEnable()
     {
-        ID = GameController.tmp_Name;
+        if (ID == null)
+            ID = GameController.tmp_Name;
 
         LoadCustomShapes(ID);
 
         CheckPlayable();
     }
 
+    /// <summary>
+    /// Load all previously set custom shapes
+    /// </summary>
+    /// <param name="player"></param>
     public void LoadCustomShapes(string player)
     {
         for (int t = 0; t < CustomShapes.Length; t++)
@@ -76,21 +75,19 @@ public class ImageSettingsManager : MonoBehaviour {
         }
     }
 
-    public void ChangeShapeTheme(int Change)
+    /// <summary>
+    /// Change the set of Shapes used in the game, called when selecting with the dropdown menu
+    /// </summary>
+    /// <param name="i"></param>
+    public void ChangeShapeTheme(int i)
     {
-        Constants.ShapeTheme = (Constants.ShapeTheme + Change) % 3;
-
-        SetShapeTheme();
+        Constants.ShapeTheme = i;
 
         if (GameController.login)
             PlayerPrefs.SetInt(ID + "_ShapeTheme", Constants.ShapeTheme);
-    }
 
-    public void SetShapeTheme()
-    {
-        if (Constants.ShapeTheme == 0)
+        if (i == 0)
         {
-            Name.text = "Faces";
 
             Shapes[0].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_blue");
             Shapes[1].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_green");
@@ -98,9 +95,8 @@ public class ImageSettingsManager : MonoBehaviour {
             Shapes[3].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_red");
             Shapes[4].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_yellow");
         }
-        else if (Constants.ShapeTheme == 1)
+        else if (i == 1)
         {
-            Name.text = "Candy";
 
             Shapes[0].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/bean_blue");
             Shapes[1].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/bean_green");
@@ -108,9 +104,8 @@ public class ImageSettingsManager : MonoBehaviour {
             Shapes[3].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/bean_red");
             Shapes[4].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/bean_yellow");
         }
-        else if (Constants.ShapeTheme == 2)
+        else if (i == 2)
         {
-            Name.text = "Animals";
 
             Shapes[0].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/Dog");
             Shapes[1].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/Frog");
@@ -118,35 +113,50 @@ public class ImageSettingsManager : MonoBehaviour {
             Shapes[3].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/Duck");
             Shapes[4].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/Chicken");
         }
-    }
-
-    public void ChangeBackground(int Change)
-    {
-        Constants.Background = (Constants.Background + Change) % BackgroundFolders.Length;
-
-        Constants.BackgroundPath = BackgroundFolders[Constants.Background];
-
-        Back.text = Constants.BackgroundPath;
-
-        Constants.BackgroundsChanged = true;
-        if (GameController.login)
+        else if(i == 3)
         {
-            PlayerPrefs.SetInt(ID + "_Background", Constants.Background);
-            PlayerPrefs.SetString(ID + "_BackgroundPath", Constants.BackgroundPath);
+            ToggleCustomShapes(true);
+            return;
         }
-            
+
+        if (Constants.CustomShapes)
+            ToggleCustomShapes(false);
     }
 
-    public void ToggleCustomBackgrounds(bool c)
+    /// <summary>
+    /// Switches to the next (c = 1) or last (c = -1) item in the dropdown list
+    /// </summary>
+    /// <param name="c"></param>
+    public void CycleShapeTheme(int c)
     {
-        Constants.CustomBackgrounds = c;
-        Constants.BackgroundsChanged = true;
-        CheckPlayable();
+        c += Constants.ShapeTheme;
+        int i = 0;
 
-        if (GameController.login)
-            PlayerPrefs.SetInt(ID + "_CustomBackgrounds", Convert.ToInt32(Constants.CustomBackgrounds));
+        if (c < 0)
+            i = ShapesDropdown.options.Count - 1;
+        else if (c > ShapesDropdown.options.Count - 1)
+            i = 0;
+        else
+            i = c;
+
+        ChangeShapeTheme(i);
+        SetShapeTheme(i);
+
     }
 
+    /// <summary>
+    /// Sets the value of the dropdown menu, called within a script
+    /// </summary>
+    /// <param name="i"></param>
+    public void SetShapeTheme(int i)
+    {
+        ShapesDropdown.value = i;
+    }
+
+    /// <summary>
+    /// Enables/Disables the shape containers and sets the 'CustomShapes' variable
+    /// </summary>
+    /// <param name="c"></param>
     public void ToggleCustomShapes(bool c)
     {
         Constants.CustomShapes = c;
@@ -166,6 +176,65 @@ public class ImageSettingsManager : MonoBehaviour {
             PlayerPrefs.SetInt(ID + "_CustomShapes", Convert.ToInt32(Constants.CustomShapes));
     }
 
+    /// <summary>
+    /// Change the set of Backgrounds used in the game, called when selecting with the dropdown menu
+    /// </summary>
+    /// <param name="i"></param>
+    public void ChangeBackground(int i)
+    {
+        Constants.Background = i;
+
+        if (i < BackgroundFolders.Length)
+        {
+            Constants.BackgroundPath = BackgroundFolders[Constants.Background];
+            Constants.CustomBackgrounds = false;
+        }
+        else
+        {
+            Constants.CustomBackgrounds = true;           
+        }
+
+        //Back.text = Constants.BackgroundPath;
+        CheckPlayable();
+        Constants.BackgroundsChanged = true;
+
+        if (GameController.login)
+        {
+            PlayerPrefs.SetInt(ID + "_Background", Constants.Background);
+            PlayerPrefs.SetString(ID + "_BackgroundPath", Constants.BackgroundPath);
+            PlayerPrefs.SetInt(ID + "_CustomBackgrounds", Convert.ToInt32(Constants.CustomBackgrounds));
+        }           
+    }
+
+    /// <summary>
+    /// Switches to the next (c = 1) or last (c = -1) item in the dropdown list
+    /// </summary>
+    /// <param name="c"></param>
+    public void CycleBackground(int c)
+    {
+        c += Constants.Background;
+        int i = 0;
+
+        if (c < 0)
+            i = BackgroundFolders.Length;
+        else if (c > BackgroundFolders.Length)
+            i = 0;
+        else
+            i = c;
+
+        ChangeBackground(i);
+        SetBackground(i);
+    }
+
+    /// <summary>
+    /// Sets the value of the dropdown menu, called within a script
+    /// </summary>
+    /// <param name="i"></param>
+    public void SetBackground(int i)
+    {
+        BGDropdown.value = i;
+    }
+
     public  void SetCustomPaths(String[] paths)
     {
         Background.GetComponent<BackgroundSpriteController>().paths = paths;
@@ -183,6 +252,11 @@ public class ImageSettingsManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Launches the mobile devices native gallery so the user can pick 1 or more images.
+    /// The file paths of these images are then saved and later loaded onto the GameBackground gameobject.
+    /// Also sets the Dropdown menu to 'Custom' if successfully picked.
+    /// </summary>
     public void PickImagePaths()
     {
         NativeGallery.Permission permission = NativeGallery.GetImagesFromGallery((paths) =>
@@ -193,6 +267,9 @@ public class ImageSettingsManager : MonoBehaviour {
                 SetCustomPaths(paths);
 
                 PlayerPrefsX.SetStringArray("CustomPaths", paths);
+
+                ChangeBackground(BackgroundFolders.Length);
+                SetBackground(BackgroundFolders.Length);
             }
         }, "Select a PNG image", "image/png");
 

@@ -33,6 +33,15 @@ public class ImageEditor : MonoBehaviour {
         ResizeSourceSprite();
     }
 
+    private void OnEnable()
+    {
+        Cutout.gameObject.SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        Cutout.gameObject.SetActive(false);
+    }
     /// <summary>
     /// Saves a texture as png
     /// </summary>

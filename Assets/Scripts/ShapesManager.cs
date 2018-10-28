@@ -22,6 +22,7 @@ public class ShapesManager : MonoBehaviour
     public ShapesArray shapes;
 
     private int score;
+    public Slider ScoreSlider;
 
     public Vector2 SpriteSize;
     private Vector2 BottomRight;
@@ -56,6 +57,8 @@ public class ShapesManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        ScoreSlider.maxValue = Constants.WinScore;
+
         FieldSize = gameObject.GetComponentInParent<SpriteRenderer>().bounds.size.x;
         BottomRightBase = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
 
@@ -67,6 +70,7 @@ public class ShapesManager : MonoBehaviour
 
     private void OnEnable()
     {
+        Background.gameObject.SetActive(true);
 
         if (Constants.CustomShapes)
         {
@@ -88,6 +92,8 @@ public class ShapesManager : MonoBehaviour
 
     private void OnDisable()
     {
+        Background.gameObject.SetActive(false);
+
         DestroyAllCandy();
         shapes = null;
         StopAllCoroutines();
@@ -641,6 +647,7 @@ public class ShapesManager : MonoBehaviour
     private void ShowScore()
     {
         ScoreText.text = "Score:\n" + score.ToString();
+        ScoreSlider.value = score;
     }
 
     /// <summary>
