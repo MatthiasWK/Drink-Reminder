@@ -81,6 +81,9 @@ public class ShapesManager : MonoBehaviour
             CurrentShapes = CandyPrefabs;
         }
 
+        float s = CurrentShapes[0].GetComponent<SpriteRenderer>().sprite.texture.height * 0.015f;
+        SpriteSize.Set(s, s);
+
         if (FieldSize != 0) // To make sure this is not called on first Enable
         {
             InitializeTypesOnPrefabShapesAndBonuses();

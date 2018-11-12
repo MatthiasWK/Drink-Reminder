@@ -260,6 +260,7 @@
     <Compile Include="Assets\Scripts\Constants.cs" />
     <Compile Include="Assets\Scripts\DebugUtilities.cs" />
     <Compile Include="Assets\Scripts\Dragger.cs" />
+    <Compile Include="Assets\Scripts\DrinkMeter.cs" />
     <Compile Include="Assets\Scripts\Enums.cs" />
     <Compile Include="Assets\Scripts\GameSettingsManager.cs" />
     <Compile Include="Assets\Scripts\ImageEditor.cs" />
