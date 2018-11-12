@@ -86,16 +86,16 @@ public class ImageSettingsManager : MonoBehaviour {
         if (GameController.login)
             PlayerPrefs.SetInt(ID + "_ShapeTheme", Constants.ShapeTheme);
 
-        //if (i == 0)
-        //{
+        if (i == 0)
+        {
 
-        //    Shapes[0].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_blue");
-        //    Shapes[1].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_green");
-        //    Shapes[2].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_orange");
-        //    Shapes[3].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_red");
-        //    Shapes[4].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_yellow");
-        //}
-        /*else */if (i == 0)
+            Shapes[0].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_blue");
+            Shapes[1].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_green");
+            Shapes[2].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_orange");
+            Shapes[3].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_red");
+            Shapes[4].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/fam_yellow");
+        }
+        else if (i == 1)
         {
 
             Shapes[0].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/bean_blue");
@@ -103,12 +103,8 @@ public class ImageSettingsManager : MonoBehaviour {
             Shapes[2].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/bean_orange");
             Shapes[3].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/bean_red");
             Shapes[4].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/bean_yellow");
-
-            var s = Shapes[0].GetComponent<SpriteRenderer>().sprite.texture.height;
-            foreach(GameObject go in Shapes)
-                go.transform.localScale = new Vector2(4000f / s, 4000f / s);
         }
-        else if (i == 1)
+        else if (i == 2)
         {
 
             Shapes[0].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/Dog");
@@ -116,12 +112,8 @@ public class ImageSettingsManager : MonoBehaviour {
             Shapes[2].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/Pig");
             Shapes[3].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/Duck");
             Shapes[4].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/Chicken");
-
-            var s = Shapes[0].GetComponent<SpriteRenderer>().sprite.texture.height;
-            foreach (GameObject go in Shapes)
-                go.transform.localScale = new Vector2(4000f / s, 4000f / s);
         }
-        else if(i == 2)
+        else if(i == 3)
         {
             ToggleCustomShapes(true);
             return;
