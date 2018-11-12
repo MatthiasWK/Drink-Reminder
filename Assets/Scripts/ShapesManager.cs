@@ -42,6 +42,8 @@ public class ShapesManager : MonoBehaviour
     public GameObject[] ExplosionPrefabs;
     public GameObject[] BonusPrefabs;
 
+    public GameObject Bomb;
+
     private IEnumerator CheckPotentialMatchesCoroutine;
     private IEnumerator AnimatePotentialMatchesCoroutine;
 
@@ -80,6 +82,9 @@ public class ShapesManager : MonoBehaviour
         {
             CurrentShapes = CandyPrefabs;
         }
+
+        float s = CurrentShapes[0].GetComponent<SpriteRenderer>().sprite.texture.height * 0.015f;
+        SpriteSize.Set(s, s);
 
         if (FieldSize != 0) // To make sure this is not called on first Enable
         {
@@ -414,13 +419,22 @@ public class ShapesManager : MonoBehaviour
 
             int maxDistance = Mathf.Max(collapsedCandyInfo.MaxDistance, newCandyInfo.MaxDistance);
 
-            MoveAndAnimate(newCandyInfo.AlteredCandy, maxDistance);
+            //wait a bit after explosions
+            yield return new WaitForSeconds(0.1f);
+
             MoveAndAnimate(collapsedCandyInfo.AlteredCandy, maxDistance);
+            //MoveAndAnimate(newCandyInfo.AlteredCandy, maxDistance);
+            
+            foreach(GameObject item in newCandyInfo.AlteredCandy)
+            {
+                MoveAndAnimateSingle(item, maxDistance);
+                yield return new WaitForSeconds(0.05f);
+            }
 
 
 
             //will wait for both of the above animations
-            yield return new WaitForSeconds(Constants.MoveAnimationMinDuration * maxDistance);
+            yield return new WaitForSeconds(Constants.MoveAnimationMinDuration/* * maxDistance*/);
 
             //search if there are matches with the new/collapsed items
             totalMatches = shapes.GetMatches(collapsedCandyInfo.AlteredCandy).
@@ -446,6 +460,10 @@ public class ShapesManager : MonoBehaviour
         IEnumerable<GameObject> totalMatches;
         if (bomb)
         {
+            var startPos = Bomb.transform.position;
+            ThrowBomb(hitGo.transform.position);
+            yield return new WaitForSeconds(Constants.MoveAnimationMinDuration);
+            ResetBomb(startPos);
             totalMatches = shapes.GetBombMatches(hitGo);
         }
         else
@@ -481,13 +499,22 @@ public class ShapesManager : MonoBehaviour
 
             int maxDistance = Mathf.Max(collapsedCandyInfo.MaxDistance, newCandyInfo.MaxDistance);
 
-            MoveAndAnimate(newCandyInfo.AlteredCandy, maxDistance);
+            //wait a bit after explosions
+            yield return new WaitForSeconds(0.1f);
+
             MoveAndAnimate(collapsedCandyInfo.AlteredCandy, maxDistance);
+            //MoveAndAnimate(newCandyInfo.AlteredCandy, maxDistance);
+
+            foreach (GameObject item in newCandyInfo.AlteredCandy)
+            {
+                MoveAndAnimateSingle(item, maxDistance);
+                yield return new WaitForSeconds(0.05f);
+            }
 
 
 
             //will wait for both of the above animations
-            yield return new WaitForSeconds(Constants.MoveAnimationMinDuration * maxDistance);
+            yield return new WaitForSeconds(Constants.MoveAnimationMinDuration/* * maxDistance*/);
 
             //search if there are matches with the new/collapsed items
             totalMatches = shapes.GetMatches(collapsedCandyInfo.AlteredCandy).
@@ -588,10 +615,20 @@ public class ShapesManager : MonoBehaviour
         foreach (var item in movedGameObjects)
         {
             item.transform.DOMove(BottomRight +
-                new Vector2(item.GetComponent<Shape>().Column * CandySize.x, item.GetComponent<Shape>().Row * CandySize.y), Constants.MoveAnimationMinDuration * distance);
+                new Vector2(item.GetComponent<Shape>().Column * CandySize.x, item.GetComponent<Shape>().Row * CandySize.y), Constants.MoveAnimationMinDuration /** distance*/);
             //item.transform.positionTo(Constants.MoveAnimationMinDuration * distance, BottomRight +
             //    new Vector2(item.GetComponent<Shape>().Column * CandySize.x, item.GetComponent<Shape>().Row * CandySize.y));
         }
+    }
+
+    /// <summary>
+    /// Animates gameobjects to their new position
+    /// </summary>
+    /// <param name="movedGameObjects"></param>
+    private void MoveAndAnimateSingle(GameObject movedGameObject, int distance)
+    {
+        movedGameObject.transform.DOMove(BottomRight +
+                new Vector2(movedGameObject.GetComponent<Shape>().Column * CandySize.x, movedGameObject.GetComponent<Shape>().Row * CandySize.y), Constants.MoveAnimationMinDuration /** distance*/);
     }
 
     /// <summary>
@@ -794,6 +831,19 @@ public class ShapesManager : MonoBehaviour
     public float MapValue(float a, float a0, float a1, float b0, float b1)
     {
         return b0 + (b1 - b0) * ((a - a0) / (a1 - a0));
+    }
+
+    private void ThrowBomb(Vector3 endPos)
+    {
+        Bomb.SetActive(true);
+        Vector3 startPos = Bomb.transform.position;
+        Bomb.transform.DOMove(endPos, Constants.MoveAnimationMinDuration);
+    }
+
+    private void ResetBomb(Vector3 startPos)
+    {
+        Bomb.transform.position = startPos;
+        Bomb.SetActive(false);
     }
 
 }
