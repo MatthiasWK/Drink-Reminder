@@ -231,7 +231,7 @@ MonoBehaviour:
   notification: {fileID: 2082255953}
   canvas: {fileID: 1392099873}
   textMessage: {fileID: 1617463991}
-  baseTime: 10
+  baseTime: 100
   remainder: 0
   running: 0
   cancelQueue: 0

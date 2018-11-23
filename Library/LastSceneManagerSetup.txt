@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/ddol_scene.unity
+- path: Assets/Scenes/Main Menue/Menue.unity
   isLoaded: 1
   isActive: 1

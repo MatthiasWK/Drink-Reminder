@@ -7,6 +7,7 @@ public class Dragger : MonoBehaviour {
     private bool isDragging = false;
     private Vector3 offset;
     public GameObject image;
+    public ImageEditor EditorScript;
 
     void Update ()
     {
@@ -18,6 +19,7 @@ public class Dragger : MonoBehaviour {
             {
                 transform.position = inputPosition + offset;
                 CheckBounds();
+                EditorScript.CustomCutout();
             }
             else
             {

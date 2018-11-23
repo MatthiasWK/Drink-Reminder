@@ -31,5 +31,20 @@
       <Gender>1</Gender>
       <Score>0</Score>
     </Actor>
+    <Actor ID="6">
+      <Name>Blubb</Name>
+      <Gender>1</Gender>
+      <Score>0</Score>
+    </Actor>
+    <Actor ID="7">
+      <Name>Name</Name>
+      <Gender>1</Gender>
+      <Score>0</Score>
+    </Actor>
+    <Actor ID="8">
+      <Name>lol</Name>
+      <Gender>2</Gender>
+      <Score>0</Score>
+    </Actor>
   </Actors>
 </ActorCollection>

@@ -109,17 +109,17 @@ public class GameController : MonoBehaviour
 				profil.name = tmp.name;
                 test.transform.parent = my_canvas.transform;
                 test.image.rectTransform.localScale = new Vector3(1 , 1 , 1);
-                test.image.rectTransform.sizeDelta = new Vector2(100, 50);
+                test.image.rectTransform.sizeDelta = new Vector2(150, 75);
                 if (i > 4)
                 {
-                    test.image.rectTransform.localPosition = new Vector3(-175 + 120, 120 - ((i - 1 - 4) * 60), 0);
+                    test.image.rectTransform.localPosition = new Vector3(-250 + 170, 150 - ((i - 1 - 4) * 85), 0);
                     if (tmp.gender == 1)
                         test.image.color = kindOfBlue;
                     else if (tmp.gender == 2)
                         test.image.color = kindOfRed;
                 }
                 else {
-                    test.image.rectTransform.localPosition = new Vector3(-175, 120 - ((i - 1) * 60), 0);
+                    test.image.rectTransform.localPosition = new Vector3(-250, 150 - ((i - 1) * 85), 0);
                     if (tmp.gender == 1)
                         test.image.color = kindOfBlue;
                     else if (tmp.gender == 2)
