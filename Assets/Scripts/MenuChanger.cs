@@ -10,6 +10,7 @@ public class MenuChanger : MonoBehaviour {
     public Canvas Menu;
     public Canvas ImageSettings;
     public Canvas CustomizationCanvas;
+    public GameObject Background;
 
     private void Start()
     {
@@ -19,12 +20,14 @@ public class MenuChanger : MonoBehaviour {
     public void LoadGame()
     {
         Game.gameObject.SetActive(true);
+        Background.SetActive(true);
         Menu.gameObject.SetActive(false);
     }
 
     public void LoadMenu()
     {
         Game.gameObject.SetActive(false);
+        Background.SetActive(false);
         Menu.gameObject.SetActive(true);
         ImageSettings.gameObject.SetActive(false);
         CustomizationCanvas.gameObject.SetActive(false);

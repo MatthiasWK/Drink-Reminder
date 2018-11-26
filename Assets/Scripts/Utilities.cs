@@ -15,26 +15,58 @@ public static class Utilities
     /// <returns></returns>
     public static IEnumerator AnimatePotentialMatches(IEnumerable<GameObject> potentialMatches)
     {
-        for (float i = 1f; i >= 0.3f; i -= 0.1f)
+        for (float i = 0f; i <= 1f; i += 0.2f)
         {
             foreach (var item in potentialMatches)
             {
-                Color c = item.GetComponent<SpriteRenderer>().color;
-                c.a = i;
-                item.GetComponent<SpriteRenderer>().color = c;
+                if(item != null)
+                {
+                    Transform target = item.transform.GetChild(0);
+                    Color c = target.GetComponent<SpriteRenderer>().color;
+                    c.a = i;
+                    target.GetComponent<SpriteRenderer>().color = c;
+                }
             }
             yield return new WaitForSeconds(Constants.OpacityAnimationFrameDelay);
         }
-        for (float i = 0.3f; i <= 1f; i += 0.1f)
+        yield return new WaitForSeconds(Constants.OpacityAnimationFrameDelay);
+        for (float i = 1f; i > -0.2f; i -= 0.2f)
         {
             foreach (var item in potentialMatches)
             {
-                Color c = item.GetComponent<SpriteRenderer>().color;
-                c.a = i;
-                item.GetComponent<SpriteRenderer>().color = c;
+                if(item != null)
+                {
+
+                    Transform target = item.transform.GetChild(0);
+                    Color c = target.GetComponent<SpriteRenderer>().color;
+                    c.a = i;
+                    target.GetComponent<SpriteRenderer>().color = c;
+                }
             }
             yield return new WaitForSeconds(Constants.OpacityAnimationFrameDelay);
         }
+        //yield return new WaitForSeconds(Constants.OpacityAnimationFrameDelay);
+
+        //for (float i = 1f; i >= 0.3f; i -= 0.1f)
+        //{
+        //    foreach (var item in potentialMatches)
+        //    {
+        //        Color c = item.GetComponent<SpriteRenderer>().color;
+        //        c.a = i;
+        //        item.GetComponent<SpriteRenderer>().color = c;
+        //    }
+        //    yield return new WaitForSeconds(Constants.OpacityAnimationFrameDelay);
+        //}
+        //for (float i = 0.3f; i <= 1f; i += 0.1f)
+        //{
+        //    foreach (var item in potentialMatches)
+        //    {
+        //        Color c = item.GetComponent<SpriteRenderer>().color;
+        //        c.a = i;
+        //        item.GetComponent<SpriteRenderer>().color = c;
+        //    }
+        //    yield return new WaitForSeconds(Constants.OpacityAnimationFrameDelay);
+        //}
     }
 
     /// <summary>

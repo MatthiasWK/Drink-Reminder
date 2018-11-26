@@ -9,6 +9,7 @@ public class timer_controller : MonoBehaviour
 
     public GameObject notification, canvas;
     public GameObject textMessage;
+    public Slider Companion;
     //private string tmpMessage;
     public int baseTime, remainder;
     public bool running, cancelQueue, blocked;
@@ -134,15 +135,17 @@ public class timer_controller : MonoBehaviour
         //yield return new WaitForSeconds(5); //TODO: delete
         //tmpMessage = textMessage.GetComponent<Text>().text;
         //int sum = BroadcastReceiver.estimatedFillStatus + BroadcastReceiver.fillStatusDifference;
+        Companion.value = 1;
         textMessage.GetComponent<Text>().fontSize = 36;
-        textMessage.GetComponent<Text>().text = "Good job!";
+        textMessage.GetComponent<Text>().text = "Vielen Dank!";
         //textMessage.GetComponent<Text>().text = "Das letzte Mal haben sie am \n" + BroadcastReceiver.currentDrunkTime + "getrunken.\n" + 
         //  "Es waren " + sum.ToString() + " ml enthalten.\n Derzeit sind noch " + BroadcastReceiver.estimatedFillStatus.ToString() + " ml in Ihrem Becher. \nSie haben daher ungefähr " 
         //+ BroadcastReceiver.fillStatusDifference + " ml getrunken!";
         //Debug.Log(textMessage.GetComponent<Text>().text);
         yield return new WaitForSeconds(2);
+        Companion.value = 0;
         textMessage.GetComponent<Text>().fontSize = 36;
-        textMessage.GetComponent<Text>().text = "Please drink something to continue!";
+        textMessage.GetComponent<Text>().text = "Bitte Trinken sie einen Schluck um weiterzuspielen!";
         unTrigger();
     }
 

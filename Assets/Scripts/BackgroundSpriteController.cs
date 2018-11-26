@@ -13,6 +13,7 @@ public class BackgroundSpriteController : MonoBehaviour {
     public string[] paths;
 
     public Canvas Error;
+    public RectTransform GameCanvas;
 
     private Sprite[] Backgrounds;
 
@@ -42,7 +43,7 @@ public class BackgroundSpriteController : MonoBehaviour {
             for (int i = 0; i < paths.Length; i++)
             {
                 // Create Texture from selected image
-                DebugText.text = "Permission: " + NativeGallery.CheckPermission();
+                //DebugText.text = "Permission: " + NativeGallery.CheckPermission();
                 Texture2D texture = NativeGallery.LoadImageAtPath(paths[i]);
                 if (texture == null)
                 {
@@ -113,20 +114,27 @@ public class BackgroundSpriteController : MonoBehaviour {
         float worldScreenHeight = (float)(Camera.main.orthographicSize * 2.0);
         float worldScreenWidth = (float)(worldScreenHeight / Screen.height * Screen.width);
 
-        if (width < height)
+        //float worldScreenWidth= GameCanvas.rect.width * GameCanvas.localScale.x;
+        //float worldScreenHeight = GameCanvas.rect.height * GameCanvas.localScale.y;
+
+        if (height > width)
         {
-            Vector2 sizeX = new Vector2(worldScreenWidth / width, worldScreenWidth / width);
+            Vector2 sizeX = new Vector2(worldScreenHeight / height, worldScreenHeight / height);
             transform.localScale = sizeX;
+
+            transform.SetPositionAndRotation(GameCanvas.position, Quaternion.identity);
         }
-        else if (height < width)
+        else if (width > height)
         {
-            Vector2 sizeY = new Vector2(worldScreenHeight / height, worldScreenHeight / height);
+            Vector2 sizeY = new Vector2(worldScreenWidth / width, worldScreenWidth / width);
             transform.localScale = sizeY;
+
+            // move to left side of screen
+            float screenLeft = worldScreenWidth * -0.5f;
+            float newWidth = width * (worldScreenWidth / width);
+            transform.SetPositionAndRotation(new Vector3((newWidth * 0.5f) + screenLeft, 0, 0), Quaternion.identity);
         }
-        // move to left side of screen
-        float screenLeft = worldScreenWidth * -0.5f;
-        float newWidth = width * (worldScreenHeight / height);
-        transform.SetPositionAndRotation(new Vector3((newWidth * 0.5f) + screenLeft, 0, 0), Quaternion.identity);
+        int i = 0;
     }
 
     /// <summary>

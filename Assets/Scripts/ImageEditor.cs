@@ -9,6 +9,8 @@ public class ImageEditor : MonoBehaviour {
     public SpriteRenderer SourceImage;
     public SpriteRenderer SourceBackground;
     public SpriteRenderer Cutout;
+    public SpriteRenderer CutoutOutline;
+    public SpriteMask CutoutMask;
     public SpriteRenderer[] TargetSprites;
     public string[] CutoutSprites;
     public Color[] Colors;
@@ -134,7 +136,9 @@ public class ImageEditor : MonoBehaviour {
     {
         i = s;
         Cutout.sprite = Resources.Load<Sprite>(CutoutSprites[i]);
-        Cutout.GetComponent<SpriteOutline>().color = Colors[i];
+        CutoutOutline.sprite = Cutout.sprite;
+        CutoutMask.sprite = Cutout.sprite;
+        //Cutout.GetComponent<SpriteOutline>().color = Colors[i];
     }
 
     /// <summary>

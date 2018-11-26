@@ -11,7 +11,7 @@ public class ShapesManager : MonoBehaviour
     public Text DebugText, ScoreText;
     public bool ShowDebugInfo = false;
 
-    public Text BombText;
+    public CompanionController Companion;
 
     public Canvas ShuffleCanvas;
     public Canvas WinCanvas;
@@ -32,7 +32,6 @@ public class ShapesManager : MonoBehaviour
     private float FieldSize;
 
     private GameState state = GameState.None;
-    private GameState lastState;
     private bool hasBomb = false;
     private GameObject hitGo = null;
     private Vector2[] SpawnPositions;
@@ -72,7 +71,7 @@ public class ShapesManager : MonoBehaviour
 
     private void OnEnable()
     {
-        Background.gameObject.SetActive(true);
+        //Background.gameObject.SetActive(true);
 
         if (Constants.CustomShapes)
         {
@@ -97,7 +96,7 @@ public class ShapesManager : MonoBehaviour
 
     private void OnDisable()
     {
-        Background.gameObject.SetActive(false);
+        //Background.gameObject.SetActive(false);
 
         DestroyAllCandy();
         shapes = null;
@@ -246,19 +245,22 @@ public class ShapesManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        DebugText.text = "State: " + state;
+
         if(Constants.TriggerStop)
         {           
-            lastState = state;
             state = GameState.Drinking;
             Constants.TriggerStop = false;
         }
 
         if (Constants.TriggerGo)
         {
-            state = lastState;
+            state = GameState.None;
             StopCheckForPotentialMatches();
             hasBomb = true;
-            BombText.enabled = true;
+            Bomb.SetActive(true);
+            Companion.ToggleSpeech(true);
+            Companion.SayBomb();
             Constants.TriggerGo = false;
         }
 
@@ -283,7 +285,6 @@ public class ShapesManager : MonoBehaviour
                     {
                         StartCoroutine(FindMatchesAndCollapse(true));
                         hasBomb = false;
-                        BombText.enabled = false;
                     }
                 }
                 
@@ -378,10 +379,11 @@ public class ShapesManager : MonoBehaviour
             !BonusTypeUtilities.ContainsDestroyWholeRowColumn(hitGo2matchesInfo.BonusesContained);
 
         Shape hitGoCache = null;
+        GameObject sameTypeGo = null;
         if (addBonus)
         {
             //get the game object that was of the same type
-            var sameTypeGo = hitGomatchesInfo.MatchedCandy.Count() > 0 ? hitGo : hitGo2;
+            sameTypeGo = hitGomatchesInfo.MatchedCandy.Count() > 0 ? hitGo : hitGo2;
             hitGoCache = sameTypeGo.GetComponent<Shape>();
         }
 
@@ -404,7 +406,7 @@ public class ShapesManager : MonoBehaviour
 
             //check and instantiate Bonus if needed
             if (addBonus)
-                CreateBonus(hitGoCache);
+                CreateBonus(sameTypeGo);
 
             addBonus = false;
 
@@ -554,14 +556,31 @@ public class ShapesManager : MonoBehaviour
     /// Creates a new Bonus based on the shape parameter
     /// </summary>
     /// <param name="hitGoCache"></param>
-    private void CreateBonus(Shape hitGoCache)
+    //private void CreateBonus(Shape hitGoCache)
+    //{
+    //    GameObject Bonus = Instantiate(GetBonusFromType(hitGoCache.Type), BottomRight
+    //        + new Vector2(hitGoCache.Column * CandySize.x,
+    //            hitGoCache.Row * CandySize.y), Quaternion.identity)
+    //        as GameObject;
+    //    Bonus.transform.localScale *= Scale;
+    //    Bonus.GetComponent<BoxCollider2D>().size = SpriteSize;
+
+    //    shapes[hitGoCache.Row, hitGoCache.Column] = Bonus;
+    //    var BonusShape = Bonus.GetComponent<Shape>();
+    //    //will have the same type as the "normal" candy
+    //    BonusShape.Assign(hitGoCache.Type, hitGoCache.Row, hitGoCache.Column);
+    //    //add the proper Bonus type
+    //    BonusShape.Bonus |= BonusType.DestroyWholeRowColumn;
+    //}
+
+    private void CreateBonus(GameObject hitGo)
     {
-        GameObject Bonus = Instantiate(GetBonusFromType(hitGoCache.Type), BottomRight
+        var hitGoCache = hitGo.GetComponent<Shape>();
+
+        GameObject Bonus = Instantiate(hitGo, BottomRight
             + new Vector2(hitGoCache.Column * CandySize.x,
                 hitGoCache.Row * CandySize.y), Quaternion.identity)
             as GameObject;
-        Bonus.transform.localScale *= Scale;
-        Bonus.GetComponent<BoxCollider2D>().size = SpriteSize;
 
         shapes[hitGoCache.Row, hitGoCache.Column] = Bonus;
         var BonusShape = Bonus.GetComponent<Shape>();
@@ -569,9 +588,12 @@ public class ShapesManager : MonoBehaviour
         BonusShape.Assign(hitGoCache.Type, hitGoCache.Row, hitGoCache.Column);
         //add the proper Bonus type
         BonusShape.Bonus |= BonusType.DestroyWholeRowColumn;
+
+        Bonus.GetComponent<BoxCollider2D>().enabled = true;
+        var glow = Bonus.transform.GetChild(1);
+        glow.gameObject.SetActive(true);
+        glow.GetComponent<GlowAnimator>().enabled = true;
     }
-
-
 
 
     /// <summary>
@@ -745,9 +767,13 @@ public class ShapesManager : MonoBehaviour
             {
                 if (item == null) break;
 
-                Color c = item.GetComponent<SpriteRenderer>().color;
-                c.a = 1.0f;
-                item.GetComponent<SpriteRenderer>().color = c;
+                Transform target = item.transform.GetChild(0);
+                Color c = target.GetComponent<SpriteRenderer>().color;
+                c.a = 0f;
+                target.GetComponent<SpriteRenderer>().color = c;
+                //Color c = item.GetComponent<SpriteRenderer>().color;
+                //c.a = 1.0f;
+                //item.GetComponent<SpriteRenderer>().color = c;
             }
     }
 
@@ -835,7 +861,6 @@ public class ShapesManager : MonoBehaviour
 
     private void ThrowBomb(Vector3 endPos)
     {
-        Bomb.SetActive(true);
         Vector3 startPos = Bomb.transform.position;
         Bomb.transform.DOMove(endPos, Constants.MoveAnimationMinDuration);
     }
@@ -844,6 +869,7 @@ public class ShapesManager : MonoBehaviour
     {
         Bomb.transform.position = startPos;
         Bomb.SetActive(false);
+        Companion.ToggleSpeech(false);
     }
 
 }

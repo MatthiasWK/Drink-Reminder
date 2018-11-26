@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Main Menue/Menue.unity
+- path: Assets/Scenes/Match 3/mainGame.unity
   isLoaded: 1
   isActive: 1
