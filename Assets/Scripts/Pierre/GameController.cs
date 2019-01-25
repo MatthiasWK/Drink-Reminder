@@ -195,7 +195,7 @@ public class GameController : MonoBehaviour
             if (!CheckTaken(actorInformation.getName()))
             {
                 tmp_Name = actorInformation.getName();
-                SceneChanger.LoadInScript("CreateProfile_EnterGender");
+                SceneManager.LoadScene("CreateProfile_EnterGender");
             }
             else
             {

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class GameSettingsManager : MonoBehaviour
 {
     
-    public Text DebugText;
+    //public Text DebugText;
     public ImageSettingsManager ImageScript;
     public Toggle Toggle_s;
     public Toggle Toggle_m;

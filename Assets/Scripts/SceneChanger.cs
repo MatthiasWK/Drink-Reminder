@@ -19,7 +19,7 @@ public class SceneChanger : MonoBehaviour {
 
     }
 
-    public void LogOut()
+    public static void LogOut()
     {
         Constants.BackgroundsChanged = true;
         GameController.login = false;
@@ -32,4 +32,21 @@ public class SceneChanger : MonoBehaviour {
         LogOut();
         SceneManager.LoadScene("Menue");
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().name == "Menue")
+        {
+            Application.Quit();
+        }
+        else if(Input.GetKeyDown(KeyCode.Escape) && (SceneManager.GetActiveScene().name == "CreateProfile_EnterName" || SceneManager.GetActiveScene().name == "LoadProfile"))
+        {
+            SceneManager.LoadScene("Menue");
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().name == "CreateProfile_EnterGender")
+        {
+            SceneManager.LoadScene("CreateProfile_EnterName");
+        }
+    }
+
 }

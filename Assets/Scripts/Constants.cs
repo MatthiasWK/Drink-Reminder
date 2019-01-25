@@ -44,10 +44,10 @@ using System.Text;
 
         public static readonly int Match3Score = 60;
         public static readonly int SubsequentMatchScore = 1000;
-        public static readonly int WinScore = 5000;
+        public static readonly int WinScore = 8000;
 
-        public static float MinColor = 0.25f;
-        public static float MaxColor = 0.75f;
+        public static float MinColor = 0.10f;
+        public static float MaxColor = 0.50f;
 
     }
 

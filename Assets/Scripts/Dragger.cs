@@ -11,6 +11,7 @@ public class Dragger : MonoBehaviour {
 
     void Update ()
     {
+        // User can move the shape by touching and then dragging it. 'CustomCutout()' is called every frame that the object is dragged, so the image is updated automatically.
         if (Input.GetMouseButton(0))
         {
             var inputPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);

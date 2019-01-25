@@ -11,12 +11,13 @@ public class ImageEditor : MonoBehaviour {
     public SpriteRenderer Cutout;
     public SpriteRenderer CutoutOutline;
     public SpriteMask CutoutMask;
+    public Button SaveButton;
+    public Text PickText;
     public SpriteRenderer[] TargetSprites;
     public string[] CutoutSprites;
-    public Color[] Colors;
     private int i = 0;
 
-    public Text DebugText;
+    //public Text DebugText;
 
     private string ID;
 
@@ -25,25 +26,48 @@ public class ImageEditor : MonoBehaviour {
         ID = GameController.tmp_Name;
 
         LoadPrevious();
-        ResizeSourceSprite();
 
-        var readableText = DuplicateTexture(SourceImage.sprite.texture);
+        if (SourceImage.sprite != null)
+        {
+            var readableText = DuplicateTexture(SourceImage.sprite.texture);
 
-        Sprite mySprite = Sprite.Create(readableText, new Rect(0.0f, 0.0f, readableText.width, readableText.height), new Vector2(0f, 0f), 100.0f);
+            Sprite mySprite = Sprite.Create(readableText, new Rect(0.0f, 0.0f, readableText.width, readableText.height), new Vector2(0f, 0f), 100.0f);
 
-        SourceImage.sprite = mySprite;
-        ResizeSourceSprite();
+            SourceImage.sprite = mySprite;
+
+            ResizeSourceSprite();
+        }
     }
 
     private void OnEnable()
     {
-        Cutout.gameObject.SetActive(true);
+        CheckEmpty();
     }
 
     private void OnDisable()
     {
         Cutout.gameObject.SetActive(false);
     }
+
+    /// <summary>
+    /// if no image is selected yet, deactivate cutout and save button
+    /// </summary>
+    public void CheckEmpty()
+    {
+        if (SourceImage.sprite == null)
+        {
+            Cutout.gameObject.SetActive(false);
+            SaveButton.interactable = false;
+            PickText.enabled = true;
+        }
+        else
+        {
+            Cutout.gameObject.SetActive(true);
+            SaveButton.interactable = true;
+            PickText.enabled = false;
+        }
+    }
+
     /// <summary>
     /// Saves a texture as png
     /// </summary>
@@ -56,6 +80,10 @@ public class ImageEditor : MonoBehaviour {
 
         File.WriteAllBytes(Application.persistentDataPath + "/" + fileName + ".png", bytes);
     }
+
+    /// <summary>
+    /// Saves all textures
+    /// </summary>
      public void SaveAll()
     {
         for(int s = 0; s < TargetSprites.Length; s++)
@@ -98,7 +126,13 @@ public class ImageEditor : MonoBehaviour {
         int w = Cutout.sprite.texture.width;
         int h = Cutout.sprite.texture.height;
 
+        // Create new texture with same dimensions as selection shape
         Texture2D b = new Texture2D(w, h);
+
+        // Goes through each pixel of the selection shape. If pixel is clear, a clear pixel is put into the same location in new texture. 
+        // If pixel is not clear, the position of that pixel is transformed into world coordinates which are then transformed into local coordinates for the source image behind the selection sprite, 
+        // and finally into texture coordinates (UVs) for the texture of the source image.
+        // The pixel color at these texture coordinates is then pasted on to the new texture.
         for (int x = 0; x < w; x++)
         {
             for (int y = 0; y < h; y++)
@@ -138,7 +172,6 @@ public class ImageEditor : MonoBehaviour {
         Cutout.sprite = Resources.Load<Sprite>(CutoutSprites[i]);
         CutoutOutline.sprite = Cutout.sprite;
         CutoutMask.sprite = Cutout.sprite;
-        //Cutout.GetComponent<SpriteOutline>().color = Colors[i];
     }
 
     /// <summary>
@@ -192,15 +225,13 @@ public class ImageEditor : MonoBehaviour {
         readableText.Apply();
         RenderTexture.active = previous;
         RenderTexture.ReleaseTemporary(renderTex);
+
         return readableText;
     }
 
     /// <summary>
     /// Resizes a the source sprite to fit within the view square
     /// </summary>
-    /// <param name="theSprite"></param>
-    /// <param name="theCamera"></param>
-    /// <param name="fitToScreenWidthHeight"></param>
     private void ResizeSourceSprite()
     {
 

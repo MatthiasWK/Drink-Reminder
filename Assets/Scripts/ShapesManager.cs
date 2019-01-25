@@ -41,6 +41,8 @@ public class ShapesManager : MonoBehaviour
     public GameObject[] ExplosionPrefabs;
     public GameObject[] BonusPrefabs;
 
+    private System.Random rnd = new System.Random();
+
     public GameObject Bomb;
 
     private IEnumerator CheckPotentialMatchesCoroutine;
@@ -259,8 +261,8 @@ public class ShapesManager : MonoBehaviour
             StopCheckForPotentialMatches();
             hasBomb = true;
             Bomb.SetActive(true);
-            Companion.ToggleSpeech(true);
-            Companion.SayBomb();
+            //Companion.ToggleSpeech(true);
+            Companion.StartSay("Wirf die Wasserbombe!", 5);
             Constants.TriggerGo = false;
         }
 
@@ -396,7 +398,7 @@ public class ShapesManager : MonoBehaviour
             if (timesRun >= 2)
                 IncreaseScore(Constants.SubsequentMatchScore);
 
-            soundManager.PlayCrincle();
+            //soundManager.PlayCrincle();
 
             foreach (var item in totalMatches)
             {
@@ -482,7 +484,7 @@ public class ShapesManager : MonoBehaviour
             if (timesRun >= 2)
                 IncreaseScore(Constants.SubsequentMatchScore);
 
-            soundManager.PlayCrincle();
+            //soundManager.PlayCrincle();
 
             foreach (var item in totalMatches)
             {
@@ -677,6 +679,9 @@ public class ShapesManager : MonoBehaviour
 
     private void InitializeVariables()
     {
+
+        Shuffle();
+
         score = 0;
         ShowScore();
 
@@ -698,6 +703,9 @@ public class ShapesManager : MonoBehaviour
     {
         score += amount;
         ShowScore();
+
+        if (amount > Constants.Match3Score)
+            Companion.SayGreat();
 
         float color = MapValue(score, 0, Constants.WinScore, Constants.MinColor, Constants.MaxColor);
         Background.color = new Vector4(color, color, color, 1);
@@ -869,7 +877,26 @@ public class ShapesManager : MonoBehaviour
     {
         Bomb.transform.position = startPos;
         Bomb.SetActive(false);
-        Companion.ToggleSpeech(false);
+        //Companion.ToggleSpeech(false);
     }
 
+    /// <summary>
+    /// Shuffle the array.
+    /// </summary>
+    /// <typeparam name="T">Array element type.</typeparam>
+    /// <param name="array">Array to shuffle.</param>
+    private void Shuffle()
+    {
+        int n = CurrentShapes.Length;
+        for (int i = 0; i < n; i++)
+        {
+            // Use Next on random instance with an argument.
+            // ... The argument is an exclusive bound.
+            //     So we will not go past the end of the array.
+            int r = i + rnd.Next(n - i);
+            var t = CurrentShapes[r];
+            CurrentShapes[r] = CurrentShapes[i];
+            CurrentShapes[i] = t;
+        }
+    }
 }
