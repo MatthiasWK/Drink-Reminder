@@ -113,7 +113,7 @@ public class timer_controller : MonoBehaviour
 
             if (remainder > 0)
             {
-                Debug.Log("remaining: " + remainder);
+                //Debug.Log("remaining: " + remainder);
                 Invoke("timeStep", 1f);
             }
             else

@@ -290,7 +290,7 @@ public class ImageSettingsManager : MonoBehaviour {
             {
                 SetCustomPaths(paths);
 
-                PlayerPrefsX.SetStringArray("CustomPaths", paths);
+                PlayerPrefsX.SetStringArray(ID + "_CustomPaths", paths);
 
                 ChangeBackground(BackgroundFolders.Length);
                 SetBackground(BackgroundFolders.Length);

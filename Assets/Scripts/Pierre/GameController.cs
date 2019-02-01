@@ -36,23 +36,35 @@ public class GameController : MonoBehaviour
     void Start()
     {
         firstLogin = false;
-		if(Application.loadedLevel == 18)
-		{
-		}
-		else{
-        if (path == null)
-            System.IO.File.Create(path);
-
-        UpdateSize();
-        if (size == 0)
+        if (Application.loadedLevel == 18)
         {
-            Actor tmp = new Actor();
-            tmp.id = 000;
-            tmp.name = "reserved";
-            tmp.gender = 0;
-            all_actors[0] = tmp;
         }
-		}
+        else
+        {
+            if (!System.IO.File.Exists(path))
+            {
+                System.IO.File.Create(path).Dispose();
+
+                Actor tmp = new Actor();
+                tmp.id = 000;
+                tmp.name = "reserved";
+                tmp.gender = 0;
+
+                ActorContainer actorCollection = new ActorContainer();
+                actorCollection.actors.Add(tmp);
+                actorCollection.Save(path);
+            }
+
+            UpdateSize();
+            if (size == 0)
+            {
+                Actor tmp = new Actor();
+                tmp.id = 000;
+                tmp.name = "reserved";
+                tmp.gender = 0;
+                all_actors[0] = tmp;
+            }
+        }
     }
 
     public void SaveMyData()
