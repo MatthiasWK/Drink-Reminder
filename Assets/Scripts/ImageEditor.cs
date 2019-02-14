@@ -27,6 +27,8 @@ public class ImageEditor : MonoBehaviour {
 
         LoadPrevious();
 
+        // Used for testing in editor
+        // Since PickImage() doesn't work in the editor one has to manually set the SourceImage sprite before launching the scene and the following code makes sure, that that sprite is useable
         if (SourceImage.sprite != null)
         {
             var readableText = DuplicateTexture(SourceImage.sprite.texture);
@@ -145,10 +147,10 @@ public class ImageEditor : MonoBehaviour {
                 }
                 else
                 {
-                    Vector3 cW = Cutout.transform.position + (new Vector3(x, y) / Cutout.sprite.pixelsPerUnit * Cutout.transform.localScale.x);
-                    var LocalPos = cW - SourceImage.transform.position;
-                    var uvX = LocalPos.x / SourceImage.bounds.size.x * SourceImage.sprite.texture.width;
-                    var uvY = LocalPos.y / SourceImage.bounds.size.y * SourceImage.sprite.texture.height;
+                    Vector3 worldPos = Cutout.transform.position + (new Vector3(x, y) / Cutout.sprite.pixelsPerUnit * Cutout.transform.localScale.x);
+                    Vector3 localPos = worldPos - SourceImage.transform.position;
+                    float uvX = localPos.x / SourceImage.bounds.size.x * SourceImage.sprite.texture.width;
+                    float uvY = localPos.y / SourceImage.bounds.size.y * SourceImage.sprite.texture.height;
 
                     Color c2 = SourceImage.sprite.texture.GetPixel(Mathf.RoundToInt(uvX), Mathf.RoundToInt(uvY));
                     b.SetPixel(x, y, c2);
@@ -250,7 +252,7 @@ public class ImageEditor : MonoBehaviour {
 
             SourceImage.transform.localPosition = new Vector3(-0.5f, height * -0.5f * sizeX.y);
         }
-        else if (height > width)
+        else 
         {
             Vector2 sizeY = new Vector2(backgroundHeight / height, backgroundHeight / height);
             SourceImage.transform.localScale = sizeY;
