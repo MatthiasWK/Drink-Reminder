@@ -51,13 +51,13 @@ public class MenuChanger : MonoBehaviour {
         Background.SetActive(true);
         Menu.gameObject.SetActive(false);
 
-        int t = PlayerPrefs.GetInt(ID + "_GameTutorial", 0);
+        //int t = PlayerPrefs.GetInt(ID + "_GameTutorial", 0);
 
-        if (t == 0)
-        {
-            Tutorial.GameTuorial();
-            PlayerPrefs.SetInt(ID + "_GameTutorial", 1);
-        }
+        //if (t == 0)
+        //{
+        //    Tutorial.GameTuorial();
+        //    PlayerPrefs.SetInt(ID + "_GameTutorial", 1);
+        //}
 
         Companion.StartSayGame();
     }
@@ -70,13 +70,13 @@ public class MenuChanger : MonoBehaviour {
         ImageSettings.gameObject.SetActive(false);
         CustomizationCanvas.gameObject.SetActive(false);
 
-        int t = PlayerPrefs.GetInt(ID + "_GameMenuTutorial", 0);
+        //int t = PlayerPrefs.GetInt(ID + "_GameMenuTutorial", 0);
 
-        if(t == 0)
-        {
-            Tutorial.GameMenuTuorial();
-            PlayerPrefs.SetInt(ID + "_GameMenuTutorial", 1);
-        }
+        //if(t == 0)
+        //{
+        //    Tutorial.GameMenuTuorial();
+        //    PlayerPrefs.SetInt(ID + "_GameMenuTutorial", 1);
+        //}
 
         Companion.StartSayGameMenu();
     }
@@ -87,13 +87,13 @@ public class MenuChanger : MonoBehaviour {
         ImageSettings.gameObject.SetActive(true);
         CustomizationCanvas.gameObject.SetActive(false);
 
-        int t = PlayerPrefs.GetInt(ID + "_SettingsTutorial", 0);
+        //int t = PlayerPrefs.GetInt(ID + "_SettingsTutorial", 0);
 
-        if (t == 0)
-        {
-            Tutorial.SettingsTuorial();
-            PlayerPrefs.SetInt(ID + "_SettingsTutorial", 1);
-        }
+        //if (t == 0)
+        //{
+        //    Tutorial.SettingsTuorial();
+        //    PlayerPrefs.SetInt(ID + "_SettingsTutorial", 1);
+        //}
 
         Companion.StartSaySettings();
     }
@@ -103,13 +103,13 @@ public class MenuChanger : MonoBehaviour {
         ImageSettings.gameObject.SetActive(false);
         CustomizationCanvas.gameObject.SetActive(true);
 
-        int t = PlayerPrefs.GetInt(ID + "_CustomTutorial", 0);
+        //int t = PlayerPrefs.GetInt(ID + "_CustomTutorial", 0);
 
-        if (t == 0)
-        {
-            Tutorial.CustomTuorial();
-            PlayerPrefs.SetInt(ID + "_CustomTutorial", 1);
-        }
+        //if (t == 0)
+        //{
+        //    Tutorial.CustomTuorial();
+        //    PlayerPrefs.SetInt(ID + "_CustomTutorial", 1);
+        //}
 
         Companion.StartSayCustomization();
     }

@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Cropping.unity
+- path: Assets/Scenes/ddol_scene.unity
   isLoaded: 1
   isActive: 1

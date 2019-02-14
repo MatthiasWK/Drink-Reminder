@@ -16,7 +16,7 @@ public class TutorialController : MonoBehaviour {
         if(first == 0)
         {
             LoadButton.interactable = false;
-            FirstTimeTuorial();
+            //FirstTimeTuorial();
             PlayerPrefs.SetInt("FirstTime", 1);
         }
     }

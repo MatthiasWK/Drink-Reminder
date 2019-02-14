@@ -8,12 +8,12 @@
     </Actor>
     <Actor ID="1">
       <Name>Test</Name>
-      <Gender>1</Gender>
+      <Gender>0</Gender>
       <Score>0</Score>
     </Actor>
     <Actor ID="2">
       <Name>Testb</Name>
-      <Gender>2</Gender>
+      <Gender>0</Gender>
       <Score>0</Score>
     </Actor>
   </Actors>

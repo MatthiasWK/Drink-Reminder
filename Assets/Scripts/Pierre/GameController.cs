@@ -69,7 +69,8 @@ public class GameController : MonoBehaviour
 
     public void SaveMyData()
     {
-        tmp_weight = float.Parse(weight_text.GetComponent<Text>().text);
+        if (weight_text != null)
+            tmp_weight = float.Parse(weight_text.GetComponent<Text>().text);
 
         //increase size +1 entry
         size = size +1;
@@ -207,7 +208,8 @@ public class GameController : MonoBehaviour
             if (!CheckTaken(actorInformation.getName()))
             {
                 tmp_Name = actorInformation.getName();
-                SceneManager.LoadScene("CreateProfile_EnterGender");
+                // Load "Enter Gender" Scene, disabled because weight and gender not currently used
+                //SceneManager.LoadScene("CreateProfile_EnterGender");
             }
             else
             {
