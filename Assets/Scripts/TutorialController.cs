@@ -52,7 +52,7 @@ public class TutorialController : MonoBehaviour {
 
     public void GameMenuTuorial()
     {
-        string[] arr = { "Test_A" };
+        string[] arr = { "game_menu_1", "game_menu_2", "game_menu_3", "game_menu_4"};
 
         LoadTutorial(arr);
     }
@@ -66,14 +66,14 @@ public class TutorialController : MonoBehaviour {
 
     public void SettingsTuorial()
     {
-        string[] arr = { "Test_A" };
+        string[] arr = { "settings_1", "settings_2", "settings_3", "settings_4", "settings_5", "settings_6"};
 
         LoadTutorial(arr);
     }
 
     public void CustomTuorial()
     {
-        string[] arr = { "Test_A" };
+        string[] arr = { "custom_1", "custom_2", "custom_3", "custom_4", "custom_5", "custom_6", "custom_7", "custom_8"};
 
         LoadTutorial(arr);
     }
@@ -85,9 +85,23 @@ public class TutorialController : MonoBehaviour {
         LoadTutorial(arr);
     }
 
+    public void LoadTuorial()
+    {
+        string[] arr = { "load_1" };
+
+        LoadTutorial(arr);
+    }
+
+    public void CreateTuorial()
+    {
+        string[] arr = { "create_1", "create_2" };
+
+        LoadTutorial(arr);
+    }
+
     public void FirstTimeTuorial()
     {
-        string[] arr = { "Test_A" };
+        string[] arr = { "menu_1", "menu_2", "menu_3", "menu_4", "menu_5" };
 
         LoadTutorial(arr);
     }

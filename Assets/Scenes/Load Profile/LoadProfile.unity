@@ -498,6 +498,16 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: NextSlide
       objectReference: {fileID: 0}
+    - target: {fileID: 114855198474885102, guid: 26de830736dc6964e842068f86b0f20a,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 759383905}
+    - target: {fileID: 114855198474885102, guid: 26de830736dc6964e842068f86b0f20a,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: NextSlide
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 26de830736dc6964e842068f86b0f20a, type: 2}
   m_IsPrefabParent: 0
@@ -700,7 +710,7 @@ Prefab:
     - target: {fileID: 114563098287643680, guid: 9294efd6a5860ae4abd78b95b2b8ae0a,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: TestTuorial
+      value: LoadTuorial
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9294efd6a5860ae4abd78b95b2b8ae0a, type: 2}
