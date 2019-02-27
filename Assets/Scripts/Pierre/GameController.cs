@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
     public Button profil;
     public Canvas my_canvas;
     public GameObject weight_text;
+    public InputField name_text;
     public static bool userCreated = false;
     private static string path = string.Empty;
     Color kindOfBlue = new Color(114/255F, 192/255F, 255/255F, 0.6F);
@@ -203,13 +204,27 @@ public class GameController : MonoBehaviour
 
     public void saveName()
     {
+        string nameInput = name_text.text;
+
         if (SceneManager.GetActiveScene().name == "CreateProfile_EnterName")
         {
-            if (!CheckTaken(actorInformation.getName()))
+            // If input is empty set default name
+            if(nameInput == "")
             {
-                tmp_Name = actorInformation.getName();
+                tmp_Name = "Spieler " + (size+1);
+
+                SaveMyData();
+                SceneManager.LoadScene("mainGame");
+            }
+            // Check whether input name is already taken
+            else if (!CheckTaken(nameInput))
+            {
+                tmp_Name = nameInput;
                 // Load "Enter Gender" Scene, disabled because weight and gender not currently used
                 //SceneManager.LoadScene("CreateProfile_EnterGender");
+                // instead, save profile and start game
+                SaveMyData();
+                SceneManager.LoadScene("mainGame");
             }
             else
             {
@@ -218,10 +233,8 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            tmp_Name = actorInformation.getName();
+            tmp_Name = nameInput;
         }
-
-
     }
 
     private bool CheckTaken(string new_Name)
