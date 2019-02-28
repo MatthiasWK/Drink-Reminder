@@ -59,7 +59,7 @@ public class TutorialController : MonoBehaviour {
 
     public void GameTuorial()
     {
-        string[] arr = { "Test_A" };
+        string[] arr = { "game_0", "game_1", "game_2", "game_3", "game_4", "game_5", "game_6", "game_7", "game_8", "game_9", "game_10", "game_11", "game_12", "game_13", "game_14", "game_15", "game_16", "game_17", "game_18" };
 
         LoadTutorial(arr);
     }
@@ -74,13 +74,6 @@ public class TutorialController : MonoBehaviour {
     public void CustomTuorial()
     {
         string[] arr = { "custom_1", "custom_2", "custom_3", "custom_4", "custom_5", "custom_6", "custom_7", "custom_8"};
-
-        LoadTutorial(arr);
-    }
-
-    public void TestTuorial()
-    {
-        string[] arr = { "Test_A" };
 
         LoadTutorial(arr);
     }
