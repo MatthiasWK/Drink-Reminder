@@ -63,6 +63,26 @@ public class Shape : MonoBehaviour
         a.Column = b.Column;
         b.Column = temp;
     }
+
+    public bool Damage()
+    {
+        bool destroyed = false;
+        if (Type == "undamaged")
+        {
+            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/block_yellow");
+            Type = "damaged";
+        }
+        else if (Type == "damaged")
+        {
+            GetComponent<SpriteRenderer>().enabled = false;
+            Type = "destroyed";
+        }
+        else if (Type == "destroyed")
+        {
+            destroyed = true;
+        }
+        return destroyed;
+    }
 }
 
 

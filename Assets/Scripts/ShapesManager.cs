@@ -20,9 +20,15 @@ public class ShapesManager : MonoBehaviour
     public GameObject Blackout;
 
     public ShapesArray shapes;
+    public ShapesArray blocks;
+
+    public GameObject BlockPrefab;
 
     private int score;
     public Slider ScoreSlider;
+
+    private int counter;
+    private int winNumber;
 
     public Vector2 SpriteSize;
     private Vector2 BottomRight;
@@ -165,6 +171,9 @@ public class ShapesManager : MonoBehaviour
         shapes = new ShapesArray();
         SpawnPositions = new Vector2[Constants.Columns];
 
+        if(Constants.GameMode == 1)
+            blocks = new ShapesArray();
+
         for (int row = 0; row < Constants.Rows; row++)
         {
             for (int column = 0; column < Constants.Columns; column++)
@@ -189,7 +198,8 @@ public class ShapesManager : MonoBehaviour
                 }
 
                 InstantiateAndPlaceNewCandy(row, column, newCandy);
-
+                if (Constants.GameMode == 1)
+                    InstantiateAndPlaceNewBlock(row, column);
             }
         }
 
@@ -216,6 +226,20 @@ public class ShapesManager : MonoBehaviour
         shapes[row, column] = go;
     }
 
+    private void InstantiateAndPlaceNewBlock(int row, int column)
+    {
+        GameObject go = Instantiate(BlockPrefab,
+            BottomRight + new Vector2(column * CandySize.x, row * CandySize.y), Quaternion.identity)
+            as GameObject;
+
+        go.transform.localScale = new Vector3(Scale*1.5f, Scale*1.5f);
+
+        //assign the specific properties
+        go.GetComponent<Shape>().Assign("undamaged", row, column);
+
+        blocks[row, column] = go;
+    }
+
     private void SetupSpawnPositions()
     {
         //create the spawn positions for the new shapes (will pop from the 'ceiling')
@@ -230,7 +254,7 @@ public class ShapesManager : MonoBehaviour
 
 
     /// <summary>
-    /// Destroy all candy gameobjects
+    /// Destroy all shape gameobjects
     /// </summary>
     private void DestroyAllCandy()
     {
@@ -239,6 +263,8 @@ public class ShapesManager : MonoBehaviour
             for (int column = 0; column < Constants.Columns; column++)
             {
                 Destroy(shapes[row, column]);
+                if (Constants.GameMode == 1)
+                    Destroy(blocks[row, column]);
             }
         }
     }
@@ -533,10 +559,22 @@ public class ShapesManager : MonoBehaviour
 
     }
 
+    private void DamageBlock(GameObject destroyed)
+    {
+        var s = destroyed.GetComponent<Shape>();
+        int row = s.Row;
+        int column = s.Column;
+
+        var block = blocks[row, column];
+        bool d = block.GetComponent<Shape>().Damage();
+
+        if (!d)
+            counter++;
+    }
 
     private void CheckWinCondition()
     {
-        if (score >= Constants.WinScore)
+        if ((Constants.GameMode == 0 && score >= Constants.WinScore) || (Constants.GameMode == 1 && counter >= winNumber))
         {
             DestroyAllCandy();
             state = GameState.Paused;
@@ -666,6 +704,9 @@ public class ShapesManager : MonoBehaviour
         newExplosion.transform.localScale *= Scale;
         Destroy(newExplosion, Constants.ExplosionDuration);
         Destroy(item);
+
+        if (Constants.GameMode == 1)
+            DamageBlock(item);
     }
 
     /// <summary>
@@ -679,17 +720,28 @@ public class ShapesManager : MonoBehaviour
 
     private void InitializeVariables()
     {
-
-        Shuffle();
-
-        score = 0;
-        ShowScore();
+        Shuffle();       
 
         state = GameState.None;
 
         Background.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
-        Background.color = new Vector4(Constants.MinColor, Constants.MinColor, Constants.MinColor, 1);
         Blackout.SetActive(false);
+
+        if (Constants.GameMode == 0)
+        {
+            Background.color = new Vector4(Constants.MinColor, Constants.MinColor, Constants.MinColor, 1);
+            ScoreSlider.gameObject.SetActive(true);
+            score = 0;
+            ShowScore();
+        }
+        else
+        {
+            Background.color = new Vector4(Constants.MaxColor, Constants.MaxColor, Constants.MaxColor, 1);
+            ScoreSlider.gameObject.SetActive(false);
+            counter = 0;
+            winNumber = Constants.Rows * Constants.Columns * 2;
+        }
+            
 
         Scale = FieldSize / (SpriteSize.x * Constants.Rows);
         CandySize = SpriteSize * Scale;
@@ -701,14 +753,17 @@ public class ShapesManager : MonoBehaviour
     /// <param name="amount"></param>
     private void IncreaseScore(int amount)
     {
-        score += amount;
-        ShowScore();
-
         if (amount > Constants.Match3Score)
             Companion.SayGreat();
 
-        float color = MapValue(score, 0, Constants.WinScore, Constants.MinColor, Constants.MaxColor);
-        Background.color = new Vector4(color, color, color, 1);
+        if (Constants.GameMode == 0)
+        {
+            score += amount;
+            ShowScore();
+            float color = MapValue(score, 0, Constants.WinScore, Constants.MinColor, Constants.MaxColor);
+            Background.color = new Vector4(color, color, color, 1);
+        }
+
     }
 
     private void ShowScore()

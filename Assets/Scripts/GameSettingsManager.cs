@@ -10,6 +10,8 @@ public class GameSettingsManager : MonoBehaviour
     public Toggle Toggle_s;
     public Toggle Toggle_m;
     public Toggle Toggle_l;
+    public Text Size_Description;
+    public Text Mode_Description;
     string ID = null;
 
     private void Start()
@@ -92,6 +94,8 @@ public class GameSettingsManager : MonoBehaviour
         Constants.Columns = 4;
         Constants.NumShapes = 3;
 
+        Size_Description.text = "Kleines Spiel\n4 x 4 Reihen\n3 verschiedene Objekte";
+
         SavePrefs();
     }
 
@@ -101,6 +105,8 @@ public class GameSettingsManager : MonoBehaviour
         Constants.Columns = 5;
         Constants.NumShapes = 4;
 
+        Size_Description.text = "Mittelgroßes Spiel\n5 x 5 Reihen\n4 verschiedene Objekte";
+
         SavePrefs();
     }
 
@@ -109,6 +115,8 @@ public class GameSettingsManager : MonoBehaviour
         Constants.Rows = 6;
         Constants.Columns = 6;
         Constants.NumShapes = 5;
+
+        Size_Description.text = "Großes Spiel\n6 x 6 Reihen\n5 verschiedene Objekte";
 
         SavePrefs();
     }
@@ -123,6 +131,16 @@ public class GameSettingsManager : MonoBehaviour
         }
     }
 
+    public void SetGameMode(int m)
+    {
+        Constants.GameMode = m;
+
+        if (m == 0)
+            Mode_Description.text = "Bilde Reihen um Punkte zu bekommen und ein Bild zu enthüllen!";
+        if (m == 1)
+            Mode_Description.text = "Bilde Reihen um Kacheln zu entfernen hinter denen sich ein Bild versteckt!";
+    }
+
     public void SetSize(int s)
     {
         Constants.GameSize = s;
@@ -130,6 +148,13 @@ public class GameSettingsManager : MonoBehaviour
         Constants.Rows = 4 + s;
         Constants.Columns = 4 + s;
         Constants.NumShapes = 3 + s;
+
+        if (s == 0)
+            Size_Description.text = "Kleines Spiel\n4 x 4 Reihen\n3 verschiedene Objekte";
+        if (s == 1)
+            Size_Description.text = "Mittelgroßes Spiel\n5 x 5 Reihen\n4 verschiedene Objekte";
+        if (s == 2)
+            Size_Description.text = "Großes Spiel\n6 x 6 Reihen\n5 verschiedene Objekte";
 
         if (GameController.login)
             PlayerPrefs.SetInt(ID + "_GameSize", s);

@@ -49,6 +49,7 @@ using System.Text;
         public static float MinColor = 0.10f;
         public static float MaxColor = 0.50f;
 
+        public static int GameMode = 0;
     }
 
 
