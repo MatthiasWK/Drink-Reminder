@@ -60,6 +60,8 @@ public class MenuChanger : MonoBehaviour {
         //}
 
         Companion.StartSayGame();
+
+        Constants.IsPlaying = true;
     }
 
     public void LoadMenu()
@@ -79,6 +81,8 @@ public class MenuChanger : MonoBehaviour {
         //}
 
         Companion.StartSayGameMenu();
+
+        Constants.IsPlaying = false;
     }
 
     public void LoadImageSettings()

@@ -26,5 +26,40 @@
       <Gender>0</Gender>
       <Score>0</Score>
     </Actor>
+    <Actor ID="5">
+      <Name>Spieler 5</Name>
+      <Gender>0</Gender>
+      <Score>0</Score>
+    </Actor>
+    <Actor ID="6">
+      <Name>Spieler 6</Name>
+      <Gender>0</Gender>
+      <Score>0</Score>
+    </Actor>
+    <Actor ID="7">
+      <Name>Spieler 7</Name>
+      <Gender>0</Gender>
+      <Score>0</Score>
+    </Actor>
+    <Actor ID="8">
+      <Name>Spieler 8</Name>
+      <Gender>0</Gender>
+      <Score>0</Score>
+    </Actor>
+    <Actor ID="9">
+      <Name>Spieler 9</Name>
+      <Gender>0</Gender>
+      <Score>0</Score>
+    </Actor>
+    <Actor ID="10">
+      <Name>Spieler 10</Name>
+      <Gender>0</Gender>
+      <Score>0</Score>
+    </Actor>
+    <Actor ID="11">
+      <Name>Paul</Name>
+      <Gender>0</Gender>
+      <Score>0</Score>
+    </Actor>
   </Actors>
 </ActorCollection>

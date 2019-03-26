@@ -900,7 +900,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8.3, y: 98.77}
+  m_AnchoredPosition: {x: 9.7, y: 93.4}
   m_SizeDelta: {x: 120.38, y: 86.55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &611493261
@@ -935,7 +935,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: noch ein paar Infos
+  m_Text: Noch ein paar Infos
 --- !u!222 &611493262
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1380,6 +1380,7 @@ MonoBehaviour:
   profil: {fileID: 0}
   my_canvas: {fileID: 0}
   weight_text: {fileID: 1994173147}
+  name_text: {fileID: 0}
 --- !u!4 &835171303
 Transform:
   m_ObjectHideFlags: 0
@@ -2584,8 +2585,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 205, y: 24.100012}
-  m_SizeDelta: {x: 257.8, y: 33.334}
+  m_AnchoredPosition: {x: 208.89, y: 28.96}
+  m_SizeDelta: {x: 265.58, y: 43.05}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1931898986
 MonoBehaviour:

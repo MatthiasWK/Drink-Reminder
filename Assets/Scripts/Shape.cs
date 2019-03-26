@@ -69,7 +69,7 @@ public class Shape : MonoBehaviour
         bool destroyed = false;
         if (Type == "undamaged")
         {
-            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/block_yellow");
+            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Shapes/block_brown_cracked");
             Type = "damaged";
         }
         else if (Type == "damaged")

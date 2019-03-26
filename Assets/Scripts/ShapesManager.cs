@@ -701,7 +701,7 @@ public class ShapesManager : MonoBehaviour
     {
         GameObject explosion = GetRandomExplosion();
         var newExplosion = Instantiate(explosion, item.transform.position, Quaternion.identity) as GameObject;
-        newExplosion.transform.localScale *= Scale;
+        newExplosion.transform.localScale *= Scale * 1.5f;
         Destroy(newExplosion, Constants.ExplosionDuration);
         Destroy(item);
 
@@ -736,7 +736,7 @@ public class ShapesManager : MonoBehaviour
         }
         else
         {
-            Background.color = new Vector4(Constants.MaxColor, Constants.MaxColor, Constants.MaxColor, 1);
+            Background.color = new Vector4(.35f, .35f, Constants.MaxColor, 1);
             ScoreSlider.gameObject.SetActive(false);
             counter = 0;
             winNumber = Constants.Rows * Constants.Columns * 2;

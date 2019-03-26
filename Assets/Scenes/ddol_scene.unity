@@ -314,7 +314,7 @@ MonoBehaviour:
   canvas: {fileID: 1392099873}
   textMessage: {fileID: 1617463991}
   Companion: {fileID: 1781359925}
-  baseTime: 100
+  baseTime: 300
   remainder: 0
   running: 0
   cancelQueue: 0
@@ -766,7 +766,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 4
   m_TargetDisplay: 0
 --- !u!224 &1392099879
 RectTransform:

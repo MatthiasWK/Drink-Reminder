@@ -30,11 +30,11 @@ using System.Text;
         public static bool TriggerStop = false;
         public static bool TriggerGo = false;
 
-        public static readonly float AnimationDuration =  0.25f;
+        public static readonly float AnimationDuration =  0.3f;
 
-        public static readonly float MoveAnimationMinDuration = 0.3f;
+        public static readonly float MoveAnimationMinDuration = 0.6f;
 
-        public static readonly float ExplosionDuration = 0.3f;
+        public static readonly float ExplosionDuration = 0.4f;
 
         public static readonly float WaitBeforePotentialMatchesCheck = 2f;
         public static readonly float OpacityAnimationFrameDelay = 0.05f;
@@ -44,12 +44,14 @@ using System.Text;
 
         public static readonly int Match3Score = 60;
         public static readonly int SubsequentMatchScore = 1000;
-        public static readonly int WinScore = 8000;
+        public static readonly int WinScore = 10000;
 
         public static float MinColor = 0.10f;
         public static float MaxColor = 0.50f;
 
         public static int GameMode = 0;
+
+        public static bool IsPlaying = false;
     }
 
 

@@ -63,11 +63,15 @@ public class GameSettingsManager : MonoBehaviour
             Constants.CustomBackgrounds = Convert.ToBoolean(PlayerPrefs.GetInt(ID + "_CustomBackgrounds", 0));
             Constants.CustomShapes = Convert.ToBoolean(PlayerPrefs.GetInt(ID + "_CustomShapes", 0));
 
+            if (Constants.CustomShapes)
+                ImageScript.SetPreviewSprite("Backgrounds/preview");
+            else
+                ImageScript.SetPreviewSprite(Constants.BackgroundPath + "/preview");
+
             string[] customPaths = PlayerPrefsX.GetStringArray(ID + "_CustomPaths", "", 0);
+
             if (customPaths.Length > 0)
-            {
                 ImageScript.SetCustomPaths(customPaths);
-            }
         }
         else
         {
@@ -150,11 +154,11 @@ public class GameSettingsManager : MonoBehaviour
         Constants.NumShapes = 3 + s;
 
         if (s == 0)
-            Size_Description.text = "Kleines Spiel\n4 x 4 Reihen\n3 verschiedene Objekte";
+            Size_Description.text = "Kleines Spiel\n4 x 4 Felder\n3 verschiedene Objekte";
         if (s == 1)
-            Size_Description.text = "Mittelgroßes Spiel\n5 x 5 Reihen\n4 verschiedene Objekte";
+            Size_Description.text = "Mittelgroßes Spiel\n5 x 5 Felder\n4 verschiedene Objekte";
         if (s == 2)
-            Size_Description.text = "Großes Spiel\n6 x 6 Reihen\n5 verschiedene Objekte";
+            Size_Description.text = "Großes Spiel\n6 x 6 Felder\n5 verschiedene Objekte";
 
         if (GameController.login)
             PlayerPrefs.SetInt(ID + "_GameSize", s);

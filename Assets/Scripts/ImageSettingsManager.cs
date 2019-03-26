@@ -18,7 +18,9 @@ public class ImageSettingsManager : MonoBehaviour {
     public GameObject Background;
     public string[] BackgroundFolders;
     public Dropdown BGDropdown;
-    
+    public SpriteRenderer Preview, PreviewBackground;
+
+
      string ID = null;
 
     private void Start()
@@ -212,10 +214,12 @@ public class ImageSettingsManager : MonoBehaviour {
         {
             Constants.BackgroundPath = BackgroundFolders[Constants.Background];
             Constants.CustomBackgrounds = false;
+            SetPreviewSprite(Constants.BackgroundPath + "/preview");
         }
         else
         {
-            Constants.CustomBackgrounds = true;           
+            Constants.CustomBackgrounds = true;
+            SetPreviewSprite("Backgrounds/preview");
         }
 
         //Back.text = Constants.BackgroundPath;
@@ -273,6 +277,39 @@ public class ImageSettingsManager : MonoBehaviour {
         else
         {
             StartButton.interactable = true;
+        }
+    }
+
+    /// <summary>
+    /// Set the preview sprite and adjust its size to fit within the view square
+    /// </summary>
+    public void SetPreviewSprite(string path)
+    {
+
+        Preview.sprite = Resources.Load<Sprite>(path);
+
+        transform.localScale = new Vector3(1, 1, 1);
+
+        float width = Preview.sprite.bounds.size.x;
+        float height = Preview.sprite.bounds.size.y;
+
+        float backgroundWidth = PreviewBackground.sprite.bounds.size.x;
+        float backgroundHeight = PreviewBackground.sprite.bounds.size.y;
+
+        if (width > height)
+        {
+            Vector2 sizeX = new Vector2(backgroundWidth / width, backgroundWidth / width);
+            Preview.transform.localScale = sizeX;
+
+            Preview.transform.localPosition = new Vector3(0, 0);
+        }
+        else
+        {
+            Vector2 sizeY = new Vector2(backgroundHeight / height, backgroundHeight / height);
+            Preview.transform.localScale = sizeY;
+
+            Preview.transform.localPosition = new Vector3(0, 0);
+
         }
     }
 

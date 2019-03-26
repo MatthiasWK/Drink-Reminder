@@ -111,7 +111,8 @@ public class timer_controller : MonoBehaviour
         {
             remainder--;
 
-            if (remainder > 0)
+            // Trigger if time runs out but only while playing
+            if (remainder > 0 || !Constants.IsPlaying)
             {
                 //Debug.Log("remaining: " + remainder);
                 Invoke("timeStep", 1f);
