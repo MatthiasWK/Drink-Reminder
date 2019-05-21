@@ -45,7 +45,6 @@ public class ShapesManager : MonoBehaviour
     public GameObject[] CustomShapes;
     private GameObject[] CurrentShapes;
     public GameObject[] ExplosionPrefabs;
-    public GameObject[] BonusPrefabs;
 
     private System.Random rnd = new System.Random();
 
@@ -66,7 +65,7 @@ public class ShapesManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        ScoreSlider.maxValue = Constants.WinScore;
+        ScoreSlider.maxValue = Variables.WinScore;
 
         FieldSize = gameObject.GetComponentInParent<SpriteRenderer>().bounds.size.x;
         BottomRightBase = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
@@ -79,9 +78,8 @@ public class ShapesManager : MonoBehaviour
 
     private void OnEnable()
     {
-        //Background.gameObject.SetActive(true);
 
-        if (Constants.CustomShapes)
+        if (Variables.CustomShapes)
         {
             CurrentShapes = CustomShapes;
         }
@@ -104,7 +102,6 @@ public class ShapesManager : MonoBehaviour
 
     private void OnDisable()
     {
-        //Background.gameObject.SetActive(false);
 
         DestroyAllCandy();
         shapes = null;
@@ -121,13 +118,7 @@ public class ShapesManager : MonoBehaviour
             item.GetComponent<Shape>().Type = item.name;
 
         }
-
-        //assign the name of the respective "normal" candy as the type of the Bonus
-        foreach (var item in BonusPrefabs)
-        {
-            item.GetComponent<Shape>().Type = CurrentShapes.
-                Where(x => x.GetComponent<Shape>().Type.Contains(item.name.Split('_')[1].Trim())).Single().name;
-        }
+        
     }
 
     public void InitializeCandyAndSpawnPositionsFromPremadeLevel()
@@ -140,11 +131,11 @@ public class ShapesManager : MonoBehaviour
             DestroyAllCandy();
 
         shapes = new ShapesArray();
-        SpawnPositions = new Vector2[Constants.Columns];
+        SpawnPositions = new Vector2[Variables.Columns];
 
-        for (int row = 0; row < Constants.Rows; row++)
+        for (int row = 0; row < Variables.Rows; row++)
         {
-            for (int column = 0; column < Constants.Columns; column++)
+            for (int column = 0; column < Variables.Columns; column++)
             {
 
                 GameObject newCandy = null;
@@ -169,14 +160,14 @@ public class ShapesManager : MonoBehaviour
         InitializeVariables();
 
         shapes = new ShapesArray();
-        SpawnPositions = new Vector2[Constants.Columns];
+        SpawnPositions = new Vector2[Variables.Columns];
 
-        if(Constants.GameMode == 1)
+        if(Variables.GameMode == 1)
             blocks = new ShapesArray();
 
-        for (int row = 0; row < Constants.Rows; row++)
+        for (int row = 0; row < Variables.Rows; row++)
         {
-            for (int column = 0; column < Constants.Columns; column++)
+            for (int column = 0; column < Variables.Columns; column++)
             {
 
                 GameObject newCandy = GetRandomCandy();
@@ -198,7 +189,7 @@ public class ShapesManager : MonoBehaviour
                 }
 
                 InstantiateAndPlaceNewCandy(row, column, newCandy);
-                if (Constants.GameMode == 1)
+                if (Variables.GameMode == 1)
                     InstantiateAndPlaceNewBlock(row, column);
             }
         }
@@ -243,10 +234,10 @@ public class ShapesManager : MonoBehaviour
     private void SetupSpawnPositions()
     {
         //create the spawn positions for the new shapes (will pop from the 'ceiling')
-        for (int column = 0; column < Constants.Columns; column++)
+        for (int column = 0; column < Variables.Columns; column++)
         {
             SpawnPositions[column] = BottomRight
-                + new Vector2(column * CandySize.x, Constants.Rows * CandySize.y);
+                + new Vector2(column * CandySize.x, Variables.Rows * CandySize.y);
         }
     }
 
@@ -258,12 +249,12 @@ public class ShapesManager : MonoBehaviour
     /// </summary>
     private void DestroyAllCandy()
     {
-        for (int row = 0; row < Constants.Rows; row++)
+        for (int row = 0; row < Variables.Rows; row++)
         {
-            for (int column = 0; column < Constants.Columns; column++)
+            for (int column = 0; column < Variables.Columns; column++)
             {
                 Destroy(shapes[row, column]);
-                if (Constants.GameMode == 1)
+                if (Variables.GameMode == 1)
                     Destroy(blocks[row, column]);
             }
         }
@@ -275,21 +266,20 @@ public class ShapesManager : MonoBehaviour
     {
         DebugText.text = "State: " + state;
 
-        if(Constants.TriggerStop)
+        if(Variables.TriggerStop)
         {           
             state = GameState.Drinking;
-            Constants.TriggerStop = false;
+            Variables.TriggerStop = false;
         }
 
-        if (Constants.TriggerGo)
+        if (Variables.TriggerGo)
         {
             state = GameState.None;
             StopCheckForPotentialMatches();
             hasBomb = true;
             Bomb.SetActive(true);
-            //Companion.ToggleSpeech(true);
             Companion.StartSay("Wirf die Wasserbombe!", 5);
-            Constants.TriggerGo = false;
+            Variables.TriggerGo = false;
         }
 
         if (ShowDebugInfo)
@@ -380,9 +370,9 @@ public class ShapesManager : MonoBehaviour
         shapes.Swap(hitGo, hitGo2);
 
         //move the swapped ones
-        hitGo.transform.DOMove(hitGo2.transform.position, Constants.AnimationDuration);
-        hitGo2.transform.DOMove(hitGo.transform.position, Constants.AnimationDuration);
-        yield return new WaitForSeconds(Constants.AnimationDuration);
+        hitGo.transform.DOMove(hitGo2.transform.position, Variables.AnimationDuration);
+        hitGo2.transform.DOMove(hitGo.transform.position, Variables.AnimationDuration);
+        yield return new WaitForSeconds(Variables.AnimationDuration);
 
         //get the matches via the helper methods
         var hitGomatchesInfo = shapes.GetMatches(hitGo);
@@ -392,17 +382,17 @@ public class ShapesManager : MonoBehaviour
             .Union(hitGo2matchesInfo.MatchedCandy).Distinct();
 
         //if user's swap didn't create at least a 3-match, undo their swap
-        if (totalMatches.Count() < Constants.MinimumMatches)
+        if (totalMatches.Count() < Variables.MinimumMatches)
         {
-            hitGo.transform.DOMove(hitGo2.transform.position, Constants.AnimationDuration);
-            hitGo2.transform.DOMove(hitGo.transform.position, Constants.AnimationDuration);
-            yield return new WaitForSeconds(Constants.AnimationDuration);
+            hitGo.transform.DOMove(hitGo2.transform.position, Variables.AnimationDuration);
+            hitGo2.transform.DOMove(hitGo.transform.position, Variables.AnimationDuration);
+            yield return new WaitForSeconds(Variables.AnimationDuration);
 
             shapes.UndoSwap();
         }
 
         //if more than 3 matches and no Bonus is contained in the line, we will award a new Bonus
-        bool addBonus = totalMatches.Count() >= Constants.MinimumMatchesForBonus &&
+        bool addBonus = totalMatches.Count() >= Variables.MinimumMatchesForBonus &&
             !BonusTypeUtilities.ContainsDestroyWholeRowColumn(hitGomatchesInfo.BonusesContained) &&
             !BonusTypeUtilities.ContainsDestroyWholeRowColumn(hitGo2matchesInfo.BonusesContained);
 
@@ -416,13 +406,13 @@ public class ShapesManager : MonoBehaviour
         }
 
         int timesRun = 1;
-        while (totalMatches.Count() >= Constants.MinimumMatches)
+        while (totalMatches.Count() >= Variables.MinimumMatches)
         {
             //increase score
-            IncreaseScore((totalMatches.Count() - 2) * Constants.Match3Score);
+            IncreaseScore((totalMatches.Count() - 2) * Variables.Match3Score);
 
             if (timesRun >= 2)
-                IncreaseScore(Constants.SubsequentMatchScore);
+                IncreaseScore(Variables.SubsequentMatchScore);
 
             //soundManager.PlayCrincle();
 
@@ -453,7 +443,6 @@ public class ShapesManager : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
 
             MoveAndAnimate(collapsedCandyInfo.AlteredCandy, maxDistance);
-            //MoveAndAnimate(newCandyInfo.AlteredCandy, maxDistance);
             
             foreach(GameObject item in newCandyInfo.AlteredCandy)
             {
@@ -464,7 +453,7 @@ public class ShapesManager : MonoBehaviour
 
 
             //will wait for both of the above animations
-            yield return new WaitForSeconds(Constants.MoveAnimationMinDuration/* * maxDistance*/);
+            yield return new WaitForSeconds(Variables.MoveAnimationMinDuration/* * maxDistance*/);
 
             //search if there are matches with the new/collapsed items
             totalMatches = shapes.GetMatches(collapsedCandyInfo.AlteredCandy).
@@ -492,7 +481,7 @@ public class ShapesManager : MonoBehaviour
         {
             var startPos = Bomb.transform.position;
             ThrowBomb(hitGo.transform.position);
-            yield return new WaitForSeconds(Constants.MoveAnimationMinDuration);
+            yield return new WaitForSeconds(Variables.MoveAnimationMinDuration);
             ResetBomb(startPos);
             totalMatches = shapes.GetBombMatches(hitGo);
         }
@@ -502,13 +491,13 @@ public class ShapesManager : MonoBehaviour
         }   
 
         int timesRun = 1;
-        while (totalMatches.Count() >= Constants.MinimumMatches)
+        while (totalMatches.Count() >= Variables.MinimumMatches)
         {
             //increase score
-            IncreaseScore((totalMatches.Count() - 2) * Constants.Match3Score);
+            IncreaseScore((totalMatches.Count() - 2) * Variables.Match3Score);
 
             if (timesRun >= 2)
-                IncreaseScore(Constants.SubsequentMatchScore);
+                IncreaseScore(Variables.SubsequentMatchScore);
 
             //soundManager.PlayCrincle();
 
@@ -533,7 +522,6 @@ public class ShapesManager : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
 
             MoveAndAnimate(collapsedCandyInfo.AlteredCandy, maxDistance);
-            //MoveAndAnimate(newCandyInfo.AlteredCandy, maxDistance);
 
             foreach (GameObject item in newCandyInfo.AlteredCandy)
             {
@@ -544,7 +532,7 @@ public class ShapesManager : MonoBehaviour
 
 
             //will wait for both of the above animations
-            yield return new WaitForSeconds(Constants.MoveAnimationMinDuration/* * maxDistance*/);
+            yield return new WaitForSeconds(Variables.MoveAnimationMinDuration/* * maxDistance*/);
 
             //search if there are matches with the new/collapsed items
             totalMatches = shapes.GetMatches(collapsedCandyInfo.AlteredCandy).
@@ -559,6 +547,10 @@ public class ShapesManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// If playing Tiles mode, damages or removes tiles at the same location of destroyed object
+    /// </summary>
+    /// <param name="destroyed"></param>
     private void DamageBlock(GameObject destroyed)
     {
         var s = destroyed.GetComponent<Shape>();
@@ -572,9 +564,14 @@ public class ShapesManager : MonoBehaviour
             counter++;
     }
 
+    /// <summary>
+    /// Checks wether win condition is met, depending on game mode.
+    /// Points: Check wether win score is reached
+    /// Tiles: Check wether all tiles have been removed
+    /// </summary>
     private void CheckWinCondition()
     {
-        if ((Constants.GameMode == 0 && score >= Constants.WinScore) || (Constants.GameMode == 1 && counter >= winNumber))
+        if ((Variables.GameMode == 0 && score >= Variables.WinScore) || (Variables.GameMode == 1 && counter >= winNumber))
         {
             DestroyAllCandy();
             state = GameState.Paused;
@@ -596,23 +593,6 @@ public class ShapesManager : MonoBehaviour
     /// Creates a new Bonus based on the shape parameter
     /// </summary>
     /// <param name="hitGoCache"></param>
-    //private void CreateBonus(Shape hitGoCache)
-    //{
-    //    GameObject Bonus = Instantiate(GetBonusFromType(hitGoCache.Type), BottomRight
-    //        + new Vector2(hitGoCache.Column * CandySize.x,
-    //            hitGoCache.Row * CandySize.y), Quaternion.identity)
-    //        as GameObject;
-    //    Bonus.transform.localScale *= Scale;
-    //    Bonus.GetComponent<BoxCollider2D>().size = SpriteSize;
-
-    //    shapes[hitGoCache.Row, hitGoCache.Column] = Bonus;
-    //    var BonusShape = Bonus.GetComponent<Shape>();
-    //    //will have the same type as the "normal" candy
-    //    BonusShape.Assign(hitGoCache.Type, hitGoCache.Row, hitGoCache.Column);
-    //    //add the proper Bonus type
-    //    BonusShape.Bonus |= BonusType.DestroyWholeRowColumn;
-    //}
-
     private void CreateBonus(GameObject hitGo)
     {
         var hitGoCache = hitGo.GetComponent<Shape>();
@@ -658,8 +638,8 @@ public class ShapesManager : MonoBehaviour
                 newCandy.GetComponent<Shape>().Assign(go.GetComponent<Shape>().Type, item.Row, item.Column);
                 newCandy.GetComponent<BoxCollider2D>().size = SpriteSize;
 
-                if (Constants.Rows - item.Row > newCandyInfo.MaxDistance)
-                    newCandyInfo.MaxDistance = Constants.Rows - item.Row;
+                if (Variables.Rows - item.Row > newCandyInfo.MaxDistance)
+                    newCandyInfo.MaxDistance = Variables.Rows - item.Row;
 
                 shapes[item.Row, item.Column] = newCandy;
                 newCandyInfo.AddCandy(newCandy);
@@ -677,7 +657,7 @@ public class ShapesManager : MonoBehaviour
         foreach (var item in movedGameObjects)
         {
             item.transform.DOMove(BottomRight +
-                new Vector2(item.GetComponent<Shape>().Column * CandySize.x, item.GetComponent<Shape>().Row * CandySize.y), Constants.MoveAnimationMinDuration /** distance*/);
+                new Vector2(item.GetComponent<Shape>().Column * CandySize.x, item.GetComponent<Shape>().Row * CandySize.y), Variables.MoveAnimationMinDuration /** distance*/);
             //item.transform.positionTo(Constants.MoveAnimationMinDuration * distance, BottomRight +
             //    new Vector2(item.GetComponent<Shape>().Column * CandySize.x, item.GetComponent<Shape>().Row * CandySize.y));
         }
@@ -690,7 +670,7 @@ public class ShapesManager : MonoBehaviour
     private void MoveAndAnimateSingle(GameObject movedGameObject, int distance)
     {
         movedGameObject.transform.DOMove(BottomRight +
-                new Vector2(movedGameObject.GetComponent<Shape>().Column * CandySize.x, movedGameObject.GetComponent<Shape>().Row * CandySize.y), Constants.MoveAnimationMinDuration /** distance*/);
+                new Vector2(movedGameObject.GetComponent<Shape>().Column * CandySize.x, movedGameObject.GetComponent<Shape>().Row * CandySize.y), Variables.MoveAnimationMinDuration /** distance*/);
     }
 
     /// <summary>
@@ -702,10 +682,10 @@ public class ShapesManager : MonoBehaviour
         GameObject explosion = GetRandomExplosion();
         var newExplosion = Instantiate(explosion, item.transform.position, Quaternion.identity) as GameObject;
         newExplosion.transform.localScale *= Scale * 1.5f;
-        Destroy(newExplosion, Constants.ExplosionDuration);
+        Destroy(newExplosion, Variables.ExplosionDuration);
         Destroy(item);
 
-        if (Constants.GameMode == 1)
+        if (Variables.GameMode == 1)
             DamageBlock(item);
     }
 
@@ -715,9 +695,12 @@ public class ShapesManager : MonoBehaviour
     /// <returns></returns>
     private GameObject GetRandomCandy()
     {
-        return CurrentShapes[Random.Range(0, Constants.NumShapes)];
+        return CurrentShapes[Random.Range(0, Variables.NumShapes)];
     }
 
+    /// <summary>
+    /// Resets the game field
+    /// </summary>
     private void InitializeVariables()
     {
         Shuffle();       
@@ -727,23 +710,23 @@ public class ShapesManager : MonoBehaviour
         Background.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
         Blackout.SetActive(false);
 
-        if (Constants.GameMode == 0)
+        if (Variables.GameMode == 0)
         {
-            Background.color = new Vector4(Constants.MinColor, Constants.MinColor, Constants.MinColor, 1);
+            Background.color = new Vector4(Variables.MinColor, Variables.MinColor, Variables.MinColor, 1);
             ScoreSlider.gameObject.SetActive(true);
             score = 0;
             ShowScore();
         }
         else
         {
-            Background.color = new Vector4(.35f, .35f, Constants.MaxColor, 1);
+            Background.color = new Vector4(.35f, .35f, Variables.MaxColor, 1);
             ScoreSlider.gameObject.SetActive(false);
             counter = 0;
-            winNumber = Constants.Rows * Constants.Columns * 2;
+            winNumber = Variables.Rows * Variables.Columns * 2;
         }
             
 
-        Scale = FieldSize / (SpriteSize.x * Constants.Rows);
+        Scale = FieldSize / (SpriteSize.x * Variables.Rows);
         CandySize = SpriteSize * Scale;
         BottomRight = BottomRightBase + 0.5f * CandySize;
     }
@@ -753,14 +736,14 @@ public class ShapesManager : MonoBehaviour
     /// <param name="amount"></param>
     private void IncreaseScore(int amount)
     {
-        if (amount > Constants.Match3Score)
+        if (amount > Variables.Match3Score)
             Companion.SayGreat();
 
-        if (Constants.GameMode == 0)
+        if (Variables.GameMode == 0)
         {
             score += amount;
             ShowScore();
-            float color = MapValue(score, 0, Constants.WinScore, Constants.MinColor, Constants.MaxColor);
+            float color = MapValue(score, 0, Variables.WinScore, Variables.MinColor, Variables.MaxColor);
             Background.color = new Vector4(color, color, color, 1);
         }
 
@@ -779,22 +762,6 @@ public class ShapesManager : MonoBehaviour
     private GameObject GetRandomExplosion()
     {
         return ExplosionPrefabs[Random.Range(0, ExplosionPrefabs.Length)];
-    }
-
-    /// <summary>
-    /// Gets the specified Bonus for the specific type
-    /// </summary>
-    /// <param name="type"></param>
-    /// <returns></returns>
-    private GameObject GetBonusFromType(string type)
-    {
-        string color = type.Split('_')[1].Trim();
-        foreach (var item in BonusPrefabs)
-        {
-            if (item.GetComponent<Shape>().Type.Contains(color))
-                return item;
-        }
-        throw new System.Exception("Wrong type");
     }
 
     /// <summary>
@@ -821,7 +788,7 @@ public class ShapesManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Resets the opacity on potential matches (probably user dragged something?)
+    /// Resets the opacity on potential match hint markers (probably user dragged something?)
     /// </summary>
     private void ResetOpacityOnPotentialMatches()
     {
@@ -834,9 +801,6 @@ public class ShapesManager : MonoBehaviour
                 Color c = target.GetComponent<SpriteRenderer>().color;
                 c.a = 0f;
                 target.GetComponent<SpriteRenderer>().color = c;
-                //Color c = item.GetComponent<SpriteRenderer>().color;
-                //c.a = 1.0f;
-                //item.GetComponent<SpriteRenderer>().color = c;
             }
     }
 
@@ -847,7 +811,7 @@ public class ShapesManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator CheckPotentialMatches()
     {
-        yield return new WaitForSeconds(Constants.WaitBeforePotentialMatchesCheck);
+        yield return new WaitForSeconds(Variables.WaitBeforePotentialMatchesCheck);
         potentialMatches = Utilities.GetPotentialMatches(shapes);
         if (potentialMatches != null)
         {
@@ -856,7 +820,7 @@ public class ShapesManager : MonoBehaviour
 
                 AnimatePotentialMatchesCoroutine = Utilities.AnimatePotentialMatches(potentialMatches);
                 StartCoroutine(AnimatePotentialMatchesCoroutine);
-                yield return new WaitForSeconds(Constants.WaitBeforePotentialMatchesCheck);
+                yield return new WaitForSeconds(Variables.WaitBeforePotentialMatchesCheck);
             }
         }
         else
@@ -884,14 +848,6 @@ public class ShapesManager : MonoBehaviour
             }
 
         }
-        else if (tokens.Count() == 2 && tokens[1].Trim() == "B")
-        {
-            foreach (var item in BonusPrefabs)
-            {
-                if (item.name.Contains(tokens[0].Trim()))
-                    return item;
-            }
-        }
 
         throw new System.Exception("Wrong type, check your premade level");
     }
@@ -906,9 +862,9 @@ public class ShapesManager : MonoBehaviour
 
         shapes.Shuffle();
 
-        for (int row = 0; row < Constants.Rows; row++)
+        for (int row = 0; row < Variables.Rows; row++)
         {
-            for (int column = 0; column < Constants.Columns; column++)
+            for (int column = 0; column < Variables.Columns; column++)
             {
                 shapes[row, column].transform.position = BottomRight + new Vector2(column * CandySize.x, row * CandySize.y);
             }
@@ -925,29 +881,23 @@ public class ShapesManager : MonoBehaviour
     private void ThrowBomb(Vector3 endPos)
     {
         Vector3 startPos = Bomb.transform.position;
-        Bomb.transform.DOMove(endPos, Constants.MoveAnimationMinDuration);
+        Bomb.transform.DOMove(endPos, Variables.MoveAnimationMinDuration);
     }
 
     private void ResetBomb(Vector3 startPos)
     {
         Bomb.transform.position = startPos;
         Bomb.SetActive(false);
-        //Companion.ToggleSpeech(false);
     }
 
     /// <summary>
     /// Shuffle the array.
     /// </summary>
-    /// <typeparam name="T">Array element type.</typeparam>
-    /// <param name="array">Array to shuffle.</param>
     private void Shuffle()
     {
         int n = CurrentShapes.Length;
         for (int i = 0; i < n; i++)
         {
-            // Use Next on random instance with an argument.
-            // ... The argument is an exclusive bound.
-            //     So we will not go past the end of the array.
             int r = i + rnd.Next(n - i);
             var t = CurrentShapes[r];
             CurrentShapes[r] = CurrentShapes[i];

@@ -11,7 +11,7 @@ public class ShapesArray
 {
     private System.Random rnd = new System.Random();
 
-    private GameObject[,] shapes = new GameObject[Constants.Rows, Constants.Columns];
+    private GameObject[,] shapes = new GameObject[Variables.Rows, Variables.Columns];
 
     /// <summary>
     /// Indexer
@@ -173,7 +173,7 @@ public class ShapesArray
 
     private bool ContainsDestroyRowColumnBonus(IEnumerable<GameObject> matches)
     {
-        if (matches.Count() >= Constants.MinimumMatches)
+        if (matches.Count() >= Variables.MinimumMatches)
         {
             foreach (var go in matches)
             {
@@ -190,7 +190,7 @@ public class ShapesArray
     {
         List<GameObject> matches = new List<GameObject>();
         int row = go.GetComponent<Shape>().Row;
-        for (int column = 0; column < Constants.Columns; column++)
+        for (int column = 0; column < Variables.Columns; column++)
         {
             matches.Add(shapes[row, column]);
         }
@@ -201,7 +201,7 @@ public class ShapesArray
     {
         List<GameObject> matches = new List<GameObject>();
         int column = go.GetComponent<Shape>().Column;
-        for (int row = 0; row < Constants.Rows; row++)
+        for (int row = 0; row < Variables.Rows; row++)
         {
             matches.Add(shapes[row, column]);
         }
@@ -255,8 +255,8 @@ public class ShapesArray
             }
 
         //check right
-        if (shape.Column != Constants.Columns - 1)
-            for (int column = shape.Column + 1; column < Constants.Columns; column++)
+        if (shape.Column != Variables.Columns - 1)
+            for (int column = shape.Column + 1; column < Variables.Columns; column++)
             {
                 if (shapes[shape.Row, column].GetComponent<Shape>().IsSameType(shape))
                 {
@@ -267,7 +267,7 @@ public class ShapesArray
             }
 
         //we want more than three matches
-        if (matches.Count < Constants.MinimumMatches)
+        if (matches.Count < Variables.MinimumMatches)
             matches.Clear();
 
         return matches.Distinct();
@@ -297,8 +297,8 @@ public class ShapesArray
             }
 
         //check top
-        if (shape.Row != Constants.Rows - 1)
-            for (int row = shape.Row + 1; row < Constants.Rows; row++)
+        if (shape.Row != Variables.Rows - 1)
+            for (int row = shape.Row + 1; row < Variables.Rows; row++)
             {
                 if (shapes[row, shape.Column] != null && 
                     shapes[row, shape.Column].GetComponent<Shape>().IsSameType(shape))
@@ -310,7 +310,7 @@ public class ShapesArray
             }
 
 
-        if (matches.Count < Constants.MinimumMatches)
+        if (matches.Count < Variables.MinimumMatches)
             matches.Clear();
 
         return matches.Distinct();
@@ -339,13 +339,13 @@ public class ShapesArray
         foreach (var column in columns)
         {
             //begin from bottom row
-            for (int row = 0; row < Constants.Rows - 1; row++)
+            for (int row = 0; row < Variables.Rows - 1; row++)
             {
                 //if you find a null item
                 if (shapes[row, column] == null)
                 {
                     //start searching for the first non-null
-                    for (int row2 = row + 1; row2 < Constants.Rows; row2++)
+                    for (int row2 = row + 1; row2 < Variables.Rows; row2++)
                     {
                         //if you find one, bring it down (i.e. replace it with the null you found)
                         if (shapes[row2, column] != null)
@@ -380,7 +380,7 @@ public class ShapesArray
     public IEnumerable<ShapeInfo> GetEmptyItemsOnColumn(int column)
     {
         List<ShapeInfo> emptyItems = new List<ShapeInfo>();
-        for (int row = 0; row < Constants.Rows; row++)
+        for (int row = 0; row < Variables.Rows; row++)
         {
             if (shapes[row, column] == null)
                 emptyItems.Add(new ShapeInfo() { Row = row, Column = column });

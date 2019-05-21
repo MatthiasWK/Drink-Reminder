@@ -25,21 +25,19 @@ public class ImageSettingsManager : MonoBehaviour {
 
     private void Start()
     {
-        //ID = GameController.tmp_Name;
-        //ChangeShapeTheme(Constants.ShapeTheme);
 
-        ToggleCustomShapes(Constants.CustomShapes);
+        ToggleCustomShapes(Variables.CustomShapes);
     }
 
     private void Update()
     {
-        if (Constants.TriggerStop)
+        if (Variables.TriggerStop)
         {
-            Constants.TriggerStop = false;
+            Variables.TriggerStop = false;
         }
-        if (Constants.TriggerGo)
+        if (Variables.TriggerGo)
         {
-            Constants.TriggerGo = false;
+            Variables.TriggerGo = false;
         }
     }
 
@@ -82,10 +80,10 @@ public class ImageSettingsManager : MonoBehaviour {
     /// <param name="i"></param>
     public void ChangeShapeTheme(int i)
     {
-        Constants.ShapeTheme = i;
+        Variables.ShapeTheme = i;
 
         if (GameController.login)
-            PlayerPrefs.SetInt(ID + "_ShapeTheme", Constants.ShapeTheme);
+            PlayerPrefs.SetInt(ID + "_ShapeTheme", Variables.ShapeTheme);
 
         if (i == 0)
         {
@@ -145,7 +143,7 @@ public class ImageSettingsManager : MonoBehaviour {
             return;
         }
 
-        if (Constants.CustomShapes)
+        if (Variables.CustomShapes)
             ToggleCustomShapes(false);
     }
 
@@ -155,7 +153,7 @@ public class ImageSettingsManager : MonoBehaviour {
     /// <param name="c"></param>
     public void CycleShapeTheme(int c)
     {
-        c += Constants.ShapeTheme;
+        c += Variables.ShapeTheme;
         int i = 0;
 
         if (c < 0)
@@ -185,7 +183,7 @@ public class ImageSettingsManager : MonoBehaviour {
     /// <param name="c"></param>
     public void ToggleCustomShapes(bool c)
     {
-        Constants.CustomShapes = c;
+        Variables.CustomShapes = c;
 
         if (c)
         {
@@ -199,7 +197,7 @@ public class ImageSettingsManager : MonoBehaviour {
         }
 
         if (GameController.login)
-            PlayerPrefs.SetInt(ID + "_CustomShapes", Convert.ToInt32(Constants.CustomShapes));
+            PlayerPrefs.SetInt(ID + "_CustomShapes", Convert.ToInt32(Variables.CustomShapes));
     }
 
     /// <summary>
@@ -208,29 +206,28 @@ public class ImageSettingsManager : MonoBehaviour {
     /// <param name="i"></param>
     public void ChangeBackground(int i)
     {
-        Constants.Background = i;
+        Variables.Background = i;
 
         if (i < BackgroundFolders.Length)
         {
-            Constants.BackgroundPath = BackgroundFolders[Constants.Background];
-            Constants.CustomBackgrounds = false;
-            SetPreviewSprite(Constants.BackgroundPath + "/preview");
+            Variables.BackgroundPath = BackgroundFolders[Variables.Background];
+            Variables.CustomBackgrounds = false;
+            SetPreviewSprite(Variables.BackgroundPath + "/preview");
         }
         else
         {
-            Constants.CustomBackgrounds = true;
+            Variables.CustomBackgrounds = true;
             SetPreviewSprite("Backgrounds/preview");
         }
-
-        //Back.text = Constants.BackgroundPath;
+        
         CheckPlayable();
-        Constants.BackgroundsChanged = true;
+        Variables.BackgroundsChanged = true;
 
         if (GameController.login)
         {
-            PlayerPrefs.SetInt(ID + "_Background", Constants.Background);
-            PlayerPrefs.SetString(ID + "_BackgroundPath", Constants.BackgroundPath);
-            PlayerPrefs.SetInt(ID + "_CustomBackgrounds", Convert.ToInt32(Constants.CustomBackgrounds));
+            PlayerPrefs.SetInt(ID + "_Background", Variables.Background);
+            PlayerPrefs.SetString(ID + "_BackgroundPath", Variables.BackgroundPath);
+            PlayerPrefs.SetInt(ID + "_CustomBackgrounds", Convert.ToInt32(Variables.CustomBackgrounds));
         }           
     }
 
@@ -240,7 +237,7 @@ public class ImageSettingsManager : MonoBehaviour {
     /// <param name="c"></param>
     public void CycleBackground(int c)
     {
-        c += Constants.Background;
+        c += Variables.Background;
         int i = 0;
 
         if (c < 0)
@@ -270,7 +267,7 @@ public class ImageSettingsManager : MonoBehaviour {
 
     private void CheckPlayable()
     {
-        if (Constants.CustomBackgrounds && Background.GetComponent<BackgroundSpriteController>().paths.Length == 0)
+        if (Variables.CustomBackgrounds && Background.GetComponent<BackgroundSpriteController>().paths.Length == 0)
         {
             StartButton.interactable = false;
         }
@@ -333,10 +330,9 @@ public class ImageSettingsManager : MonoBehaviour {
                 SetBackground(BackgroundFolders.Length);
             }
         }, "Select a PNG image", "image/png");
+        
 
-        //DebugText.text = "Permission result: " + permission;
-
-        Constants.BackgroundsChanged = true;
+        Variables.BackgroundsChanged = true;
         CheckPlayable();
     }
 }

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+// Script that controls what the companion says. 
+// Speech is initiatet in other scripts with public functions and then companion either says specific line or cycles through certain lines randomly depending on curent screen.
 public class CompanionController : MonoBehaviour {
     GameObject Timer;
     public Text CompanionText;
@@ -22,10 +23,10 @@ public class CompanionController : MonoBehaviour {
                                               "Drücke 'Speichern' um die Objekte zu speichern",
                                               "Falls du Hilfe brauchst, drücke auf den 'Hilfe'-Knopf" };
 
-    // Use this for initialization
     void Start () {
         Timer = GameObject.Find("Timer and Bluetooth");
-        GetComponent<Slider>().maxValue = Timer.GetComponent<timer_controller>().baseTime;
+        if(Timer != null)
+            GetComponent<Slider>().maxValue = Timer.GetComponent<timer_controller>().baseTime;
 
         if (Application.loadedLevelName == "Menue")
             StartCoroutine("SayMenue");
@@ -33,9 +34,15 @@ public class CompanionController : MonoBehaviour {
 	
 	// Update Slider value once per frame
 	void Update () {
-        GetComponent<Slider>().value = Timer.GetComponent<timer_controller>().remainder;
+
+        if(Timer != null)
+            GetComponent<Slider>().value = Timer.GetComponent<timer_controller>().remainder;
+        
 	}
 
+    /// <summary>
+    /// Compliment player
+    /// </summary>
     public void SayGreat()
     {
         StopAllCoroutines();
@@ -44,18 +51,33 @@ public class CompanionController : MonoBehaviour {
         StartCoroutine(SayGame());
     }
 
+    /// <summary>
+    /// Called from other scripts to initiate companion dialog
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="time"></param>
     public void StartSay(string text, int time)
     {
         StopAllCoroutines();
         StartCoroutine(Say(text, time));
     }
 
+    /// <summary>
+    /// Called from other scripts to toggle speech bubble
+    /// </summary>
+    /// <param name="s"></param>
     public void ToggleSpeech(bool s)
     {
         CompanionBubble.gameObject.SetActive(s);
         CompanionText.gameObject.SetActive(s);
     }
 
+    /// <summary>
+    /// Has Companion say custom line
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="time"></param>
+    /// <returns></returns>
     private IEnumerator Say(string text, int time)
     {
         ToggleSpeech(true);

@@ -11,16 +11,16 @@ public static class DebugUtilities
 
     public static string[,] FillShapesArrayFromResourcesData()
     {
-        string[,] shapes = new string[Constants.Rows, Constants.Columns];
+        string[,] shapes = new string[Variables.Rows, Variables.Columns];
 
         TextAsset txt = Resources.Load("level") as TextAsset;
         string level = txt.text;
 
         string[] lines = level.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-        for (int row = Constants.Rows - 1; row >= 0; row--)
+        for (int row = Variables.Rows - 1; row >= 0; row--)
         {
             string[] items = lines[row].Split('|');
-            for (int column = 0; column < Constants.Columns; column++)
+            for (int column = 0; column < Variables.Columns; column++)
             {
                 shapes[row, column] = items[column];
             }
@@ -66,10 +66,10 @@ public static class DebugUtilities
     public static string GetArrayContents(ShapesArray shapes)
     {
         string x = string.Empty;
-        for (int row = Constants.Rows - 1; row >= 0; row--)
+        for (int row = Variables.Rows - 1; row >= 0; row--)
         {
 
-            for (int column = 0; column < Constants.Columns; column++)
+            for (int column = 0; column < Variables.Columns; column++)
             {
                 if (shapes[row, column] == null)
                     x += "NULL  |";

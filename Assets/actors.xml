@@ -61,5 +61,10 @@
       <Gender>0</Gender>
       <Score>0</Score>
     </Actor>
+    <Actor ID="12">
+      <Name>Spieler 12</Name>
+      <Gender>0</Gender>
+      <Score>0</Score>
+    </Actor>
   </Actors>
 </ActorCollection>

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GlowAnimator : MonoBehaviour {
     public float speed;
-	// Update is called once per frame
+	// Rotate the star designating bonus objects
 	void Update () {
         transform.Rotate(0, 0, speed *Time.deltaTime);
 

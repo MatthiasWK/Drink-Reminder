@@ -10,6 +10,8 @@ public class GameSettingsManager : MonoBehaviour
     public Toggle Toggle_s;
     public Toggle Toggle_m;
     public Toggle Toggle_l;
+    public Toggle Toggle_p;
+    public Toggle Toggle_t;
     public Text Size_Description;
     public Text Mode_Description;
     string ID = null;
@@ -18,18 +20,18 @@ public class GameSettingsManager : MonoBehaviour
     {
         InitializePrefs();
 
-        ImageScript.ChangeShapeTheme(Constants.ShapeTheme);
+        ImageScript.ChangeShapeTheme(Variables.ShapeTheme);
     }
 
     private void Update()
     {
-        if (Constants.TriggerStop)
+        if (Variables.TriggerStop)
         {
-            Constants.TriggerStop = false;
+            Variables.TriggerStop = false;
         }
-        if (Constants.TriggerGo)
+        if (Variables.TriggerGo)
         {
-            Constants.TriggerGo = false;
+            Variables.TriggerGo = false;
         }
     }
 
@@ -38,7 +40,7 @@ public class GameSettingsManager : MonoBehaviour
         if(ID == null)
             ID = GameController.tmp_Name;
         
-        if (Constants.ShapesChanged)
+        if (Variables.ShapesChanged)
             ImageScript.LoadCustomShapes(ID);
     }
 
@@ -49,24 +51,24 @@ public class GameSettingsManager : MonoBehaviour
     {
         if (GameController.login)
         {
-            //Constants.Rows = PlayerPrefs.GetInt(ID + "_Rows", 6);
-            //Constants.Columns = PlayerPrefs.GetInt(ID + "_Columns", 6);
-            //Constants.NumShapes = PlayerPrefs.GetInt(ID + "_NumShapes", 5);
-            Constants.GameSize = PlayerPrefs.GetInt(ID + "_GameSize", 0);
-            SetSize(Constants.GameSize);
-            SetToggle(Constants.GameSize);
-            Constants.ShapeTheme = PlayerPrefs.GetInt(ID + "_ShapeTheme", 0);
-            ImageScript.SetShapeTheme(Constants.ShapeTheme);
-            Constants.Background = PlayerPrefs.GetInt(ID + "_Background", 0);
-            ImageScript.SetBackground(Constants.Background);
-            Constants.BackgroundPath = PlayerPrefs.GetString(ID + "_BackgroundPath", "Backgrounds");
-            Constants.CustomBackgrounds = Convert.ToBoolean(PlayerPrefs.GetInt(ID + "_CustomBackgrounds", 0));
-            Constants.CustomShapes = Convert.ToBoolean(PlayerPrefs.GetInt(ID + "_CustomShapes", 0));
+            Variables.GameSize = PlayerPrefs.GetInt(ID + "_GameSize", 0);
+            SetSize(Variables.GameSize);
+            SetSizeToggle(Variables.GameSize);
+            Variables.GameMode = PlayerPrefs.GetInt(ID + "_GameMode", 0);
+            SetGameMode(Variables.GameMode);
+            SetModeToggle(Variables.GameMode);
+            Variables.ShapeTheme = PlayerPrefs.GetInt(ID + "_ShapeTheme", 0);
+            ImageScript.SetShapeTheme(Variables.ShapeTheme);
+            Variables.Background = PlayerPrefs.GetInt(ID + "_Background", 0);
+            ImageScript.SetBackground(Variables.Background);
+            Variables.BackgroundPath = PlayerPrefs.GetString(ID + "_BackgroundPath", "Backgrounds");
+            Variables.CustomBackgrounds = Convert.ToBoolean(PlayerPrefs.GetInt(ID + "_CustomBackgrounds", 0));
+            Variables.CustomShapes = Convert.ToBoolean(PlayerPrefs.GetInt(ID + "_CustomShapes", 0));
 
-            if (Constants.CustomShapes)
+            if (Variables.CustomShapes)
                 ImageScript.SetPreviewSprite("Backgrounds/preview");
             else
-                ImageScript.SetPreviewSprite(Constants.BackgroundPath + "/preview");
+                ImageScript.SetPreviewSprite(Variables.BackgroundPath + "/preview");
 
             string[] customPaths = PlayerPrefsX.GetStringArray(ID + "_CustomPaths", "", 0);
 
@@ -75,69 +77,25 @@ public class GameSettingsManager : MonoBehaviour
         }
         else
         {
-            //todo: find better way to reset values
-            //Constants.Rows = 6;
-            //Constants.Columns = 6;
-            //Constants.NumShapes = 5;
-            Constants.GameSize = 0;
+            Variables.GameSize = 0;
             SetSize(0);
-            SetToggle(0);
-            Constants.ShapeTheme = 0;
-            Constants.Background = 0;
-            Constants.BackgroundPath = "Backgrounds";
-            Constants.CustomBackgrounds = false;
-            Constants.CustomShapes = false;
+            SetSizeToggle(0);
+            SetGameMode(0);
+            SetModeToggle(0);
+            Variables.ShapeTheme = 0;
+            Variables.Background = 0;
+            Variables.BackgroundPath = "Backgrounds";
+            Variables.CustomBackgrounds = false;
+            Variables.CustomShapes = false;
 
             ImageScript.SetCustomPaths(new string[0]);
         }       
     }
 
-    public void SetSmall()
-    {
-        Constants.Rows = 4;
-        Constants.Columns = 4;
-        Constants.NumShapes = 3;
-
-        Size_Description.text = "Kleines Spiel\n4 x 4 Reihen\n3 verschiedene Objekte";
-
-        SavePrefs();
-    }
-
-    public void SetMedium()
-    {
-        Constants.Rows = 5;
-        Constants.Columns = 5;
-        Constants.NumShapes = 4;
-
-        Size_Description.text = "Mittelgroßes Spiel\n5 x 5 Reihen\n4 verschiedene Objekte";
-
-        SavePrefs();
-    }
-
-    public void SetLarge()
-    {
-        Constants.Rows = 6;
-        Constants.Columns = 6;
-        Constants.NumShapes = 5;
-
-        Size_Description.text = "Großes Spiel\n6 x 6 Reihen\n5 verschiedene Objekte";
-
-        SavePrefs();
-    }
-
-    private void SavePrefs()
-    {
-        if (GameController.login)
-        {
-            PlayerPrefs.SetInt(ID + "_Rows", Constants.Rows);
-            PlayerPrefs.SetInt(ID + "_Columns", Constants.Columns);
-            PlayerPrefs.SetInt(ID + "_NumShapes", Constants.NumShapes);
-        }
-    }
-
     public void SetGameMode(int m)
     {
-        Constants.GameMode = m;
+        Variables.GameMode = m;
+        PlayerPrefs.SetInt(ID + "_GameMode", m);
 
         if (m == 0)
             Mode_Description.text = "Bilde Reihen um Punkte zu bekommen und ein Bild zu enthüllen!";
@@ -145,13 +103,21 @@ public class GameSettingsManager : MonoBehaviour
             Mode_Description.text = "Bilde Reihen um Kacheln zu entfernen hinter denen sich ein Bild versteckt!";
     }
 
+    private void SetModeToggle(int m)
+    {
+        if (m == 0)
+            Toggle_p.isOn = true;
+        else if (m == 1)
+            Toggle_t.isOn = true;
+    }
+
     public void SetSize(int s)
     {
-        Constants.GameSize = s;
+        Variables.GameSize = s;
 
-        Constants.Rows = 4 + s;
-        Constants.Columns = 4 + s;
-        Constants.NumShapes = 3 + s;
+        Variables.Rows = 4 + s;
+        Variables.Columns = 4 + s;
+        Variables.NumShapes = 3 + s;
 
         if (s == 0)
             Size_Description.text = "Kleines Spiel\n4 x 4 Felder\n3 verschiedene Objekte";
@@ -164,7 +130,7 @@ public class GameSettingsManager : MonoBehaviour
             PlayerPrefs.SetInt(ID + "_GameSize", s);
     }
 
-    private void SetToggle(int s)
+    private void SetSizeToggle(int s)
     {
         if (s == 0)
             Toggle_s.isOn = true;

@@ -7,7 +7,7 @@ Assets/Scenes/Main Menue/Menue.unity
 Assets/Scenes/Create Profile/CreateProfile_EnterGender.unity
 Assets/Scenes/Create Profile/CreateProfile_EnterName.unity
 Assets/Scenes/Load Profile/LoadProfile.unity
-Assets/Scenes/Match 3/mainGame.unity
+Assets/Scenes/Game/MatchingPuzzle.unity
 SceneListEnd?
 922dde826533f20a40eadb188df86725 Assembly-CSharp.dll:.TestReporter
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ReporterGUI
@@ -137,7 +137,6 @@ bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.Audi
 c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingCollider
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 4e6625286632095441f598f8f42676f4 Assembly-CSharp.dll:.ShapesManager
-774ccc9e4ca4bee4624fa3fc83b19d19 Assembly-CSharp.dll:.SpriteOutline
 cd27fc91a4cfe05341a0671e049ba1fd Assembly-CSharp.dll:.SimpleTest
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour

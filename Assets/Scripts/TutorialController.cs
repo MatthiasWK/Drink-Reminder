@@ -9,6 +9,7 @@ public class TutorialController : MonoBehaviour {
     public List<Sprite> TutorialSlides;
     public Button LoadButton;
 
+    // On first opening of app show menu tutorial
     private void Start()
     {
         int first = PlayerPrefs.GetInt("FirstTime", 0);
@@ -16,11 +17,15 @@ public class TutorialController : MonoBehaviour {
         if(first == 0)
         {
             LoadButton.interactable = false;
-            //FirstTimeTuorial();
+            FirstTimeTuorial();
             PlayerPrefs.SetInt("FirstTime", 1);
         }
     }
 
+    /// <summary>
+    /// Loads tutorial slides and displays first one
+    /// </summary>
+    /// <param name="slides"></param>
     private void LoadTutorial(string[] slides)
     {
 
@@ -36,6 +41,9 @@ public class TutorialController : MonoBehaviour {
         TutorialCanvas.gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// Cycles through slides
+    /// </summary>
     public void NextSlide()
     {
         TutorialSlides.RemoveAt(0);
@@ -52,14 +60,14 @@ public class TutorialController : MonoBehaviour {
 
     public void GameMenuTuorial()
     {
-        string[] arr = { "game_menu_1", "game_menu_2", "game_menu_3", "game_menu_4"};
+        string[] arr = { "game_menu_1", "game_menu_2", "game_menu_3", "game_menu_4", "game_menu_5" };
 
         LoadTutorial(arr);
     }
 
     public void GameTuorial()
     {
-        string[] arr = { "game_0", "game_1", "game_2", "game_3", "game_4", "game_5", "game_6", "game_7", "game_8", "game_9", "game_10", "game_11", "game_12", "game_13", "game_14", "game_15", "game_16", "game_17", "game_18" };
+        string[] arr = { "game_0", "game_1", "game_2", "game_3", "game_4", "game_5", "game_6", "game_7", "game_8", "game_9", "game_10", "game_11", "game_12", "game_13", "game_14", "game_15", "game_16", "game_17", "game_18", "game_19", "game_20", "game_21" };
 
         LoadTutorial(arr);
     }

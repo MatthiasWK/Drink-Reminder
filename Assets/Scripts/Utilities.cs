@@ -27,9 +27,9 @@ public static class Utilities
                     target.GetComponent<SpriteRenderer>().color = c;
                 }
             }
-            yield return new WaitForSeconds(Constants.OpacityAnimationFrameDelay);
+            yield return new WaitForSeconds(Variables.OpacityAnimationFrameDelay);
         }
-        yield return new WaitForSeconds(Constants.OpacityAnimationFrameDelay);
+        yield return new WaitForSeconds(Variables.OpacityAnimationFrameDelay);
         for (float i = 1f; i > -0.2f; i -= 0.2f)
         {
             foreach (var item in potentialMatches)
@@ -43,30 +43,8 @@ public static class Utilities
                     target.GetComponent<SpriteRenderer>().color = c;
                 }
             }
-            yield return new WaitForSeconds(Constants.OpacityAnimationFrameDelay);
+            yield return new WaitForSeconds(Variables.OpacityAnimationFrameDelay);
         }
-        //yield return new WaitForSeconds(Constants.OpacityAnimationFrameDelay);
-
-        //for (float i = 1f; i >= 0.3f; i -= 0.1f)
-        //{
-        //    foreach (var item in potentialMatches)
-        //    {
-        //        Color c = item.GetComponent<SpriteRenderer>().color;
-        //        c.a = i;
-        //        item.GetComponent<SpriteRenderer>().color = c;
-        //    }
-        //    yield return new WaitForSeconds(Constants.OpacityAnimationFrameDelay);
-        //}
-        //for (float i = 0.3f; i <= 1f; i += 0.1f)
-        //{
-        //    foreach (var item in potentialMatches)
-        //    {
-        //        Color c = item.GetComponent<SpriteRenderer>().color;
-        //        c.a = i;
-        //        item.GetComponent<SpriteRenderer>().color = c;
-        //    }
-        //    yield return new WaitForSeconds(Constants.OpacityAnimationFrameDelay);
-        //}
     }
 
     /// <summary>
@@ -93,9 +71,9 @@ public static class Utilities
         //list that will contain all the matches we find
         List<List<GameObject>> matches = new List<List<GameObject>>();
        
-        for (int row = 0; row < Constants.Rows; row++)
+        for (int row = 0; row < Variables.Rows; row++)
         {
-            for (int column = 0; column < Constants.Columns; column++)
+            for (int column = 0; column < Variables.Columns; column++)
             {
 
                 var matches1 = CheckHorizontal1(row, column, shapes);
@@ -118,7 +96,7 @@ public static class Utilities
 
                 //if we are in the middle of the calculations/loops
                 //and we have less than 3 matches, return a random one
-                if(row >= Constants.Rows / 2 && matches.Count > 0 && matches.Count <=2)
+                if(row >= Variables.Rows / 2 && matches.Count > 0 && matches.Count <=2)
                     return matches[UnityEngine.Random.Range(0, matches.Count - 1)];
             }
         }
@@ -127,7 +105,7 @@ public static class Utilities
 
     public static List<GameObject> CheckHorizontal1(int row, int column, ShapesArray shapes)
     {
-        if (column <= Constants.Columns - 2)
+        if (column <= Variables.Columns - 2)
         {
             if (shapes[row, column].GetComponent<Shape>().
                 IsSameType(shapes[row, column + 1].GetComponent<Shape>()))
@@ -150,7 +128,7 @@ public static class Utilities
                  & * * * *
                 \* example  */
 
-                if (row <= Constants.Rows - 2 && column >= 1)
+                if (row <= Variables.Rows - 2 && column >= 1)
                     if (shapes[row, column].GetComponent<Shape>().
                     IsSameType(shapes[row + 1, column - 1].GetComponent<Shape>()))
                         return new List<GameObject>()
@@ -175,13 +153,13 @@ public static class Utilities
 
     public static List<GameObject> CheckHorizontal2(int row, int column, ShapesArray shapes)
     {
-        if (column <= Constants.Columns - 3)
+        if (column <= Variables.Columns - 3)
         {
             if (shapes[row, column].GetComponent<Shape>().
                 IsSameType(shapes[row, column + 1].GetComponent<Shape>()))
             {
 
-                if (row >= 1 && column <= Constants.Columns - 3)
+                if (row >= 1 && column <= Variables.Columns - 3)
                     if (shapes[row, column].GetComponent<Shape>().
                     IsSameType(shapes[row - 1, column + 2].GetComponent<Shape>()))
                         return new List<GameObject>()
@@ -199,7 +177,7 @@ public static class Utilities
                  * * * & *
                 \* example  */
 
-                if (row <= Constants.Rows - 2 && column <= Constants.Columns - 3)
+                if (row <= Variables.Rows - 2 && column <= Variables.Columns - 3)
                     if (shapes[row, column].GetComponent<Shape>().
                     IsSameType(shapes[row + 1, column + 2].GetComponent<Shape>()))
                         return new List<GameObject>()
@@ -223,7 +201,7 @@ public static class Utilities
 
     public static List<GameObject> CheckHorizontal3(int row, int column, ShapesArray shapes)
     {
-        if (column <= Constants.Columns - 4)
+        if (column <= Variables.Columns - 4)
         {
             if (shapes[row, column].GetComponent<Shape>().
                IsSameType(shapes[row, column + 1].GetComponent<Shape>()) &&
@@ -246,7 +224,7 @@ public static class Utilities
               * * * * *
             \* example  */
         }
-        if (column >= 2 && column <= Constants.Columns - 2)
+        if (column >= 2 && column <= Variables.Columns - 2)
         {
             if (shapes[row, column].GetComponent<Shape>().
                IsSameType(shapes[row, column + 1].GetComponent<Shape>()) &&
@@ -274,7 +252,7 @@ public static class Utilities
 
     public static List<GameObject> CheckVertical1(int row, int column, ShapesArray shapes)
     {
-        if (row <= Constants.Rows - 2)
+        if (row <= Variables.Rows - 2)
         {
             if (shapes[row, column].GetComponent<Shape>().
                 IsSameType(shapes[row + 1, column].GetComponent<Shape>()))
@@ -297,7 +275,7 @@ public static class Utilities
                   & * * * *
                 \* example  */
 
-                if (column <= Constants.Columns - 2 && row >= 1)
+                if (column <= Variables.Columns - 2 && row >= 1)
                     if (shapes[row, column].GetComponent<Shape>().
                     IsSameType(shapes[row - 1, column + 1].GetComponent<Shape>()))
                         return new List<GameObject>()
@@ -321,7 +299,7 @@ public static class Utilities
 
     public static List<GameObject> CheckVertical2(int row, int column, ShapesArray shapes)
     {
-        if (row <= Constants.Rows - 3)
+        if (row <= Variables.Rows - 3)
         {
             if (shapes[row, column].GetComponent<Shape>().
                 IsSameType(shapes[row + 1, column].GetComponent<Shape>()))
@@ -344,7 +322,7 @@ public static class Utilities
                   * * * * *
                 \* example  */
 
-                if (column <= Constants.Columns - 2)
+                if (column <= Variables.Columns - 2)
                     if (shapes[row, column].GetComponent<Shape>().
                     IsSameType(shapes[row + 2, column + 1].GetComponent<Shape>()))
                         return new List<GameObject>()
@@ -369,7 +347,7 @@ public static class Utilities
 
     public static List<GameObject> CheckVertical3(int row, int column, ShapesArray shapes)
     {
-        if (row <= Constants.Rows - 4)
+        if (row <= Variables.Rows - 4)
         {
             if (shapes[row, column].GetComponent<Shape>().
                IsSameType(shapes[row + 1, column].GetComponent<Shape>()) &&
@@ -393,7 +371,7 @@ public static class Utilities
           * * * * *
         \* example  */
 
-        if (row >= 2 && row <= Constants.Rows - 2)
+        if (row >= 2 && row <= Variables.Rows - 2)
         {
             if (shapes[row, column].GetComponent<Shape>().
                IsSameType(shapes[row + 1, column].GetComponent<Shape>()) &&

@@ -23,7 +23,7 @@ public class BackgroundSpriteController : MonoBehaviour {
 
     private void OnEnable()
     {
-        if (Constants.BackgroundsChanged)
+        if (Variables.BackgroundsChanged)
         {
             LoadSprites();
         }
@@ -33,9 +33,12 @@ public class BackgroundSpriteController : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Loads an array of sprites. Either by importing images from device storage or the Resources folder.
+    /// </summary>
     private void LoadSprites()
     {
-        if (Constants.CustomBackgrounds)
+        if (Variables.CustomBackgrounds)
         {
 
             List<Sprite> NewSprites = new List<Sprite>();
@@ -43,7 +46,6 @@ public class BackgroundSpriteController : MonoBehaviour {
             for (int i = 0; i < paths.Length; i++)
             {
                 // Create Texture from selected image
-                //DebugText.text = "Permission: " + NativeGallery.CheckPermission();
                 Texture2D texture = NativeGallery.LoadImageAtPath(paths[i]);
                 if (texture == null)
                 {
@@ -65,11 +67,11 @@ public class BackgroundSpriteController : MonoBehaviour {
         }
         else
         {
-            Sprites = Resources.LoadAll<Sprite>(Constants.BackgroundPath);
+            Sprites = Resources.LoadAll<Sprite>(Variables.BackgroundPath);
             Backgrounds = Sprites;
         }
 
-        Constants.BackgroundsChanged = false;
+        Variables.BackgroundsChanged = false;
 
 
         Shuffle();
@@ -114,9 +116,6 @@ public class BackgroundSpriteController : MonoBehaviour {
         float worldScreenHeight = (float)(Camera.main.orthographicSize * 2.0);
         float worldScreenWidth = (float)(worldScreenHeight / Screen.height * Screen.width);
 
-        //float worldScreenWidth= GameCanvas.rect.width * GameCanvas.localScale.x;
-        //float worldScreenHeight = GameCanvas.rect.height * GameCanvas.localScale.y;
-
         if (height > width)
         {
             Vector2 sizeX = new Vector2(worldScreenHeight / height, worldScreenHeight / height);
@@ -140,16 +139,11 @@ public class BackgroundSpriteController : MonoBehaviour {
     /// <summary>
     /// Shuffle the array.
     /// </summary>
-    /// <typeparam name="T">Array element type.</typeparam>
-    /// <param name="array">Array to shuffle.</param>
     private void Shuffle()
     {
         int n = Backgrounds.Length;
         for (int i = 0; i < n; i++)
         {
-            // Use Next on random instance with an argument.
-            // ... The argument is an exclusive bound.
-            //     So we will not go past the end of the array.
             int r = i + rnd.Next(n - i);
             Sprite t = Backgrounds[r];
             Backgrounds[r] = Backgrounds[i];
@@ -161,7 +155,7 @@ public class BackgroundSpriteController : MonoBehaviour {
     {
         CustomSprites = new Sprite[0];
         paths = new string[0];
-        Constants.BackgroundsChanged = true;
+        Variables.BackgroundsChanged = true;
 
         Error.gameObject.SetActive(false);
     }

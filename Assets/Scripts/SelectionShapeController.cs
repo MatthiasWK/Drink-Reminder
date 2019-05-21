@@ -39,6 +39,7 @@ public class SelectionShapeController : MonoBehaviour {
             }
         }
 	}
+
     /// <summary>
     /// makes sure that the selection shape stays within the bounds of the picture
     /// </summary>
@@ -66,6 +67,10 @@ public class SelectionShapeController : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Adjusting slider changes size of shape
+    /// </summary>
+    /// <param name="value"></param>
     public void ScaleSize(float value)
     {
         transform.localScale = new Vector3(value, value, value);

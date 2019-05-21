@@ -325,6 +325,9 @@
     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
     <None Include="Assets\Plugins\NativeGallery\README.txt" />
     <None Include="Assets\Resources\level.txt" />
+    <None Include="Assets\Scenes\Readme.txt" />
+    <None Include="Assets\Scripts\Drink Reminder Scripts\Readme.txt" />
+    <None Include="Assets\Scripts\Readme.txt" />
     <None Include="Assets\Simple UI\Fonts\OFL.txt" />
     <None Include="Assets\StreamingAssets\build_info.txt" />
     <None Include="Assets\actors.xml" />

@@ -15,6 +15,9 @@ public class MenuChanger : MonoBehaviour {
     public TutorialController Tutorial;
     string ID = null;
 
+    /// <summary>
+    /// Game Settings Menu is always loaded first
+    /// </summary>
     private void Start()
     {
         if (ID == null)
@@ -24,6 +27,9 @@ public class MenuChanger : MonoBehaviour {
 
     }
 
+    /// <summary>
+    /// Determines effects of Device's Back Buttons
+    /// </summary>
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && Menu.isActiveAndEnabled)
@@ -45,25 +51,23 @@ public class MenuChanger : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Activate Game Canvas
+    /// </summary>
     public void LoadGame()
     {
         Game.gameObject.SetActive(true);
         Background.SetActive(true);
-        Menu.gameObject.SetActive(false);
-
-        //int t = PlayerPrefs.GetInt(ID + "_GameTutorial", 0);
-
-        //if (t == 0)
-        //{
-        //    Tutorial.GameTuorial();
-        //    PlayerPrefs.SetInt(ID + "_GameTutorial", 1);
-        //}
+        Menu.gameObject.SetActive(false);     
 
         Companion.StartSayGame();
 
-        Constants.IsPlaying = true;
+        Variables.IsPlaying = true;
     }
 
+    /// <summary>
+    /// Activate Game Settings Canvas
+    /// </summary>
     public void LoadMenu()
     {
         Game.gameObject.SetActive(false);
@@ -72,52 +76,37 @@ public class MenuChanger : MonoBehaviour {
         ImageSettings.gameObject.SetActive(false);
         CustomizationCanvas.gameObject.SetActive(false);
 
-        //int t = PlayerPrefs.GetInt(ID + "_GameMenuTutorial", 0);
-
-        //if(t == 0)
-        //{
-        //    Tutorial.GameMenuTuorial();
-        //    PlayerPrefs.SetInt(ID + "_GameMenuTutorial", 1);
-        //}
-
         Companion.StartSayGameMenu();
 
-        Constants.IsPlaying = false;
+        Variables.IsPlaying = false;
     }
 
+    /// <summary>
+    /// Activate Image Settings Canvas
+    /// </summary>
     public void LoadImageSettings()
     {
         Menu.gameObject.SetActive(false);
         ImageSettings.gameObject.SetActive(true);
         CustomizationCanvas.gameObject.SetActive(false);
 
-        //int t = PlayerPrefs.GetInt(ID + "_SettingsTutorial", 0);
-
-        //if (t == 0)
-        //{
-        //    Tutorial.SettingsTuorial();
-        //    PlayerPrefs.SetInt(ID + "_SettingsTutorial", 1);
-        //}
-
         Companion.StartSaySettings();
     }
 
+    /// <summary>
+    /// Activate Customization Canvas
+    /// </summary>
     public void LoadCustomization()
     {
         ImageSettings.gameObject.SetActive(false);
         CustomizationCanvas.gameObject.SetActive(true);
 
-        //int t = PlayerPrefs.GetInt(ID + "_CustomTutorial", 0);
-
-        //if (t == 0)
-        //{
-        //    Tutorial.CustomTuorial();
-        //    PlayerPrefs.SetInt(ID + "_CustomTutorial", 1);
-        //}
-
         Companion.StartSayCustomization();
     }
 
+    /// <summary>
+    /// Load different Scene
+    /// </summary>
     public void Load(string name)
     {       
          SceneManager.LoadScene(name);        

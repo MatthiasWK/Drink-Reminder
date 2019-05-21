@@ -94,7 +94,7 @@ public class ImageEditor : MonoBehaviour {
             SaveFile(ID + "_shape_" + s, tex);
         }
 
-        Constants.ShapesChanged = true;
+        Variables.ShapesChanged = true;
     }
 
     /// <summary>
