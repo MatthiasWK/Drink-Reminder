@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{3FC3C51D-74A0-F50A-0304-44434CE14B6C}</ProjectGuid>
+    <ProjectGuid>{7351877A-FCE9-DECC-7307-2893FB43F742}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
@@ -51,8 +51,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Plugins\BluetoothDeviceScript.cs" />
-     <Compile Include="Assets\Plugins\BluetoothHardwareInterface.cs" />
      <Compile Include="Assets\Plugins\NativeGallery\Android\NGMediaReceiveCallbackAndroid.cs" />
      <Compile Include="Assets\Plugins\NativeGallery\Android\NGPermissionCallbackAndroid.cs" />
      <Compile Include="Assets\Plugins\NativeGallery\iOS\NGMediaReceiveCallbackiOS.cs" />
@@ -226,19 +224,19 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2017.4.13f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
  </Reference>
  <Reference Include="DOTween">
- <HintPath>C:/Users/super/Documents/GitHub/Drink-Reminder/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
+ <HintPath>C:/Users/super/OneDrive/Schichtplan November-Dezember2011.xlsx/Dokumente/Uni/Unity/Drink Reminder/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Data.Sqlite">
- <HintPath>C:/Users/super/Documents/GitHub/Drink-Reminder/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
+ <HintPath>C:/Users/super/OneDrive/Schichtplan November-Dezember2011.xlsx/Dokumente/Uni/Unity/Drink Reminder/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
  </Reference>
  <Reference Include="System.Data">
- <HintPath>C:/Users/super/Documents/GitHub/Drink-Reminder/Assets/Plugins/System.Data.dll</HintPath>
+ <HintPath>C:/Users/super/OneDrive/Schichtplan November-Dezember2011.xlsx/Dokumente/Uni/Unity/Drink Reminder/Assets/Plugins/System.Data.dll</HintPath>
  </Reference>
  <Reference Include="System.EnterpriseServices">
- <HintPath>C:/Users/super/Documents/GitHub/Drink-Reminder/Assets/Plugins/System.EnterpriseServices.dll</HintPath>
+ <HintPath>C:/Users/super/OneDrive/Schichtplan November-Dezember2011.xlsx/Dokumente/Uni/Unity/Drink Reminder/Assets/Plugins/System.EnterpriseServices.dll</HintPath>
  </Reference>
  <Reference Include="System.Security">
- <HintPath>C:/Users/super/Documents/GitHub/Drink-Reminder/Assets/Plugins/System.Security.dll</HintPath>
+ <HintPath>C:/Users/super/OneDrive/Schichtplan November-Dezember2011.xlsx/Dokumente/Uni/Unity/Drink Reminder/Assets/Plugins/System.Security.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Analytics">
  <HintPath>C:/Users/super/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.13/UnityEngine.Analytics.dll</HintPath>

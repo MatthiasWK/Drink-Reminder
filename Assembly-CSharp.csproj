@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{F13118EC-E336-79B8-869E-B857521FF873}</ProjectGuid>
+    <ProjectGuid>{BBC250D4-8A85-9C38-D13B-9D5DCD0ECC27}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -55,39 +55,40 @@
      <Compile Include="Assets\Demigiant\DOTween\Examples\Sequences.cs" />
      <Compile Include="Assets\Scripts\AlteredCandyInfo.cs" />
      <Compile Include="Assets\Scripts\BackgroundSpriteController.cs" />
-     <Compile Include="Assets\Scripts\Constants.cs" />
+     <Compile Include="Assets\Scripts\CompanionController.cs" />
      <Compile Include="Assets\Scripts\DebugUtilities.cs" />
-     <Compile Include="Assets\Scripts\Dragger.cs" />
+     <Compile Include="Assets\Scripts\Drink Reminder Scripts\_ddol_controller.cs" />
+     <Compile Include="Assets\Scripts\Drink Reminder Scripts\Actor.cs" />
+     <Compile Include="Assets\Scripts\Drink Reminder Scripts\ActorContainer.cs" />
+     <Compile Include="Assets\Scripts\Drink Reminder Scripts\BroadcastReceiver.cs" />
+     <Compile Include="Assets\Scripts\Drink Reminder Scripts\ChangeScene.cs" />
+     <Compile Include="Assets\Scripts\Drink Reminder Scripts\changeText.cs" />
+     <Compile Include="Assets\Scripts\Drink Reminder Scripts\ConnectionController.cs" />
+     <Compile Include="Assets\Scripts\Drink Reminder Scripts\db.cs" />
+     <Compile Include="Assets\Scripts\Drink Reminder Scripts\GameController.cs" />
+     <Compile Include="Assets\Scripts\Drink Reminder Scripts\GameInformation.cs" />
+     <Compile Include="Assets\Scripts\Drink Reminder Scripts\Profile.cs" />
+     <Compile Include="Assets\Scripts\Drink Reminder Scripts\SOS_Controller.cs" />
+     <Compile Include="Assets\Scripts\Drink Reminder Scripts\timer_controller.cs" />
      <Compile Include="Assets\Scripts\Enums.cs" />
      <Compile Include="Assets\Scripts\GameSettingsManager.cs" />
+     <Compile Include="Assets\Scripts\GlowAnimator.cs" />
      <Compile Include="Assets\Scripts\ImageEditor.cs" />
      <Compile Include="Assets\Scripts\ImageSettingsManager.cs" />
      <Compile Include="Assets\Scripts\MatchesInfo.cs" />
      <Compile Include="Assets\Scripts\MenuChanger.cs" />
-     <Compile Include="Assets\Scripts\Pierre\_ddol_controller.cs" />
-     <Compile Include="Assets\Scripts\Pierre\Actor.cs" />
-     <Compile Include="Assets\Scripts\Pierre\ActorContainer.cs" />
-     <Compile Include="Assets\Scripts\Pierre\BroadcastReceiver.cs" />
-     <Compile Include="Assets\Scripts\Pierre\ChangeScene.cs" />
-     <Compile Include="Assets\Scripts\Pierre\changeText.cs" />
-     <Compile Include="Assets\Scripts\Pierre\ConnectionController.cs" />
-     <Compile Include="Assets\Scripts\Pierre\db.cs" />
-     <Compile Include="Assets\Scripts\Pierre\GameController.cs" />
-     <Compile Include="Assets\Scripts\Pierre\GameInformation.cs" />
-     <Compile Include="Assets\Scripts\Pierre\Profile.cs" />
-     <Compile Include="Assets\Scripts\Pierre\SimpleTest.cs" />
-     <Compile Include="Assets\Scripts\Pierre\SOS_Controller.cs" />
-     <Compile Include="Assets\Scripts\Pierre\timer_controller.cs" />
      <Compile Include="Assets\Scripts\PlayerNameSetter.cs" />
      <Compile Include="Assets\Scripts\PlayerPrefsX.cs" />
      <Compile Include="Assets\Scripts\SceneChanger.cs" />
+     <Compile Include="Assets\Scripts\SelectionShapeController.cs" />
      <Compile Include="Assets\Scripts\Shape.cs" />
      <Compile Include="Assets\Scripts\ShapeInfo.cs" />
      <Compile Include="Assets\Scripts\ShapesArray.cs" />
      <Compile Include="Assets\Scripts\ShapesManager.cs" />
      <Compile Include="Assets\Scripts\SoundManager.cs" />
-     <Compile Include="Assets\Scripts\SpriteOutline.cs" />
+     <Compile Include="Assets\Scripts\TutorialController.cs" />
      <Compile Include="Assets\Scripts\Utilities.cs" />
+     <Compile Include="Assets\Scripts\Variables.cs" />
      <Compile Include="Assets\Simple UI\Samples\IconPreview.cs" />
      <Compile Include="Assets\Unity-Logs-Viewer\Reporter\MultiKeyDictionary.cs" />
      <Compile Include="Assets\Unity-Logs-Viewer\Reporter\Reporter.cs" />
@@ -96,10 +97,12 @@
      <Compile Include="Assets\Unity-Logs-Viewer\Reporter\Test\Rotate.cs" />
      <Compile Include="Assets\Unity-Logs-Viewer\Reporter\Test\TestReporter.cs" />
      <None Include="Assets\Demigiant\DOTween\readme.txt" />
-     <None Include="Assets\Shaders\Sprites-Outline.shader" />
      <None Include="Assets\actors.xml" />
+     <None Include="Assets\Scripts\Drink Reminder Scripts\Readme.txt" />
      <None Include="Assets\Simple UI\Fonts\OFL.txt" />
+     <None Include="Assets\Scenes\Readme.txt" />
      <None Include="Assets\StreamingAssets\build_info.txt" />
+     <None Include="Assets\Scripts\Readme.txt" />
      <None Include="Assets\Resources\level.txt" />
  <Reference Include="UnityEngine.CoreModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2017.4.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
@@ -267,19 +270,19 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2017.4.13f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
  </Reference>
  <Reference Include="DOTween">
- <HintPath>C:/Users/super/Documents/GitHub/Drink-Reminder/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
+ <HintPath>C:/Users/super/OneDrive/Schichtplan November-Dezember2011.xlsx/Dokumente/Uni/Unity/Drink Reminder/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Data.Sqlite">
- <HintPath>C:/Users/super/Documents/GitHub/Drink-Reminder/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
+ <HintPath>C:/Users/super/OneDrive/Schichtplan November-Dezember2011.xlsx/Dokumente/Uni/Unity/Drink Reminder/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
  </Reference>
  <Reference Include="System.Data">
- <HintPath>C:/Users/super/Documents/GitHub/Drink-Reminder/Assets/Plugins/System.Data.dll</HintPath>
+ <HintPath>C:/Users/super/OneDrive/Schichtplan November-Dezember2011.xlsx/Dokumente/Uni/Unity/Drink Reminder/Assets/Plugins/System.Data.dll</HintPath>
  </Reference>
  <Reference Include="System.EnterpriseServices">
- <HintPath>C:/Users/super/Documents/GitHub/Drink-Reminder/Assets/Plugins/System.EnterpriseServices.dll</HintPath>
+ <HintPath>C:/Users/super/OneDrive/Schichtplan November-Dezember2011.xlsx/Dokumente/Uni/Unity/Drink Reminder/Assets/Plugins/System.EnterpriseServices.dll</HintPath>
  </Reference>
  <Reference Include="System.Security">
- <HintPath>C:/Users/super/Documents/GitHub/Drink-Reminder/Assets/Plugins/System.Security.dll</HintPath>
+ <HintPath>C:/Users/super/OneDrive/Schichtplan November-Dezember2011.xlsx/Dokumente/Uni/Unity/Drink Reminder/Assets/Plugins/System.Security.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Analytics">
  <HintPath>C:/Users/super/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.13/UnityEngine.Analytics.dll</HintPath>
@@ -293,7 +296,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{3FC3C51D-74A0-F50A-0304-44434CE14B6C}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{7351877A-FCE9-DECC-7307-2893FB43F742}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -23,8 +23,8 @@ public class SceneChanger : MonoBehaviour {
     {
         Variables.BackgroundsChanged = true;
         GameController.login = false;
-        SimpleTest.previousWeight = 0.0f;
-        SimpleTest.updateUser = true;
+        //SimpleTest.previousWeight = 0.0f;
+        //SimpleTest.updateUser = true;
     }
 
     public void ExitGame()

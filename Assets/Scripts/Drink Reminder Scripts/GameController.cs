@@ -304,7 +304,7 @@ public class GameController : MonoBehaviour
 		Debug.Log("Geladener Score: " + tmp_actor.score);
 
 		login = true;
-        SimpleTest.previousWeight = 0.0f;
+        //SimpleTest.previousWeight = 0.0f;
         firstLogin = true;
 	}
 

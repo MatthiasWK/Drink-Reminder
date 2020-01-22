@@ -40,8 +40,8 @@ public class ChangeScene : MonoBehaviour {
 		else if(Application.loadedLevel == 19){
 			Application.LoadLevel("Menue");
 			GameController.login = false;
-            SimpleTest.previousWeight = 0.0f;
-            SimpleTest.updateUser = true;
+            //SimpleTest.previousWeight = 0.0f;
+            //SimpleTest.updateUser = true;
 		}
         else if(Application.loadedLevel == 4)
         {

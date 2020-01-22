@@ -107,21 +107,21 @@ public class db : MonoBehaviour {
             insertUserdata();
         }
 
-        if (SimpleTest.updateWeight)
-        {
-            BroadcastReceiver.hasDrunk = true;
-            if (SimpleTest.previousWeight == 0.0f || ((SimpleTest.previousWeight + 50.0f) - float.Parse(SimpleTest.bluetoothMessage_weight) < 0))
-            {
-                SimpleTest.previousWeight = float.Parse(SimpleTest.bluetoothMessage_weight);
-                SimpleTest.updateWeight = false;
-            }
-            else
-            {
-                SimpleTest.updateWeight = false;
-                currentAmount = SimpleTest.previousWeight - float.Parse(SimpleTest.bluetoothMessage_weight);
-                insertDrinkdata();
-            }
-        }
+//        if (SimpleTest.updateWeight)
+//        {
+//            BroadcastReceiver.hasDrunk = true;
+//            if (SimpleTest.previousWeight == 0.0f || ((SimpleTest.previousWeight + 50.0f) - float.Parse(SimpleTest.bluetoothMessage_weight) < 0))
+//            {
+//                SimpleTest.previousWeight = float.Parse(SimpleTest.bluetoothMessage_weight);
+//                SimpleTest.updateWeight = false;
+//            }
+//            else
+//            {
+//                SimpleTest.updateWeight = false;
+//                currentAmount = SimpleTest.previousWeight - float.Parse(SimpleTest.bluetoothMessage_weight);
+//                insertDrinkdata();
+//            }
+//        }
 
 
     }

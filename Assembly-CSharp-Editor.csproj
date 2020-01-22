@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{31C83A1D-8405-79C3-8C25-7F30C9B2CF63}</ProjectGuid>
+    <ProjectGuid>{192ACE8B-5FA3-87CA-63BD-D4C2CBB21B41}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Editor\Instant Screenshot\ScreenshotTaker.cs" />
      <Compile Include="Assets\Unity-Logs-Viewer\Reporter\Editor\ReporterEditor.cs" />
  <Reference Include="UnityEngine.CoreModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2017.4.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
@@ -256,26 +257,23 @@
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2017.4.13f1/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
- <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
- <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
- </Reference>
  <Reference Include="DOTween">
- <HintPath>C:/Users/super/Documents/GitHub/Drink-Reminder/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
+ <HintPath>C:/Users/super/OneDrive/Schichtplan November-Dezember2011.xlsx/Dokumente/Uni/Unity/Drink Reminder/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
  </Reference>
  <Reference Include="DOTweenEditor">
- <HintPath>C:/Users/super/Documents/GitHub/Drink-Reminder/Assets/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
+ <HintPath>C:/Users/super/OneDrive/Schichtplan November-Dezember2011.xlsx/Dokumente/Uni/Unity/Drink Reminder/Assets/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Data.Sqlite">
- <HintPath>C:/Users/super/Documents/GitHub/Drink-Reminder/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
+ <HintPath>C:/Users/super/OneDrive/Schichtplan November-Dezember2011.xlsx/Dokumente/Uni/Unity/Drink Reminder/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
  </Reference>
  <Reference Include="System.Data">
- <HintPath>C:/Users/super/Documents/GitHub/Drink-Reminder/Assets/Plugins/System.Data.dll</HintPath>
+ <HintPath>C:/Users/super/OneDrive/Schichtplan November-Dezember2011.xlsx/Dokumente/Uni/Unity/Drink Reminder/Assets/Plugins/System.Data.dll</HintPath>
  </Reference>
  <Reference Include="System.EnterpriseServices">
- <HintPath>C:/Users/super/Documents/GitHub/Drink-Reminder/Assets/Plugins/System.EnterpriseServices.dll</HintPath>
+ <HintPath>C:/Users/super/OneDrive/Schichtplan November-Dezember2011.xlsx/Dokumente/Uni/Unity/Drink Reminder/Assets/Plugins/System.EnterpriseServices.dll</HintPath>
  </Reference>
  <Reference Include="System.Security">
- <HintPath>C:/Users/super/Documents/GitHub/Drink-Reminder/Assets/Plugins/System.Security.dll</HintPath>
+ <HintPath>C:/Users/super/OneDrive/Schichtplan November-Dezember2011.xlsx/Dokumente/Uni/Unity/Drink Reminder/Assets/Plugins/System.Security.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>C:/Users/super/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
@@ -298,11 +296,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{3FC3C51D-74A0-F50A-0304-44434CE14B6C}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{7351877A-FCE9-DECC-7307-2893FB43F742}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{F13118EC-E336-79B8-869E-B857521FF873}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+      <Project>{BBC250D4-8A85-9C38-D13B-9D5DCD0ECC27}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp-Editor-firstpass.csproj">
-      <Project>{89D06C62-5453-4F22-1541-5F6786D972B8}</Project>      <Name>Assembly-CSharp-Editor-firstpass</Name>    </ProjectReference>
+      <Project>{B9AD1CF0-E091-2391-4255-10CD158ABD59}</Project>      <Name>Assembly-CSharp-Editor-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
